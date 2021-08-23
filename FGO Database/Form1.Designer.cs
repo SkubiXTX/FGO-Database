@@ -48,6 +48,10 @@ namespace FGO_Database
             this.pcbAscezja4 = new System.Windows.Forms.PictureBox();
             this.pcbClassIcon = new System.Windows.Forms.PictureBox();
             this.lblClassName = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.pcbStars = new System.Windows.Forms.PictureBox();
+            this.lblSid = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -60,6 +64,7 @@ namespace FGO_Database
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbAscezja4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbClassIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbStars)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -101,12 +106,12 @@ namespace FGO_Database
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(161, 17);
-            this.toolStripStatusLabel2.Text = "Pobieranie Danych: W trakcie";
-            this.toolStripStatusLabel2.Visible = false;
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(135, 17);
+            this.toolStripStatusLabel2.Text = "Pobieranie Danych: Brak";
             // 
             // toolStripProgressBar1
             // 
+            this.toolStripProgressBar1.MarqueeAnimationSpeed = 40;
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(150, 16);
             this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -137,7 +142,7 @@ namespace FGO_Database
             this.tbcAscezje.Controls.Add(this.tabPage2);
             this.tbcAscezje.Controls.Add(this.tabPage3);
             this.tbcAscezje.Controls.Add(this.tabPage4);
-            this.tbcAscezje.Location = new System.Drawing.Point(511, 12);
+            this.tbcAscezje.Location = new System.Drawing.Point(511, 28);
             this.tbcAscezje.Name = "tbcAscezje";
             this.tbcAscezje.SelectedIndex = 0;
             this.tbcAscezje.Size = new System.Drawing.Size(277, 402);
@@ -239,18 +244,53 @@ namespace FGO_Database
             // lblClassName
             // 
             this.lblClassName.AutoSize = true;
-            this.lblClassName.Font = new System.Drawing.Font("Open Sans Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblClassName.Location = new System.Drawing.Point(202, 94);
+            this.lblClassName.Font = new System.Drawing.Font("Open Sans Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClassName.Location = new System.Drawing.Point(257, 108);
             this.lblClassName.Name = "lblClassName";
-            this.lblClassName.Size = new System.Drawing.Size(46, 18);
+            this.lblClassName.Size = new System.Drawing.Size(55, 26);
             this.lblClassName.TabIndex = 7;
-            this.lblClassName.Text = "label1";
+            this.lblClassName.Text = "class";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(559, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(181, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Kliknij w obraz po pełną rozdzielcość";
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // pcbStars
+            // 
+            this.pcbStars.Location = new System.Drawing.Point(156, 136);
+            this.pcbStars.Name = "pcbStars";
+            this.pcbStars.Size = new System.Drawing.Size(168, 32);
+            this.pcbStars.TabIndex = 9;
+            this.pcbStars.TabStop = false;
+            // 
+            // lblSid
+            // 
+            this.lblSid.AutoSize = true;
+            this.lblSid.Font = new System.Drawing.Font("Open Sans Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSid.Location = new System.Drawing.Point(202, 107);
+            this.lblSid.Name = "lblSid";
+            this.lblSid.Size = new System.Drawing.Size(57, 26);
+            this.lblSid.TabIndex = 10;
+            this.lblSid.Text = "#000";
             // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 485);
+            this.Controls.Add(this.lblSid);
+            this.Controls.Add(this.pcbStars);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblClassName);
             this.Controls.Add(this.pcbClassIcon);
             this.Controls.Add(this.tbcAscezje);
@@ -275,6 +315,7 @@ namespace FGO_Database
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcbAscezja4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbClassIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbStars)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,6 +342,10 @@ namespace FGO_Database
         private System.Windows.Forms.PictureBox pcbAscezja4;
         private System.Windows.Forms.PictureBox pcbClassIcon;
         private System.Windows.Forms.Label lblClassName;
+        private System.Windows.Forms.Label label1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.PictureBox pcbStars;
+        private System.Windows.Forms.Label lblSid;
     }
 }
 
