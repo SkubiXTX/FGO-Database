@@ -48,10 +48,16 @@ namespace FGO_Database
             this.pcbAscezja4 = new System.Windows.Forms.PictureBox();
             this.pcbClassIcon = new System.Windows.Forms.PictureBox();
             this.lblClassName = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblInfo = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pcbStars = new System.Windows.Forms.PictureBox();
             this.lblSid = new System.Windows.Forms.Label();
+            this.lblCost = new System.Windows.Forms.Label();
+            this.lblMaxlvl = new System.Windows.Forms.Label();
+            this.LblHP1lvl = new System.Windows.Forms.Label();
+            this.LblATK1lvl = new System.Windows.Forms.Label();
+            this.lblMaxhp = new System.Windows.Forms.Label();
+            this.lblMaxatk = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -251,14 +257,14 @@ namespace FGO_Database
             this.lblClassName.TabIndex = 7;
             this.lblClassName.Text = "class";
             // 
-            // label1
+            // lblInfo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(559, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(181, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Kliknij w obraz po pełną rozdzielcość";
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.Location = new System.Drawing.Point(559, 12);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(181, 13);
+            this.lblInfo.TabIndex = 8;
+            this.lblInfo.Text = "Kliknij w obraz po pełną rozdzielcość";
             // 
             // backgroundWorker1
             // 
@@ -283,14 +289,74 @@ namespace FGO_Database
             this.lblSid.TabIndex = 10;
             this.lblSid.Text = "#000";
             // 
+            // lblCost
+            // 
+            this.lblCost.AutoSize = true;
+            this.lblCost.Location = new System.Drawing.Point(13, 175);
+            this.lblCost.Name = "lblCost";
+            this.lblCost.Size = new System.Drawing.Size(31, 13);
+            this.lblCost.TabIndex = 11;
+            this.lblCost.Text = "Cost:";
+            // 
+            // lblMaxlvl
+            // 
+            this.lblMaxlvl.AutoSize = true;
+            this.lblMaxlvl.Location = new System.Drawing.Point(13, 188);
+            this.lblMaxlvl.Name = "lblMaxlvl";
+            this.lblMaxlvl.Size = new System.Drawing.Size(47, 13);
+            this.lblMaxlvl.TabIndex = 12;
+            this.lblMaxlvl.Text = "Max Lvl:";
+            // 
+            // LblHP1lvl
+            // 
+            this.LblHP1lvl.AutoSize = true;
+            this.LblHP1lvl.Location = new System.Drawing.Point(105, 175);
+            this.LblHP1lvl.Name = "LblHP1lvl";
+            this.LblHP1lvl.Size = new System.Drawing.Size(25, 13);
+            this.LblHP1lvl.TabIndex = 13;
+            this.LblHP1lvl.Text = "HP:";
+            // 
+            // LblATK1lvl
+            // 
+            this.LblATK1lvl.AutoSize = true;
+            this.LblATK1lvl.Location = new System.Drawing.Point(160, 175);
+            this.LblATK1lvl.Name = "LblATK1lvl";
+            this.LblATK1lvl.Size = new System.Drawing.Size(31, 13);
+            this.LblATK1lvl.TabIndex = 14;
+            this.LblATK1lvl.Text = "ATK:";
+            // 
+            // lblMaxhp
+            // 
+            this.lblMaxhp.AutoSize = true;
+            this.lblMaxhp.Location = new System.Drawing.Point(105, 188);
+            this.lblMaxhp.Name = "lblMaxhp";
+            this.lblMaxhp.Size = new System.Drawing.Size(25, 13);
+            this.lblMaxhp.TabIndex = 15;
+            this.lblMaxhp.Text = "HP:";
+            // 
+            // lblMaxatk
+            // 
+            this.lblMaxatk.AutoSize = true;
+            this.lblMaxatk.Location = new System.Drawing.Point(160, 188);
+            this.lblMaxatk.Name = "lblMaxatk";
+            this.lblMaxatk.Size = new System.Drawing.Size(31, 13);
+            this.lblMaxatk.TabIndex = 16;
+            this.lblMaxatk.Text = "ATK:";
+            // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 485);
+            this.Controls.Add(this.lblMaxatk);
+            this.Controls.Add(this.lblMaxhp);
+            this.Controls.Add(this.LblATK1lvl);
+            this.Controls.Add(this.LblHP1lvl);
+            this.Controls.Add(this.lblMaxlvl);
+            this.Controls.Add(this.lblCost);
             this.Controls.Add(this.lblSid);
             this.Controls.Add(this.pcbStars);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.lblClassName);
             this.Controls.Add(this.pcbClassIcon);
             this.Controls.Add(this.tbcAscezje);
@@ -342,10 +408,16 @@ namespace FGO_Database
         private System.Windows.Forms.PictureBox pcbAscezja4;
         private System.Windows.Forms.PictureBox pcbClassIcon;
         private System.Windows.Forms.Label lblClassName;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblInfo;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.PictureBox pcbStars;
         private System.Windows.Forms.Label lblSid;
+        private System.Windows.Forms.Label lblCost;
+        private System.Windows.Forms.Label lblMaxlvl;
+        private System.Windows.Forms.Label LblHP1lvl;
+        private System.Windows.Forms.Label LblATK1lvl;
+        private System.Windows.Forms.Label lblMaxhp;
+        private System.Windows.Forms.Label lblMaxatk;
     }
 }
 

@@ -113,8 +113,12 @@ namespace FGO_Database
                 lblClassName.Text = FirstCharToUpper((string)przetworzonedane.SelectToken("className"));
                 pcbStars.Load(Application.StartupPath + "\\img\\" + (string)przetworzonedane.SelectToken("rarity") + "star.png");
                 lblSid.Text = appid;
-
-              
+                lblCost.Text = lblCost.Text + (string)przetworzonedane.SelectToken("cost");
+                lblMaxlvl.Text = lblMaxlvl.Text + (string)przetworzonedane.SelectToken("lvMax");
+                LblHP1lvl.Text = LblHP1lvl.Text + (string)przetworzonedane.SelectToken("hpBase");
+                LblATK1lvl.Text = LblATK1lvl.Text + (string)przetworzonedane.SelectToken("atkBase");
+                lblMaxhp.Text = lblMaxhp.Text + (string)przetworzonedane.SelectToken("hpMax");
+                lblMaxatk.Text = lblMaxatk.Text + (string)przetworzonedane.SelectToken("atkMax");
 
             }
         }
