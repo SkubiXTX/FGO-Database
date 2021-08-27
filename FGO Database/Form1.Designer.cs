@@ -74,6 +74,8 @@ namespace FGO_Database
             this.ttpOpis = new System.Windows.Forms.ToolTip(this.components);
             this.lblGender = new System.Windows.Forms.Label();
             this.lblAttr = new System.Windows.Forms.Label();
+            this.lblCv = new System.Windows.Forms.Label();
+            this.lblIllustartor = new System.Windows.Forms.Label();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -105,6 +107,7 @@ namespace FGO_Database
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             // 
             // cmbLista
             // 
@@ -121,7 +124,7 @@ namespace FGO_Database
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripProgressBar1});
-            this.stsInfo.Location = new System.Drawing.Point(0, 463);
+            this.stsInfo.Location = new System.Drawing.Point(0, 502);
             this.stsInfo.Name = "stsInfo";
             this.stsInfo.Size = new System.Drawing.Size(800, 22);
             this.stsInfo.TabIndex = 2;
@@ -160,7 +163,7 @@ namespace FGO_Database
             // 
             this.lblNazwa.AutoSize = true;
             this.lblNazwa.Font = new System.Drawing.Font("Open Sans Semibold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblNazwa.Location = new System.Drawing.Point(147, 40);
+            this.lblNazwa.Location = new System.Drawing.Point(147, 36);
             this.lblNazwa.Name = "lblNazwa";
             this.lblNazwa.Size = new System.Drawing.Size(158, 51);
             this.lblNazwa.TabIndex = 4;
@@ -172,7 +175,7 @@ namespace FGO_Database
             this.tbcAscezje.Controls.Add(this.tabPage2);
             this.tbcAscezje.Controls.Add(this.tabPage3);
             this.tbcAscezje.Controls.Add(this.tabPage4);
-            this.tbcAscezje.Location = new System.Drawing.Point(511, 28);
+            this.tbcAscezje.Location = new System.Drawing.Point(511, 94);
             this.tbcAscezje.Name = "tbcAscezje";
             this.tbcAscezje.SelectedIndex = 0;
             this.tbcAscezje.Size = new System.Drawing.Size(277, 402);
@@ -274,17 +277,17 @@ namespace FGO_Database
             // lblClassName
             // 
             this.lblClassName.AutoSize = true;
-            this.lblClassName.Font = new System.Drawing.Font("Open Sans Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClassName.Location = new System.Drawing.Point(257, 108);
+            this.lblClassName.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblClassName.Location = new System.Drawing.Point(250, 94);
             this.lblClassName.Name = "lblClassName";
-            this.lblClassName.Size = new System.Drawing.Size(55, 26);
+            this.lblClassName.Size = new System.Drawing.Size(47, 22);
             this.lblClassName.TabIndex = 7;
             this.lblClassName.Text = "class";
             // 
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Location = new System.Drawing.Point(559, 12);
+            this.lblInfo.Location = new System.Drawing.Point(559, 9);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(181, 13);
             this.lblInfo.TabIndex = 8;
@@ -306,10 +309,10 @@ namespace FGO_Database
             // lblSid
             // 
             this.lblSid.AutoSize = true;
-            this.lblSid.Font = new System.Drawing.Font("Open Sans Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSid.Location = new System.Drawing.Point(202, 107);
+            this.lblSid.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblSid.Location = new System.Drawing.Point(202, 94);
             this.lblSid.Name = "lblSid";
-            this.lblSid.Size = new System.Drawing.Size(57, 26);
+            this.lblSid.Size = new System.Drawing.Size(47, 22);
             this.lblSid.TabIndex = 10;
             this.lblSid.Text = "#000";
             // 
@@ -371,7 +374,7 @@ namespace FGO_Database
             // 
             this.tbcCards.Controls.Add(this.tabPage5);
             this.tbcCards.Controls.Add(this.tabPage6);
-            this.tbcCards.Location = new System.Drawing.Point(12, 289);
+            this.tbcCards.Location = new System.Drawing.Point(12, 346);
             this.tbcCards.Name = "tbcCards";
             this.tbcCards.SelectedIndex = 0;
             this.tbcCards.Size = new System.Drawing.Size(366, 150);
@@ -492,11 +495,33 @@ namespace FGO_Database
             this.lblAttr.TabIndex = 19;
             this.lblAttr.Text = "Attribute:";
             // 
+            // lblCv
+            // 
+            this.lblCv.AutoSize = true;
+            this.lblCv.Location = new System.Drawing.Point(206, 120);
+            this.lblCv.Name = "lblCv";
+            this.lblCv.Size = new System.Drawing.Size(26, 13);
+            this.lblCv.TabIndex = 20;
+            this.lblCv.Text = "Cv: ";
+            // 
+            // lblIllustartor
+            // 
+            this.lblIllustartor.AutoSize = true;
+            this.lblIllustartor.Location = new System.Drawing.Point(559, 25);
+            this.lblIllustartor.Name = "lblIllustartor";
+            this.lblIllustartor.Size = new System.Drawing.Size(55, 13);
+            this.lblIllustartor.TabIndex = 21;
+            this.lblIllustartor.Text = "Illustrator: ";
+            // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 485);
+            this.ClientSize = new System.Drawing.Size(800, 524);
+            this.Controls.Add(this.lblIllustartor);
+            this.Controls.Add(this.lblNazwa);
+            this.Controls.Add(this.lblCv);
+            this.Controls.Add(this.lblClassName);
             this.Controls.Add(this.lblAttr);
             this.Controls.Add(this.lblGender);
             this.Controls.Add(this.tbcCards);
@@ -509,10 +534,8 @@ namespace FGO_Database
             this.Controls.Add(this.lblSid);
             this.Controls.Add(this.pcbStars);
             this.Controls.Add(this.lblInfo);
-            this.Controls.Add(this.lblClassName);
             this.Controls.Add(this.pcbClassIcon);
             this.Controls.Add(this.tbcAscezje);
-            this.Controls.Add(this.lblNazwa);
             this.Controls.Add(this.pcbPortret);
             this.Controls.Add(this.stsInfo);
             this.Controls.Add(this.cmbLista);
@@ -593,6 +616,8 @@ namespace FGO_Database
         private System.Windows.Forms.ToolTip ttpOpis;
         private System.Windows.Forms.Label lblGender;
         private System.Windows.Forms.Label lblAttr;
+        private System.Windows.Forms.Label lblCv;
+        private System.Windows.Forms.Label lblIllustartor;
     }
 }
 
