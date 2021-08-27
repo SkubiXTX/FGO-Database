@@ -30,6 +30,20 @@ namespace FGO_Database
         private void Form1_Load(object sender, EventArgs e)
         {
             String servants = "";
+
+            // Create the ToolTip and associate with the Form container.
+            ToolTip ttpOpis = new ToolTip();
+
+            // Set up the delays for the ToolTip.
+            ttpOpis.AutoPopDelay = 5000;
+            ttpOpis.InitialDelay = 1000;
+            ttpOpis.ReshowDelay = 500;
+            // Force the ToolTip text to be displayed whether or not the form is active.
+            ttpOpis.ShowAlways = true;
+
+            // Set up the ToolTip text for the Button and Checkbox.
+            ttpOpis.SetToolTip(this.button1, "My button1");
+
             //var url = "https://api.atlasacademy.io/export/JP/basic_servant_lang_en.json";
             var url = "http://localhost/basic_servant_lang_en.json";
             var httpRequest = (HttpWebRequest)WebRequest.Create(url);
@@ -74,7 +88,7 @@ namespace FGO_Database
             if (cmbLista.Items.Count != 0)
             {
                 int id = cmbLista.SelectedIndex + 1;
-                var url = "https://api.atlasacademy.io/nice/JP/servant/" + id.ToString()+ "?lang=en";
+                var url = "https://api.atlasacademy.io/nice/JP/servant/" + id.ToString()+ "?lore=true&lang=en";
                 //var url = "http://localhost/239.json";
                 var httpRequest = (HttpWebRequest)WebRequest.Create(url);
 
@@ -103,7 +117,7 @@ namespace FGO_Database
 
                 JObject przetworzonedane = JObject.Parse(dane);
 
-                backgroundWorker1.RunWorkerAsync(przetworzonedane);
+                bgwObrazyAscezji.RunWorkerAsync(przetworzonedane);
 
                 int tid = (Int16)przetworzonedane.SelectToken("collectionNo");
                 appid ="#" + tid.ToString("000");
@@ -113,13 +127,53 @@ namespace FGO_Database
                 lblClassName.Text = FirstCharToUpper((string)przetworzonedane.SelectToken("className"));
                 pcbStars.Load(Application.StartupPath + "\\img\\" + (string)przetworzonedane.SelectToken("rarity") + "star.png");
                 lblSid.Text = appid;
-                lblCost.Text = lblCost.Text + (string)przetworzonedane.SelectToken("cost");
-                lblMaxlvl.Text = lblMaxlvl.Text + (string)przetworzonedane.SelectToken("lvMax");
-                LblHP1lvl.Text = LblHP1lvl.Text + (string)przetworzonedane.SelectToken("hpBase");
-                LblATK1lvl.Text = LblATK1lvl.Text + (string)przetworzonedane.SelectToken("atkBase");
-                lblMaxhp.Text = lblMaxhp.Text + (string)przetworzonedane.SelectToken("hpMax");
-                lblMaxatk.Text = lblMaxatk.Text + (string)przetworzonedane.SelectToken("atkMax");
+                lblCost.Text = "Cost: " + (string)przetworzonedane.SelectToken("cost");
+                lblMaxlvl.Text = "Max Lvl: " + (string)przetworzonedane.SelectToken("lvMax");
+                LblHP1lvl.Text = "Hp: " + (string)przetworzonedane.SelectToken("hpBase");
+                LblATK1lvl.Text = "Atk: " + (string)przetworzonedane.SelectToken("atkBase");
+                lblMaxhp.Text = "Hp: " + (string)przetworzonedane.SelectToken("hpMax");
+                lblMaxatk.Text = "Atk: " + (string)przetworzonedane.SelectToken("atkMax");
+                var cards = przetworzonedane.SelectToken("cards")?.ToObject<string[]>();
+                pcbCard1.Load(Application.StartupPath + "\\img\\" + cards[0] + ".png");
+                pcbCard2.Load(Application.StartupPath + "\\img\\" + cards[1] + ".png");
+                pcbCard3.Load(Application.StartupPath + "\\img\\" + cards[2] + ".png");
+                pcbCard4.Load(Application.StartupPath + "\\img\\" + cards[3] + ".png");
+                pcbCard5.Load(Application.StartupPath + "\\img\\" + cards[4] + ".png");
+                var hda = przetworzonedane.SelectToken("hitsDistribution.arts")?.ToObject<string[]>();
+                var hdq = przetworzonedane.SelectToken("hitsDistribution.quick")?.ToObject<string[]>();
+                var hdb = przetworzonedane.SelectToken("hitsDistribution.buster")?.ToObject<string[]>();
+                var hde = przetworzonedane.SelectToken("hitsDistribution.extra")?.ToObject<string[]>();
+                trvArt.Nodes.Clear();
+                trvArt.Nodes.Add("Arts: " + hda.Length.ToString());
+                trvBuster.Nodes.Clear();
+                trvBuster.Nodes.Add("Buster: " + hdb.Length.ToString());
+                trvQuick.Nodes.Clear();
+                trvQuick.Nodes.Add("Quick: " + hdq.Length.ToString());
+                trvExtra.Nodes.Clear();
+                trvExtra.Nodes.Add("Extra: " + hde.Length.ToString());
 
+                for (int i = 0; i < hda.Length; i++)
+                {
+                    trvArt.Nodes[0].Nodes.Add(hda[i]);
+                }
+
+                for (int i = 0; i < hdb.Length; i++)
+                {
+                    trvBuster.Nodes[0].Nodes.Add(hdb[i]);
+                }
+
+                for (int i = 0; i < hdq.Length; i++)
+                {
+                    trvQuick.Nodes[0].Nodes.Add(hdq[i]);
+                }
+
+                for (int i = 0; i < hde.Length; i++)
+                {
+                    trvExtra.Nodes[0].Nodes.Add(hde[i]);
+                }
+
+                lblGender.Text = "Gender: " + FirstCharToUpper((string)przetworzonedane.SelectToken("gender"));
+                lblAttr.Text = "Attribute: " + FirstCharToUpper((string)przetworzonedane.SelectToken("attribute"));
             }
         }
 
@@ -134,6 +188,7 @@ namespace FGO_Database
                 pcbZdjecie.Image = pcbAscezja1.Image;
             }
 
+            form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();
         }
 
@@ -148,6 +203,7 @@ namespace FGO_Database
                 pcbZdjecie.Image = pcbAscezja2.Image;
             }
 
+            form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();
         }
 
@@ -162,6 +218,7 @@ namespace FGO_Database
                 pcbZdjecie.Image = pcbAscezja3.Image;
             }
 
+            form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();
         }
 
@@ -176,6 +233,7 @@ namespace FGO_Database
                 pcbZdjecie.Image = pcbAscezja4.Image;
             }
 
+            form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();
         }
 

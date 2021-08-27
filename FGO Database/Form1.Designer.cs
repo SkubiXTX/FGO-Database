@@ -29,9 +29,10 @@ namespace FGO_Database
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.cmbLista = new System.Windows.Forms.ComboBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.stsInfo = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -49,7 +50,7 @@ namespace FGO_Database
             this.pcbClassIcon = new System.Windows.Forms.PictureBox();
             this.lblClassName = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.bgwObrazyAscezji = new System.ComponentModel.BackgroundWorker();
             this.pcbStars = new System.Windows.Forms.PictureBox();
             this.lblSid = new System.Windows.Forms.Label();
             this.lblCost = new System.Windows.Forms.Label();
@@ -58,7 +59,22 @@ namespace FGO_Database
             this.LblATK1lvl = new System.Windows.Forms.Label();
             this.lblMaxhp = new System.Windows.Forms.Label();
             this.lblMaxatk = new System.Windows.Forms.Label();
-            this.statusStrip1.SuspendLayout();
+            this.tbcCards = new System.Windows.Forms.TabControl();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.pcbCard5 = new System.Windows.Forms.PictureBox();
+            this.pcbCard4 = new System.Windows.Forms.PictureBox();
+            this.pcbCard3 = new System.Windows.Forms.PictureBox();
+            this.pcbCard2 = new System.Windows.Forms.PictureBox();
+            this.pcbCard1 = new System.Windows.Forms.PictureBox();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.trvExtra = new System.Windows.Forms.TreeView();
+            this.trvQuick = new System.Windows.Forms.TreeView();
+            this.trvBuster = new System.Windows.Forms.TreeView();
+            this.trvArt = new System.Windows.Forms.TreeView();
+            this.ttpOpis = new System.Windows.Forms.ToolTip(this.components);
+            this.lblGender = new System.Windows.Forms.Label();
+            this.lblAttr = new System.Windows.Forms.Label();
+            this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -71,6 +87,14 @@ namespace FGO_Database
             ((System.ComponentModel.ISupportInitialize)(this.pcbAscezja4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbClassIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbStars)).BeginInit();
+            this.tbcCards.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCard5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCard4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCard3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCard2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCard1)).BeginInit();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -91,17 +115,17 @@ namespace FGO_Database
             this.cmbLista.TabIndex = 1;
             this.cmbLista.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // statusStrip1
+            // stsInfo
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stsInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 463);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
+            this.stsInfo.Location = new System.Drawing.Point(0, 463);
+            this.stsInfo.Name = "stsInfo";
+            this.stsInfo.Size = new System.Drawing.Size(800, 22);
+            this.stsInfo.TabIndex = 2;
+            this.stsInfo.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
@@ -266,10 +290,10 @@ namespace FGO_Database
             this.lblInfo.TabIndex = 8;
             this.lblInfo.Text = "Kliknij w obraz po pełną rozdzielcość";
             // 
-            // backgroundWorker1
+            // bgwObrazyAscezji
             // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            this.bgwObrazyAscezji.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.bgwObrazyAscezji.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // pcbStars
             // 
@@ -319,7 +343,7 @@ namespace FGO_Database
             // LblATK1lvl
             // 
             this.LblATK1lvl.AutoSize = true;
-            this.LblATK1lvl.Location = new System.Drawing.Point(160, 175);
+            this.LblATK1lvl.Location = new System.Drawing.Point(165, 175);
             this.LblATK1lvl.Name = "LblATK1lvl";
             this.LblATK1lvl.Size = new System.Drawing.Size(31, 13);
             this.LblATK1lvl.TabIndex = 14;
@@ -337,17 +361,145 @@ namespace FGO_Database
             // lblMaxatk
             // 
             this.lblMaxatk.AutoSize = true;
-            this.lblMaxatk.Location = new System.Drawing.Point(160, 188);
+            this.lblMaxatk.Location = new System.Drawing.Point(165, 188);
             this.lblMaxatk.Name = "lblMaxatk";
             this.lblMaxatk.Size = new System.Drawing.Size(31, 13);
             this.lblMaxatk.TabIndex = 16;
             this.lblMaxatk.Text = "ATK:";
+            // 
+            // tbcCards
+            // 
+            this.tbcCards.Controls.Add(this.tabPage5);
+            this.tbcCards.Controls.Add(this.tabPage6);
+            this.tbcCards.Location = new System.Drawing.Point(12, 289);
+            this.tbcCards.Name = "tbcCards";
+            this.tbcCards.SelectedIndex = 0;
+            this.tbcCards.Size = new System.Drawing.Size(366, 150);
+            this.tbcCards.TabIndex = 17;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.pcbCard5);
+            this.tabPage5.Controls.Add(this.pcbCard4);
+            this.tabPage5.Controls.Add(this.pcbCard3);
+            this.tabPage5.Controls.Add(this.pcbCard2);
+            this.tabPage5.Controls.Add(this.pcbCard1);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(358, 124);
+            this.tabPage5.TabIndex = 0;
+            this.tabPage5.Text = "Cards";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // pcbCard5
+            // 
+            this.pcbCard5.Location = new System.Drawing.Point(287, 7);
+            this.pcbCard5.Name = "pcbCard5";
+            this.pcbCard5.Size = new System.Drawing.Size(64, 64);
+            this.pcbCard5.TabIndex = 4;
+            this.pcbCard5.TabStop = false;
+            // 
+            // pcbCard4
+            // 
+            this.pcbCard4.Location = new System.Drawing.Point(217, 7);
+            this.pcbCard4.Name = "pcbCard4";
+            this.pcbCard4.Size = new System.Drawing.Size(64, 64);
+            this.pcbCard4.TabIndex = 3;
+            this.pcbCard4.TabStop = false;
+            // 
+            // pcbCard3
+            // 
+            this.pcbCard3.Location = new System.Drawing.Point(147, 7);
+            this.pcbCard3.Name = "pcbCard3";
+            this.pcbCard3.Size = new System.Drawing.Size(64, 64);
+            this.pcbCard3.TabIndex = 2;
+            this.pcbCard3.TabStop = false;
+            // 
+            // pcbCard2
+            // 
+            this.pcbCard2.Location = new System.Drawing.Point(77, 7);
+            this.pcbCard2.Name = "pcbCard2";
+            this.pcbCard2.Size = new System.Drawing.Size(64, 64);
+            this.pcbCard2.TabIndex = 1;
+            this.pcbCard2.TabStop = false;
+            // 
+            // pcbCard1
+            // 
+            this.pcbCard1.Location = new System.Drawing.Point(7, 7);
+            this.pcbCard1.Name = "pcbCard1";
+            this.pcbCard1.Size = new System.Drawing.Size(64, 64);
+            this.pcbCard1.TabIndex = 0;
+            this.pcbCard1.TabStop = false;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.trvExtra);
+            this.tabPage6.Controls.Add(this.trvQuick);
+            this.tabPage6.Controls.Add(this.trvBuster);
+            this.tabPage6.Controls.Add(this.trvArt);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(358, 124);
+            this.tabPage6.TabIndex = 1;
+            this.tabPage6.Text = "Hits Distribution";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // trvExtra
+            // 
+            this.trvExtra.Location = new System.Drawing.Point(264, 6);
+            this.trvExtra.Name = "trvExtra";
+            this.trvExtra.Size = new System.Drawing.Size(80, 109);
+            this.trvExtra.TabIndex = 3;
+            // 
+            // trvQuick
+            // 
+            this.trvQuick.Location = new System.Drawing.Point(178, 6);
+            this.trvQuick.Name = "trvQuick";
+            this.trvQuick.Size = new System.Drawing.Size(80, 109);
+            this.trvQuick.TabIndex = 2;
+            // 
+            // trvBuster
+            // 
+            this.trvBuster.Location = new System.Drawing.Point(92, 6);
+            this.trvBuster.Name = "trvBuster";
+            this.trvBuster.Size = new System.Drawing.Size(80, 109);
+            this.trvBuster.TabIndex = 1;
+            // 
+            // trvArt
+            // 
+            this.trvArt.Location = new System.Drawing.Point(6, 6);
+            this.trvArt.Name = "trvArt";
+            this.trvArt.Size = new System.Drawing.Size(80, 109);
+            this.trvArt.TabIndex = 0;
+            // 
+            // lblGender
+            // 
+            this.lblGender.AutoSize = true;
+            this.lblGender.Location = new System.Drawing.Point(13, 201);
+            this.lblGender.Name = "lblGender";
+            this.lblGender.Size = new System.Drawing.Size(48, 13);
+            this.lblGender.TabIndex = 18;
+            this.lblGender.Text = "Gender: ";
+            // 
+            // lblAttr
+            // 
+            this.lblAttr.AutoSize = true;
+            this.lblAttr.Location = new System.Drawing.Point(105, 201);
+            this.lblAttr.Name = "lblAttr";
+            this.lblAttr.Size = new System.Drawing.Size(49, 13);
+            this.lblAttr.TabIndex = 19;
+            this.lblAttr.Text = "Attribute:";
             // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 485);
+            this.Controls.Add(this.lblAttr);
+            this.Controls.Add(this.lblGender);
+            this.Controls.Add(this.tbcCards);
             this.Controls.Add(this.lblMaxatk);
             this.Controls.Add(this.lblMaxhp);
             this.Controls.Add(this.LblATK1lvl);
@@ -362,14 +514,14 @@ namespace FGO_Database
             this.Controls.Add(this.tbcAscezje);
             this.Controls.Add(this.lblNazwa);
             this.Controls.Add(this.pcbPortret);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.stsInfo);
             this.Controls.Add(this.cmbLista);
             this.Controls.Add(this.button1);
             this.Name = "frmOknoGl";
             this.Text = "FGO Database";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.stsInfo.ResumeLayout(false);
+            this.stsInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).EndInit();
             this.tbcAscezje.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -382,6 +534,14 @@ namespace FGO_Database
             ((System.ComponentModel.ISupportInitialize)(this.pcbAscezja4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbClassIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbStars)).EndInit();
+            this.tbcCards.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCard5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCard4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCard3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCard2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCard1)).EndInit();
+            this.tabPage6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -391,7 +551,7 @@ namespace FGO_Database
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox cmbLista;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip stsInfo;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.PictureBox pcbPortret;
@@ -409,7 +569,7 @@ namespace FGO_Database
         private System.Windows.Forms.PictureBox pcbClassIcon;
         private System.Windows.Forms.Label lblClassName;
         private System.Windows.Forms.Label lblInfo;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker bgwObrazyAscezji;
         private System.Windows.Forms.PictureBox pcbStars;
         private System.Windows.Forms.Label lblSid;
         private System.Windows.Forms.Label lblCost;
@@ -418,6 +578,21 @@ namespace FGO_Database
         private System.Windows.Forms.Label LblATK1lvl;
         private System.Windows.Forms.Label lblMaxhp;
         private System.Windows.Forms.Label lblMaxatk;
+        private System.Windows.Forms.TabControl tbcCards;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.PictureBox pcbCard5;
+        private System.Windows.Forms.PictureBox pcbCard4;
+        private System.Windows.Forms.PictureBox pcbCard3;
+        private System.Windows.Forms.PictureBox pcbCard2;
+        private System.Windows.Forms.PictureBox pcbCard1;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TreeView trvArt;
+        private System.Windows.Forms.TreeView trvExtra;
+        private System.Windows.Forms.TreeView trvQuick;
+        private System.Windows.Forms.TreeView trvBuster;
+        private System.Windows.Forms.ToolTip ttpOpis;
+        private System.Windows.Forms.Label lblGender;
+        private System.Windows.Forms.Label lblAttr;
     }
 }
 
