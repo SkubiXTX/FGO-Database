@@ -90,6 +90,8 @@ namespace FGO_Database
             String dane = "";
             String appid = "";
             Boolean JPonly = false;
+            Int32 SG = 0;
+            Int32 IDC = 0;
 
             if (cmbLista.Items.Count != 0)
             {
@@ -115,7 +117,7 @@ namespace FGO_Database
 
                 }
 
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     //toolStripStatusLabel2.Text = "Pobieranie Danych: Błąd";
@@ -219,7 +221,12 @@ namespace FGO_Database
                     lblGender.Text = "Gender: " + FirstCharToUpper((string)przetworzonedane.SelectToken("gender"));
                     lblAttr.Text = "Attribute: " + FirstCharToUpper((string)przetworzonedane.SelectToken("attribute"));
                     lblCv.Text = "Cv: " + (string)przetworzonedane.SelectToken("profile.cv");
-                    lblIllustartor.Text = "Illustrator: " + (string)przetworzonedane.SelectToken("profile.illustrator"); ;
+                    lblIllustartor.Text = "Illustrator: " + (string)przetworzonedane.SelectToken("profile.illustrator");
+                    lblStarAbs.Text = "Star Absorb: " + (string)przetworzonedane.SelectToken("starAbsorb");
+                    SG = Int32.Parse((string)przetworzonedane.SelectToken("starGen"));
+                    lblStarGen.Text = "Star Absorb: " + String.Format("{0}%", SG/10);
+                    IDC = Int32.Parse((string)przetworzonedane.SelectToken("instantDeathChance"));
+                    lblIDChange.Text = "Instant Death Chance: " + String.Format("{0}%", IDC / 10);
                 }
             }
         }

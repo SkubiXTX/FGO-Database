@@ -76,6 +76,9 @@ namespace FGO_Database
             this.lblAttr = new System.Windows.Forms.Label();
             this.lblCv = new System.Windows.Forms.Label();
             this.lblIllustartor = new System.Windows.Forms.Label();
+            this.lblStarAbs = new System.Windows.Forms.Label();
+            this.lblStarGen = new System.Windows.Forms.Label();
+            this.lblIDChange = new System.Windows.Forms.Label();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -513,11 +516,41 @@ namespace FGO_Database
             this.lblIllustartor.TabIndex = 21;
             this.lblIllustartor.Text = "Illustrator: ";
             // 
+            // lblStarAbs
+            // 
+            this.lblStarAbs.AutoSize = true;
+            this.lblStarAbs.Location = new System.Drawing.Point(13, 214);
+            this.lblStarAbs.Name = "lblStarAbs";
+            this.lblStarAbs.Size = new System.Drawing.Size(65, 13);
+            this.lblStarAbs.TabIndex = 22;
+            this.lblStarAbs.Text = "Star Absorb:";
+            // 
+            // lblStarGen
+            // 
+            this.lblStarGen.AutoSize = true;
+            this.lblStarGen.Location = new System.Drawing.Point(105, 214);
+            this.lblStarGen.Name = "lblStarGen";
+            this.lblStarGen.Size = new System.Drawing.Size(82, 13);
+            this.lblStarGen.TabIndex = 23;
+            this.lblStarGen.Text = "Star generation:";
+            // 
+            // lblIDChange
+            // 
+            this.lblIDChange.AutoSize = true;
+            this.lblIDChange.Location = new System.Drawing.Point(13, 227);
+            this.lblIDChange.Name = "lblIDChange";
+            this.lblIDChange.Size = new System.Drawing.Size(114, 13);
+            this.lblIDChange.TabIndex = 24;
+            this.lblIDChange.Text = "Instant Death Chance:";
+            // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 524);
+            this.Controls.Add(this.lblIDChange);
+            this.Controls.Add(this.lblStarGen);
+            this.Controls.Add(this.lblStarAbs);
             this.Controls.Add(this.lblIllustartor);
             this.Controls.Add(this.lblNazwa);
             this.Controls.Add(this.lblCv);
@@ -618,6 +651,9 @@ namespace FGO_Database
         private System.Windows.Forms.Label lblAttr;
         private System.Windows.Forms.Label lblCv;
         private System.Windows.Forms.Label lblIllustartor;
+        private System.Windows.Forms.Label lblStarAbs;
+        private System.Windows.Forms.Label lblStarGen;
+        private System.Windows.Forms.Label lblIDChange;
     }
 }
 
