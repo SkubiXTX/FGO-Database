@@ -21,13 +21,20 @@ namespace FGO_Database
         public static string FirstCharToUpper(string input)
         {
             if (String.IsNullOrEmpty(input))
+            {
                 throw new ArgumentException("Pusty String!");
+            }
+
             return input.First().ToString().ToUpper() + String.Join("", input.Skip(1));
         }
 
-        public int UtnijZero(string liczba)
+        public string NaProcent(string liczba)
         {
-            Int32 wynik = 0;
+            String wynik = "";
+            Int32 temp = 0;
+
+            temp = Int32.Parse(liczba);
+            wynik = String.Format("{0}%", temp / 10);
 
             return wynik;
         }
@@ -84,7 +91,6 @@ namespace FGO_Database
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            String servants = "";
 
             // Create the ToolTip and associate with the Form container.
             ToolTip ttpOpis = new ToolTip();
@@ -108,8 +114,6 @@ namespace FGO_Database
             String dane = "";
             String appid = "";
             Boolean JPonly = false;
-            Int32 SG = 0;
-            Int32 IDC = 0;
 
             if (cmbLista.Items.Count != 0)
             {
@@ -259,10 +263,20 @@ namespace FGO_Database
                     lblCv.Text = "Cv: " + (string)przetworzonedane.SelectToken("profile.cv");
                     lblIllustartor.Text = "Illustrator: " + (string)przetworzonedane.SelectToken("profile.illustrator");
                     lblStarAbs.Text = "Star Absorb: " + (string)przetworzonedane.SelectToken("starAbsorb");
-                    SG = Int32.Parse((string)przetworzonedane.SelectToken("starGen"));
-                    lblStarGen.Text = "Star Absorb: " + String.Format("{0}%", SG/10);
-                    IDC = Int32.Parse((string)przetworzonedane.SelectToken("instantDeathChance"));
-                    lblIDChange.Text = "Instant Death Chance: " + String.Format("{0}%", IDC / 10);
+                    lblStarGen.Text ="Star generation: " + NaProcent((string)przetworzonedane.SelectToken("starGen"));
+                    lblIDChange.Text = "Instant Death Chance: " + NaProcent((string)przetworzonedane.SelectToken("instantDeathChance"));
+                    var numtraits = przetworzonedane.SelectToken("traits").Count();
+
+                    //Console.WriteLine("==>" + przetworzonedane.SelectToken("traits.0.name"));
+
+                    var traits = przetworzonedane.SelectToken("traits");
+
+                    trwTraits.Nodes.Clear();
+                    for (int j=0; j<numtraits; j++)
+                    {
+                        trwTraits.Nodes.Add(traits.SelectToken("[" + j + "].name").ToString());
+                    }
+
                 }
             }
         }

@@ -81,6 +81,7 @@ namespace FGO_Database
             this.lblIDChange = new System.Windows.Forms.Label();
             this.txtSzukaj = new System.Windows.Forms.TextBox();
             this.btnSzukaj = new System.Windows.Forms.Button();
+            this.trwTraits = new System.Windows.Forms.TreeView();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -562,11 +563,19 @@ namespace FGO_Database
             this.btnSzukaj.UseVisualStyleBackColor = true;
             this.btnSzukaj.Click += new System.EventHandler(this.btnSzukaj_Click);
             // 
+            // trwTraits
+            // 
+            this.trwTraits.Location = new System.Drawing.Point(13, 275);
+            this.trwTraits.Name = "trwTraits";
+            this.trwTraits.Size = new System.Drawing.Size(233, 97);
+            this.trwTraits.TabIndex = 27;
+            // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 555);
+            this.Controls.Add(this.trwTraits);
             this.Controls.Add(this.btnSzukaj);
             this.Controls.Add(this.txtSzukaj);
             this.Controls.Add(this.lblIDChange);
@@ -677,6 +686,7 @@ namespace FGO_Database
         private System.Windows.Forms.Label lblIDChange;
         private System.Windows.Forms.TextBox txtSzukaj;
         private System.Windows.Forms.Button btnSzukaj;
+        private System.Windows.Forms.TreeView trwTraits;
     }
 }
 
