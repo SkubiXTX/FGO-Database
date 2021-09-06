@@ -15,11 +15,66 @@ namespace FGO_Database
 {
     public partial class frmOknoGl : Form
     {
+        public Boolean szukaj = false;
+        public String[] ServId = new string[1000];
+
         public static string FirstCharToUpper(string input)
         {
             if (String.IsNullOrEmpty(input))
                 throw new ArgumentException("Pusty String!");
             return input.First().ToString().ToUpper() + String.Join("", input.Skip(1));
+        }
+
+        public int UtnijZero(string liczba)
+        {
+            Int32 wynik = 0;
+
+            return wynik;
+        }
+
+        public void ZaładujListe ()
+        {
+            String servants = "";
+
+            //var url = "https://api.atlasacademy.io/export/JP/basic_servant_lang_en.json";
+            var url = "http://localhost/basic_servant_lang_en.json";
+            var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+
+            httpRequest.Accept = "application/json";
+
+            try
+            {
+                var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    servants = result.ToString();
+                }
+
+                toolStripStatusLabel1.Text = "Pobieranie Listy: " + httpResponse.StatusCode.ToString();
+            }
+
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                toolStripStatusLabel1.Text = "Pobieranie Listy: Błąd";
+                //throw;
+            }
+
+            if (servants != "")
+            {
+                cmbLista.Items.Clear();
+                JArray przetworzonedane = JArray.Parse(servants);
+                //Console.WriteLine((string)przetworzonedane.SelectToken("[0].name"));
+
+                for (int i = 0; i < przetworzonedane.Count; i++)
+                {
+                    String nazwa = (string)przetworzonedane.SelectToken("[" + i + "].name") + " [" + (string)przetworzonedane.SelectToken("[" + i + "].className") + "]";
+
+                    cmbLista.Items.Add(nazwa);
+                }
+            }
         }
 
         public frmOknoGl()
@@ -45,44 +100,7 @@ namespace FGO_Database
             ttpOpis.SetToolTip(this.lblMaxhp, "Hp na maksymalny levelu");
             ttpOpis.SetToolTip(this.lblMaxatk, "Atak na maksymalny levelu");
 
-            //var url = "https://api.atlasacademy.io/export/JP/basic_servant_lang_en.json";
-            var url = "http://localhost/basic_servant_lang_en.json";
-            var httpRequest = (HttpWebRequest)WebRequest.Create(url);
-
-            httpRequest.Accept = "application/json";
-
-            try
-            {
-                var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    var result = streamReader.ReadToEnd();
-                    servants = result.ToString();
-                }
-
-                toolStripStatusLabel1.Text = "Pobieranie Listy: " + httpResponse.StatusCode.ToString();
-            }
-
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message,"Błąd",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                toolStripStatusLabel1.Text = "Pobieranie Listy: Błąd";
-                //throw;
-            }
-
-            if (servants != "")
-            {
-                JArray przetworzonedane = JArray.Parse(servants);
-                //Console.WriteLine((string)przetworzonedane.SelectToken("[0].name"));
-
-                for (int i = 0; i < przetworzonedane.Count; i++)
-                {
-                    String nazwa = (string)przetworzonedane.SelectToken("[" + i + "].name") + " [" + (string)przetworzonedane.SelectToken("[" + i + "].className") + "]";
-
-                    cmbLista.Items.Add(nazwa);
-                } 
-            }
+            ZaładujListe();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -96,8 +114,19 @@ namespace FGO_Database
             if (cmbLista.Items.Count != 0)
             {
                 int id = cmbLista.SelectedIndex + 1;
-                var url = "https://api.atlasacademy.io/nice/NA/servant/" + id.ToString()+ "?lore=true&lang=en";
+                var url = "";
+                var url2 = "";
+
+                if (szukaj == false)
+                {
+                    url = "https://api.atlasacademy.io/nice/NA/servant/" + id.ToString() + "?lore=true&lang=en"; 
+                }
+                else
+                {
+                    url = "https://api.atlasacademy.io/nice/NA/servant/" + ServId[id - 1] + "?lore=true&lang=en";
+                }
                 //var url = "http://localhost/239.json";
+
                 var httpRequest = (HttpWebRequest)WebRequest.Create(url);
 
                 httpRequest.Accept = "application/json";
@@ -128,7 +157,14 @@ namespace FGO_Database
 
                 if (JPonly == true)
                 {
-                    var url2 = "https://api.atlasacademy.io/nice/JP/servant/" + id.ToString() + "?lore=true&lang=en";
+                    if (szukaj == false)
+                    {
+                        url2 = "https://api.atlasacademy.io/nice/JP/servant/" + id.ToString() + "?lore=true&lang=en";
+                    }
+                    else
+                    {
+                        url2 = "https://api.atlasacademy.io/nice/JP/servant/" + ServId[id - 1] + "?lore=true&lang=en";
+                    }
                     //var url2 = "http://localhost/239.json";
                     var httpRequest2 = (HttpWebRequest)WebRequest.Create(url2);
 
@@ -315,6 +351,62 @@ namespace FGO_Database
         {
             toolStripProgressBar1.Visible = false;
             cmbLista.Enabled = true;
+        }
+
+        private void btnLista_Click(object sender, EventArgs e)
+        {
+            szukaj = false;
+            ZaładujListe();
+        }
+
+        private void btnSzukaj_Click(object sender, EventArgs e)
+        {
+            String servants = "";
+            szukaj = true;
+            var url = "https://api.atlasacademy.io/basic/JP/servant/search?name="+txtSzukaj.Text+"&lang=en";
+            //var url = "http://localhost/basic_servant_lang_en.json";
+            var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+
+            httpRequest.Accept = "application/json";
+
+            try
+            {
+                var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    servants = result.ToString();
+                }
+
+                toolStripStatusLabel1.Text = "Pobieranie Listy: " + httpResponse.StatusCode.ToString();
+            }
+
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                toolStripStatusLabel1.Text = "Pobieranie Listy: Błąd";
+                //throw;
+            }
+
+            if (servants != "")
+            {
+                cmbLista.Items.Clear();
+                JArray przetworzonedane = JArray.Parse(servants);
+                //Console.WriteLine((string)przetworzonedane.SelectToken("[0].name"));
+
+                for (int j=0; j<ServId.Length; j++)
+                {
+                    ServId[j] = null;
+                }
+
+                for (int i = 0; i < przetworzonedane.Count; i++)
+                {
+                    String nazwa = (string)przetworzonedane.SelectToken("[" + i + "].name") + " [" + (string)przetworzonedane.SelectToken("[" + i + "].className") + "]";
+                    ServId[i] = (string)przetworzonedane.SelectToken("[" + i + "].collectionNo");
+                    cmbLista.Items.Add(nazwa);
+                }
+            }
         }
     }
 }

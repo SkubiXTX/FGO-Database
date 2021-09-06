@@ -30,7 +30,7 @@ namespace FGO_Database
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnLista = new System.Windows.Forms.Button();
             this.cmbLista = new System.Windows.Forms.ComboBox();
             this.stsInfo = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -79,6 +79,8 @@ namespace FGO_Database
             this.lblStarAbs = new System.Windows.Forms.Label();
             this.lblStarGen = new System.Windows.Forms.Label();
             this.lblIDChange = new System.Windows.Forms.Label();
+            this.txtSzukaj = new System.Windows.Forms.TextBox();
+            this.btnSzukaj = new System.Windows.Forms.Button();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -102,15 +104,15 @@ namespace FGO_Database
             this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // btnLista
             // 
-            this.button1.Location = new System.Drawing.Point(274, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 21);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
+            this.btnLista.Location = new System.Drawing.Point(274, 12);
+            this.btnLista.Name = "btnLista";
+            this.btnLista.Size = new System.Drawing.Size(75, 21);
+            this.btnLista.TabIndex = 0;
+            this.btnLista.Text = "Pełna Lista";
+            this.btnLista.UseVisualStyleBackColor = true;
+            this.btnLista.Click += new System.EventHandler(this.btnLista_Click);
             // 
             // cmbLista
             // 
@@ -127,7 +129,7 @@ namespace FGO_Database
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripProgressBar1});
-            this.stsInfo.Location = new System.Drawing.Point(0, 502);
+            this.stsInfo.Location = new System.Drawing.Point(0, 533);
             this.stsInfo.Name = "stsInfo";
             this.stsInfo.Size = new System.Drawing.Size(800, 22);
             this.stsInfo.TabIndex = 2;
@@ -155,7 +157,7 @@ namespace FGO_Database
             // 
             // pcbPortret
             // 
-            this.pcbPortret.Location = new System.Drawing.Point(13, 40);
+            this.pcbPortret.Location = new System.Drawing.Point(10, 72);
             this.pcbPortret.Name = "pcbPortret";
             this.pcbPortret.Size = new System.Drawing.Size(128, 128);
             this.pcbPortret.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -166,7 +168,7 @@ namespace FGO_Database
             // 
             this.lblNazwa.AutoSize = true;
             this.lblNazwa.Font = new System.Drawing.Font("Open Sans Semibold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblNazwa.Location = new System.Drawing.Point(147, 36);
+            this.lblNazwa.Location = new System.Drawing.Point(144, 68);
             this.lblNazwa.Name = "lblNazwa";
             this.lblNazwa.Size = new System.Drawing.Size(158, 51);
             this.lblNazwa.TabIndex = 4;
@@ -178,7 +180,7 @@ namespace FGO_Database
             this.tbcAscezje.Controls.Add(this.tabPage2);
             this.tbcAscezje.Controls.Add(this.tabPage3);
             this.tbcAscezje.Controls.Add(this.tabPage4);
-            this.tbcAscezje.Location = new System.Drawing.Point(511, 94);
+            this.tbcAscezje.Location = new System.Drawing.Point(508, 126);
             this.tbcAscezje.Name = "tbcAscezje";
             this.tbcAscezje.SelectedIndex = 0;
             this.tbcAscezje.Size = new System.Drawing.Size(277, 402);
@@ -270,7 +272,7 @@ namespace FGO_Database
             // 
             // pcbClassIcon
             // 
-            this.pcbClassIcon.Location = new System.Drawing.Point(156, 94);
+            this.pcbClassIcon.Location = new System.Drawing.Point(153, 126);
             this.pcbClassIcon.Name = "pcbClassIcon";
             this.pcbClassIcon.Size = new System.Drawing.Size(40, 40);
             this.pcbClassIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -281,7 +283,7 @@ namespace FGO_Database
             // 
             this.lblClassName.AutoSize = true;
             this.lblClassName.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblClassName.Location = new System.Drawing.Point(250, 94);
+            this.lblClassName.Location = new System.Drawing.Point(247, 126);
             this.lblClassName.Name = "lblClassName";
             this.lblClassName.Size = new System.Drawing.Size(47, 22);
             this.lblClassName.TabIndex = 7;
@@ -303,7 +305,7 @@ namespace FGO_Database
             // 
             // pcbStars
             // 
-            this.pcbStars.Location = new System.Drawing.Point(156, 136);
+            this.pcbStars.Location = new System.Drawing.Point(153, 168);
             this.pcbStars.Name = "pcbStars";
             this.pcbStars.Size = new System.Drawing.Size(168, 32);
             this.pcbStars.TabIndex = 9;
@@ -313,7 +315,7 @@ namespace FGO_Database
             // 
             this.lblSid.AutoSize = true;
             this.lblSid.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblSid.Location = new System.Drawing.Point(202, 94);
+            this.lblSid.Location = new System.Drawing.Point(199, 126);
             this.lblSid.Name = "lblSid";
             this.lblSid.Size = new System.Drawing.Size(47, 22);
             this.lblSid.TabIndex = 10;
@@ -322,7 +324,7 @@ namespace FGO_Database
             // lblCost
             // 
             this.lblCost.AutoSize = true;
-            this.lblCost.Location = new System.Drawing.Point(13, 175);
+            this.lblCost.Location = new System.Drawing.Point(10, 207);
             this.lblCost.Name = "lblCost";
             this.lblCost.Size = new System.Drawing.Size(31, 13);
             this.lblCost.TabIndex = 11;
@@ -331,7 +333,7 @@ namespace FGO_Database
             // lblMaxlvl
             // 
             this.lblMaxlvl.AutoSize = true;
-            this.lblMaxlvl.Location = new System.Drawing.Point(13, 188);
+            this.lblMaxlvl.Location = new System.Drawing.Point(10, 220);
             this.lblMaxlvl.Name = "lblMaxlvl";
             this.lblMaxlvl.Size = new System.Drawing.Size(47, 13);
             this.lblMaxlvl.TabIndex = 12;
@@ -340,7 +342,7 @@ namespace FGO_Database
             // LblHP1lvl
             // 
             this.LblHP1lvl.AutoSize = true;
-            this.LblHP1lvl.Location = new System.Drawing.Point(105, 175);
+            this.LblHP1lvl.Location = new System.Drawing.Point(102, 207);
             this.LblHP1lvl.Name = "LblHP1lvl";
             this.LblHP1lvl.Size = new System.Drawing.Size(25, 13);
             this.LblHP1lvl.TabIndex = 13;
@@ -349,7 +351,7 @@ namespace FGO_Database
             // LblATK1lvl
             // 
             this.LblATK1lvl.AutoSize = true;
-            this.LblATK1lvl.Location = new System.Drawing.Point(165, 175);
+            this.LblATK1lvl.Location = new System.Drawing.Point(162, 207);
             this.LblATK1lvl.Name = "LblATK1lvl";
             this.LblATK1lvl.Size = new System.Drawing.Size(31, 13);
             this.LblATK1lvl.TabIndex = 14;
@@ -358,7 +360,7 @@ namespace FGO_Database
             // lblMaxhp
             // 
             this.lblMaxhp.AutoSize = true;
-            this.lblMaxhp.Location = new System.Drawing.Point(105, 188);
+            this.lblMaxhp.Location = new System.Drawing.Point(102, 220);
             this.lblMaxhp.Name = "lblMaxhp";
             this.lblMaxhp.Size = new System.Drawing.Size(25, 13);
             this.lblMaxhp.TabIndex = 15;
@@ -367,7 +369,7 @@ namespace FGO_Database
             // lblMaxatk
             // 
             this.lblMaxatk.AutoSize = true;
-            this.lblMaxatk.Location = new System.Drawing.Point(165, 188);
+            this.lblMaxatk.Location = new System.Drawing.Point(162, 220);
             this.lblMaxatk.Name = "lblMaxatk";
             this.lblMaxatk.Size = new System.Drawing.Size(31, 13);
             this.lblMaxatk.TabIndex = 16;
@@ -377,7 +379,7 @@ namespace FGO_Database
             // 
             this.tbcCards.Controls.Add(this.tabPage5);
             this.tbcCards.Controls.Add(this.tabPage6);
-            this.tbcCards.Location = new System.Drawing.Point(12, 346);
+            this.tbcCards.Location = new System.Drawing.Point(9, 378);
             this.tbcCards.Name = "tbcCards";
             this.tbcCards.SelectedIndex = 0;
             this.tbcCards.Size = new System.Drawing.Size(366, 150);
@@ -483,7 +485,7 @@ namespace FGO_Database
             // lblGender
             // 
             this.lblGender.AutoSize = true;
-            this.lblGender.Location = new System.Drawing.Point(13, 201);
+            this.lblGender.Location = new System.Drawing.Point(10, 233);
             this.lblGender.Name = "lblGender";
             this.lblGender.Size = new System.Drawing.Size(48, 13);
             this.lblGender.TabIndex = 18;
@@ -492,7 +494,7 @@ namespace FGO_Database
             // lblAttr
             // 
             this.lblAttr.AutoSize = true;
-            this.lblAttr.Location = new System.Drawing.Point(105, 201);
+            this.lblAttr.Location = new System.Drawing.Point(102, 233);
             this.lblAttr.Name = "lblAttr";
             this.lblAttr.Size = new System.Drawing.Size(49, 13);
             this.lblAttr.TabIndex = 19;
@@ -501,7 +503,7 @@ namespace FGO_Database
             // lblCv
             // 
             this.lblCv.AutoSize = true;
-            this.lblCv.Location = new System.Drawing.Point(206, 120);
+            this.lblCv.Location = new System.Drawing.Point(203, 152);
             this.lblCv.Name = "lblCv";
             this.lblCv.Size = new System.Drawing.Size(26, 13);
             this.lblCv.TabIndex = 20;
@@ -519,7 +521,7 @@ namespace FGO_Database
             // lblStarAbs
             // 
             this.lblStarAbs.AutoSize = true;
-            this.lblStarAbs.Location = new System.Drawing.Point(13, 214);
+            this.lblStarAbs.Location = new System.Drawing.Point(10, 246);
             this.lblStarAbs.Name = "lblStarAbs";
             this.lblStarAbs.Size = new System.Drawing.Size(65, 13);
             this.lblStarAbs.TabIndex = 22;
@@ -528,7 +530,7 @@ namespace FGO_Database
             // lblStarGen
             // 
             this.lblStarGen.AutoSize = true;
-            this.lblStarGen.Location = new System.Drawing.Point(105, 214);
+            this.lblStarGen.Location = new System.Drawing.Point(102, 246);
             this.lblStarGen.Name = "lblStarGen";
             this.lblStarGen.Size = new System.Drawing.Size(82, 13);
             this.lblStarGen.TabIndex = 23;
@@ -537,17 +539,36 @@ namespace FGO_Database
             // lblIDChange
             // 
             this.lblIDChange.AutoSize = true;
-            this.lblIDChange.Location = new System.Drawing.Point(13, 227);
+            this.lblIDChange.Location = new System.Drawing.Point(10, 259);
             this.lblIDChange.Name = "lblIDChange";
             this.lblIDChange.Size = new System.Drawing.Size(114, 13);
             this.lblIDChange.TabIndex = 24;
             this.lblIDChange.Text = "Instant Death Chance:";
             // 
+            // txtSzukaj
+            // 
+            this.txtSzukaj.Location = new System.Drawing.Point(12, 39);
+            this.txtSzukaj.Name = "txtSzukaj";
+            this.txtSzukaj.Size = new System.Drawing.Size(256, 20);
+            this.txtSzukaj.TabIndex = 25;
+            // 
+            // btnSzukaj
+            // 
+            this.btnSzukaj.Location = new System.Drawing.Point(274, 39);
+            this.btnSzukaj.Name = "btnSzukaj";
+            this.btnSzukaj.Size = new System.Drawing.Size(75, 20);
+            this.btnSzukaj.TabIndex = 26;
+            this.btnSzukaj.Text = "Szukaj";
+            this.btnSzukaj.UseVisualStyleBackColor = true;
+            this.btnSzukaj.Click += new System.EventHandler(this.btnSzukaj_Click);
+            // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 524);
+            this.ClientSize = new System.Drawing.Size(800, 555);
+            this.Controls.Add(this.btnSzukaj);
+            this.Controls.Add(this.txtSzukaj);
             this.Controls.Add(this.lblIDChange);
             this.Controls.Add(this.lblStarGen);
             this.Controls.Add(this.lblStarAbs);
@@ -572,7 +593,7 @@ namespace FGO_Database
             this.Controls.Add(this.pcbPortret);
             this.Controls.Add(this.stsInfo);
             this.Controls.Add(this.cmbLista);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnLista);
             this.Name = "frmOknoGl";
             this.Text = "FGO Database";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -605,7 +626,7 @@ namespace FGO_Database
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnLista;
         private System.Windows.Forms.ComboBox cmbLista;
         private System.Windows.Forms.StatusStrip stsInfo;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
@@ -654,6 +675,8 @@ namespace FGO_Database
         private System.Windows.Forms.Label lblStarAbs;
         private System.Windows.Forms.Label lblStarGen;
         private System.Windows.Forms.Label lblIDChange;
+        private System.Windows.Forms.TextBox txtSzukaj;
+        private System.Windows.Forms.Button btnSzukaj;
     }
 }
 
