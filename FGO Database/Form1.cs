@@ -266,16 +266,19 @@ namespace FGO_Database
                     lblStarGen.Text ="Star generation: " + NaProcent((string)przetworzonedane.SelectToken("starGen"));
                     lblIDChange.Text = "Instant Death Chance: " + NaProcent((string)przetworzonedane.SelectToken("instantDeathChance"));
                     var numtraits = przetworzonedane.SelectToken("traits").Count();
-
-                    //Console.WriteLine("==>" + przetworzonedane.SelectToken("traits.0.name"));
-
                     var traits = przetworzonedane.SelectToken("traits");
 
-                    trwTraits.Nodes.Clear();
-                    for (int j=0; j<numtraits; j++)
+                    lblTraits.Text = "Traits: ";
+                    for (int j=3; j<numtraits; j++)
                     {
-                        trwTraits.Nodes.Add(traits.SelectToken("[" + j + "].name").ToString());
+                      lblTraits.Text = lblTraits.Text + traits.SelectToken("[" + j + "].name").ToString() + " ; ";
                     }
+                    lblStrength.Text = "Strength: " + (string)przetworzonedane.SelectToken("profile.stats.strength");
+                    lblEndurance.Text = "Endurance: " + (string)przetworzonedane.SelectToken("profile.stats.endurance");
+                    lblAgility.Text = "Agility: " + (string)przetworzonedane.SelectToken("profile.stats.agility");
+                    lblMagic.Text = "Magic: " + (string)przetworzonedane.SelectToken("profile.stats.magic");
+                    lblLuck.Text = "Luck: " + (string)przetworzonedane.SelectToken("profile.stats.luck");
+                    lblNp.Text = "NP: " + (string)przetworzonedane.SelectToken("profile.stats.np");
 
                 }
             }

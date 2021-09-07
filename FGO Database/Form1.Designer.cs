@@ -67,10 +67,6 @@ namespace FGO_Database
             this.pcbCard2 = new System.Windows.Forms.PictureBox();
             this.pcbCard1 = new System.Windows.Forms.PictureBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.trvExtra = new System.Windows.Forms.TreeView();
-            this.trvQuick = new System.Windows.Forms.TreeView();
-            this.trvBuster = new System.Windows.Forms.TreeView();
-            this.trvArt = new System.Windows.Forms.TreeView();
             this.ttpOpis = new System.Windows.Forms.ToolTip(this.components);
             this.lblGender = new System.Windows.Forms.Label();
             this.lblAttr = new System.Windows.Forms.Label();
@@ -81,7 +77,20 @@ namespace FGO_Database
             this.lblIDChange = new System.Windows.Forms.Label();
             this.txtSzukaj = new System.Windows.Forms.TextBox();
             this.btnSzukaj = new System.Windows.Forms.Button();
-            this.trwTraits = new System.Windows.Forms.TreeView();
+            this.lblTraits = new System.Windows.Forms.Label();
+            this.trvArt = new System.Windows.Forms.TreeView();
+            this.trvBuster = new System.Windows.Forms.TreeView();
+            this.trvQuick = new System.Windows.Forms.TreeView();
+            this.trvExtra = new System.Windows.Forms.TreeView();
+            this.lblHitDist = new System.Windows.Forms.Label();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.lblStrength = new System.Windows.Forms.Label();
+            this.lblEndurance = new System.Windows.Forms.Label();
+            this.lblAgility = new System.Windows.Forms.Label();
+            this.lblMagic = new System.Windows.Forms.Label();
+            this.lblLuck = new System.Windows.Forms.Label();
+            this.lblNp = new System.Windows.Forms.Label();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -102,7 +111,6 @@ namespace FGO_Database
             ((System.ComponentModel.ISupportInitialize)(this.pcbCard3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCard1)).BeginInit();
-            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLista
@@ -130,7 +138,7 @@ namespace FGO_Database
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripProgressBar1});
-            this.stsInfo.Location = new System.Drawing.Point(0, 533);
+            this.stsInfo.Location = new System.Drawing.Point(0, 619);
             this.stsInfo.Name = "stsInfo";
             this.stsInfo.Size = new System.Drawing.Size(800, 22);
             this.stsInfo.TabIndex = 2;
@@ -181,7 +189,7 @@ namespace FGO_Database
             this.tbcAscezje.Controls.Add(this.tabPage2);
             this.tbcAscezje.Controls.Add(this.tabPage3);
             this.tbcAscezje.Controls.Add(this.tabPage4);
-            this.tbcAscezje.Location = new System.Drawing.Point(508, 126);
+            this.tbcAscezje.Location = new System.Drawing.Point(511, 213);
             this.tbcAscezje.Name = "tbcAscezje";
             this.tbcAscezje.SelectedIndex = 0;
             this.tbcAscezje.Size = new System.Drawing.Size(277, 402);
@@ -293,7 +301,7 @@ namespace FGO_Database
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Location = new System.Drawing.Point(559, 9);
+            this.lblInfo.Location = new System.Drawing.Point(554, 168);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(181, 13);
             this.lblInfo.TabIndex = 8;
@@ -380,14 +388,21 @@ namespace FGO_Database
             // 
             this.tbcCards.Controls.Add(this.tabPage5);
             this.tbcCards.Controls.Add(this.tabPage6);
-            this.tbcCards.Location = new System.Drawing.Point(9, 378);
+            this.tbcCards.Controls.Add(this.tabPage7);
+            this.tbcCards.Controls.Add(this.tabPage8);
+            this.tbcCards.Location = new System.Drawing.Point(10, 378);
             this.tbcCards.Name = "tbcCards";
             this.tbcCards.SelectedIndex = 0;
-            this.tbcCards.Size = new System.Drawing.Size(366, 150);
+            this.tbcCards.Size = new System.Drawing.Size(366, 237);
             this.tbcCards.TabIndex = 17;
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.lblHitDist);
+            this.tabPage5.Controls.Add(this.trvExtra);
+            this.tabPage5.Controls.Add(this.trvQuick);
+            this.tabPage5.Controls.Add(this.trvBuster);
+            this.tabPage5.Controls.Add(this.trvArt);
             this.tabPage5.Controls.Add(this.pcbCard5);
             this.tabPage5.Controls.Add(this.pcbCard4);
             this.tabPage5.Controls.Add(this.pcbCard3);
@@ -396,7 +411,7 @@ namespace FGO_Database
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(358, 124);
+            this.tabPage5.Size = new System.Drawing.Size(358, 211);
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "Cards";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -443,45 +458,13 @@ namespace FGO_Database
             // 
             // tabPage6
             // 
-            this.tabPage6.Controls.Add(this.trvExtra);
-            this.tabPage6.Controls.Add(this.trvQuick);
-            this.tabPage6.Controls.Add(this.trvBuster);
-            this.tabPage6.Controls.Add(this.trvArt);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(358, 124);
+            this.tabPage6.Size = new System.Drawing.Size(358, 211);
             this.tabPage6.TabIndex = 1;
-            this.tabPage6.Text = "Hits Distribution";
+            this.tabPage6.Text = "Active Skills";
             this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // trvExtra
-            // 
-            this.trvExtra.Location = new System.Drawing.Point(264, 6);
-            this.trvExtra.Name = "trvExtra";
-            this.trvExtra.Size = new System.Drawing.Size(80, 109);
-            this.trvExtra.TabIndex = 3;
-            // 
-            // trvQuick
-            // 
-            this.trvQuick.Location = new System.Drawing.Point(178, 6);
-            this.trvQuick.Name = "trvQuick";
-            this.trvQuick.Size = new System.Drawing.Size(80, 109);
-            this.trvQuick.TabIndex = 2;
-            // 
-            // trvBuster
-            // 
-            this.trvBuster.Location = new System.Drawing.Point(92, 6);
-            this.trvBuster.Name = "trvBuster";
-            this.trvBuster.Size = new System.Drawing.Size(80, 109);
-            this.trvBuster.TabIndex = 1;
-            // 
-            // trvArt
-            // 
-            this.trvArt.Location = new System.Drawing.Point(6, 6);
-            this.trvArt.Name = "trvArt";
-            this.trvArt.Size = new System.Drawing.Size(80, 109);
-            this.trvArt.TabIndex = 0;
             // 
             // lblGender
             // 
@@ -513,7 +496,7 @@ namespace FGO_Database
             // lblIllustartor
             // 
             this.lblIllustartor.AutoSize = true;
-            this.lblIllustartor.Location = new System.Drawing.Point(559, 25);
+            this.lblIllustartor.Location = new System.Drawing.Point(554, 184);
             this.lblIllustartor.Name = "lblIllustartor";
             this.lblIllustartor.Size = new System.Drawing.Size(55, 13);
             this.lblIllustartor.TabIndex = 21;
@@ -563,19 +546,137 @@ namespace FGO_Database
             this.btnSzukaj.UseVisualStyleBackColor = true;
             this.btnSzukaj.Click += new System.EventHandler(this.btnSzukaj_Click);
             // 
-            // trwTraits
+            // lblTraits
             // 
-            this.trwTraits.Location = new System.Drawing.Point(13, 275);
-            this.trwTraits.Name = "trwTraits";
-            this.trwTraits.Size = new System.Drawing.Size(233, 97);
-            this.trwTraits.TabIndex = 27;
+            this.lblTraits.Location = new System.Drawing.Point(9, 272);
+            this.lblTraits.Name = "lblTraits";
+            this.lblTraits.Size = new System.Drawing.Size(308, 61);
+            this.lblTraits.TabIndex = 27;
+            this.lblTraits.Text = "Traits:";
+            // 
+            // trvArt
+            // 
+            this.trvArt.Location = new System.Drawing.Point(6, 93);
+            this.trvArt.Name = "trvArt";
+            this.trvArt.Size = new System.Drawing.Size(80, 109);
+            this.trvArt.TabIndex = 5;
+            // 
+            // trvBuster
+            // 
+            this.trvBuster.Location = new System.Drawing.Point(92, 93);
+            this.trvBuster.Name = "trvBuster";
+            this.trvBuster.Size = new System.Drawing.Size(80, 109);
+            this.trvBuster.TabIndex = 6;
+            // 
+            // trvQuick
+            // 
+            this.trvQuick.Location = new System.Drawing.Point(185, 93);
+            this.trvQuick.Name = "trvQuick";
+            this.trvQuick.Size = new System.Drawing.Size(80, 109);
+            this.trvQuick.TabIndex = 7;
+            // 
+            // trvExtra
+            // 
+            this.trvExtra.Location = new System.Drawing.Point(272, 93);
+            this.trvExtra.Name = "trvExtra";
+            this.trvExtra.Size = new System.Drawing.Size(80, 109);
+            this.trvExtra.TabIndex = 8;
+            // 
+            // lblHitDist
+            // 
+            this.lblHitDist.AutoSize = true;
+            this.lblHitDist.Location = new System.Drawing.Point(3, 77);
+            this.lblHitDist.Name = "lblHitDist";
+            this.lblHitDist.Size = new System.Drawing.Size(80, 13);
+            this.lblHitDist.TabIndex = 9;
+            this.lblHitDist.Text = "Hits Distribution";
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(358, 211);
+            this.tabPage7.TabIndex = 2;
+            this.tabPage7.Text = "Passive Skills";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(358, 211);
+            this.tabPage8.TabIndex = 3;
+            this.tabPage8.Text = "Noble Phantsm";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // lblStrength
+            // 
+            this.lblStrength.AutoSize = true;
+            this.lblStrength.Location = new System.Drawing.Point(387, 207);
+            this.lblStrength.Name = "lblStrength";
+            this.lblStrength.Size = new System.Drawing.Size(50, 13);
+            this.lblStrength.TabIndex = 28;
+            this.lblStrength.Text = "Strength:";
+            // 
+            // lblEndurance
+            // 
+            this.lblEndurance.AutoSize = true;
+            this.lblEndurance.Location = new System.Drawing.Point(387, 220);
+            this.lblEndurance.Name = "lblEndurance";
+            this.lblEndurance.Size = new System.Drawing.Size(62, 13);
+            this.lblEndurance.TabIndex = 29;
+            this.lblEndurance.Text = "Endurance:";
+            // 
+            // lblAgility
+            // 
+            this.lblAgility.AutoSize = true;
+            this.lblAgility.Location = new System.Drawing.Point(387, 233);
+            this.lblAgility.Name = "lblAgility";
+            this.lblAgility.Size = new System.Drawing.Size(37, 13);
+            this.lblAgility.TabIndex = 30;
+            this.lblAgility.Text = "Agility:";
+            // 
+            // lblMagic
+            // 
+            this.lblMagic.AutoSize = true;
+            this.lblMagic.Location = new System.Drawing.Point(387, 246);
+            this.lblMagic.Name = "lblMagic";
+            this.lblMagic.Size = new System.Drawing.Size(39, 13);
+            this.lblMagic.TabIndex = 31;
+            this.lblMagic.Text = "Magic:";
+            // 
+            // lblLuck
+            // 
+            this.lblLuck.AutoSize = true;
+            this.lblLuck.Location = new System.Drawing.Point(387, 259);
+            this.lblLuck.Name = "lblLuck";
+            this.lblLuck.Size = new System.Drawing.Size(34, 13);
+            this.lblLuck.TabIndex = 32;
+            this.lblLuck.Text = "Luck:";
+            // 
+            // lblNp
+            // 
+            this.lblNp.AutoSize = true;
+            this.lblNp.Location = new System.Drawing.Point(387, 272);
+            this.lblNp.Name = "lblNp";
+            this.lblNp.Size = new System.Drawing.Size(25, 13);
+            this.lblNp.TabIndex = 33;
+            this.lblNp.Text = "NP:";
             // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 555);
-            this.Controls.Add(this.trwTraits);
+            this.ClientSize = new System.Drawing.Size(800, 641);
+            this.Controls.Add(this.lblNp);
+            this.Controls.Add(this.lblLuck);
+            this.Controls.Add(this.lblMagic);
+            this.Controls.Add(this.lblAgility);
+            this.Controls.Add(this.lblEndurance);
+            this.Controls.Add(this.lblStrength);
+            this.Controls.Add(this.lblTraits);
             this.Controls.Add(this.btnSzukaj);
             this.Controls.Add(this.txtSzukaj);
             this.Controls.Add(this.lblIDChange);
@@ -622,12 +723,12 @@ namespace FGO_Database
             ((System.ComponentModel.ISupportInitialize)(this.pcbStars)).EndInit();
             this.tbcCards.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCard5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCard4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCard3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCard2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCard1)).EndInit();
-            this.tabPage6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -672,10 +773,6 @@ namespace FGO_Database
         private System.Windows.Forms.PictureBox pcbCard2;
         private System.Windows.Forms.PictureBox pcbCard1;
         private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.TreeView trvArt;
-        private System.Windows.Forms.TreeView trvExtra;
-        private System.Windows.Forms.TreeView trvQuick;
-        private System.Windows.Forms.TreeView trvBuster;
         private System.Windows.Forms.ToolTip ttpOpis;
         private System.Windows.Forms.Label lblGender;
         private System.Windows.Forms.Label lblAttr;
@@ -686,7 +783,20 @@ namespace FGO_Database
         private System.Windows.Forms.Label lblIDChange;
         private System.Windows.Forms.TextBox txtSzukaj;
         private System.Windows.Forms.Button btnSzukaj;
-        private System.Windows.Forms.TreeView trwTraits;
+        private System.Windows.Forms.Label lblTraits;
+        private System.Windows.Forms.TreeView trvExtra;
+        private System.Windows.Forms.TreeView trvQuick;
+        private System.Windows.Forms.TreeView trvBuster;
+        private System.Windows.Forms.TreeView trvArt;
+        private System.Windows.Forms.Label lblHitDist;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.Label lblStrength;
+        private System.Windows.Forms.Label lblEndurance;
+        private System.Windows.Forms.Label lblAgility;
+        private System.Windows.Forms.Label lblMagic;
+        private System.Windows.Forms.Label lblLuck;
+        private System.Windows.Forms.Label lblNp;
     }
 }
 
