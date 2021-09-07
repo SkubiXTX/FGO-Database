@@ -279,6 +279,15 @@ namespace FGO_Database
                     lblMagic.Text = "Magic: " + (string)przetworzonedane.SelectToken("profile.stats.magic");
                     lblLuck.Text = "Luck: " + (string)przetworzonedane.SelectToken("profile.stats.luck");
                     lblNp.Text = "NP: " + (string)przetworzonedane.SelectToken("profile.stats.np");
+                    lbl1skill.Text = (string)przetworzonedane.SelectToken("skills.[0].name");
+                    pcb1skill.Load((string)przetworzonedane.SelectToken("skills.[0].icon"));
+                    lbl1skillOpis.Text = (string)przetworzonedane.SelectToken("skills.[0].detail");
+                    lbl2skill.Text = (string)przetworzonedane.SelectToken("skills.[1].name");
+                    pcb2skill.Load((string)przetworzonedane.SelectToken("skills.[1].icon"));
+                    lbl2skillOpis.Text = (string)przetworzonedane.SelectToken("skills.[1].detail");
+                    lbl3skill.Text = (string)przetworzonedane.SelectToken("skills.[2].name");
+                    pcb3skill.Load((string)przetworzonedane.SelectToken("skills.[2].icon"));
+                    lbl3skillOpis.Text = (string)przetworzonedane.SelectToken("skills.[2].detail");
 
                 }
             }
