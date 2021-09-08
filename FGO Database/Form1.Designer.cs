@@ -61,12 +61,32 @@ namespace FGO_Database
             this.lblMaxatk = new System.Windows.Forms.Label();
             this.tbcCards = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.lblHitDist = new System.Windows.Forms.Label();
+            this.trvExtra = new System.Windows.Forms.TreeView();
+            this.trvQuick = new System.Windows.Forms.TreeView();
+            this.trvBuster = new System.Windows.Forms.TreeView();
+            this.trvArt = new System.Windows.Forms.TreeView();
             this.pcbCard5 = new System.Windows.Forms.PictureBox();
             this.pcbCard4 = new System.Windows.Forms.PictureBox();
             this.pcbCard3 = new System.Windows.Forms.PictureBox();
             this.pcbCard2 = new System.Windows.Forms.PictureBox();
             this.pcbCard1 = new System.Windows.Forms.PictureBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tbcSkills = new System.Windows.Forms.TabControl();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.lbl1skillOpis = new System.Windows.Forms.Label();
+            this.pcb1skill = new System.Windows.Forms.PictureBox();
+            this.lbl1skill = new System.Windows.Forms.Label();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.lbl2skillOpis = new System.Windows.Forms.Label();
+            this.pcb2skill = new System.Windows.Forms.PictureBox();
+            this.lbl2skill = new System.Windows.Forms.Label();
+            this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.lbl3skillOpis = new System.Windows.Forms.Label();
+            this.pcb3skill = new System.Windows.Forms.PictureBox();
+            this.lbl3skill = new System.Windows.Forms.Label();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
             this.ttpOpis = new System.Windows.Forms.ToolTip(this.components);
             this.lblGender = new System.Windows.Forms.Label();
             this.lblAttr = new System.Windows.Forms.Label();
@@ -78,32 +98,14 @@ namespace FGO_Database
             this.txtSzukaj = new System.Windows.Forms.TextBox();
             this.btnSzukaj = new System.Windows.Forms.Button();
             this.lblTraits = new System.Windows.Forms.Label();
-            this.trvArt = new System.Windows.Forms.TreeView();
-            this.trvBuster = new System.Windows.Forms.TreeView();
-            this.trvQuick = new System.Windows.Forms.TreeView();
-            this.trvExtra = new System.Windows.Forms.TreeView();
-            this.lblHitDist = new System.Windows.Forms.Label();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
             this.lblStrength = new System.Windows.Forms.Label();
             this.lblEndurance = new System.Windows.Forms.Label();
             this.lblAgility = new System.Windows.Forms.Label();
             this.lblMagic = new System.Windows.Forms.Label();
             this.lblLuck = new System.Windows.Forms.Label();
             this.lblNp = new System.Windows.Forms.Label();
-            this.tbcSkills = new System.Windows.Forms.TabControl();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.tabPage10 = new System.Windows.Forms.TabPage();
-            this.tabPage11 = new System.Windows.Forms.TabPage();
-            this.lbl1skill = new System.Windows.Forms.Label();
-            this.pcb1skill = new System.Windows.Forms.PictureBox();
-            this.lbl1skillOpis = new System.Windows.Forms.Label();
-            this.lbl2skillOpis = new System.Windows.Forms.Label();
-            this.pcb2skill = new System.Windows.Forms.PictureBox();
-            this.lbl2skill = new System.Windows.Forms.Label();
-            this.lbl3skillOpis = new System.Windows.Forms.Label();
-            this.pcb3skill = new System.Windows.Forms.PictureBox();
-            this.lbl3skill = new System.Windows.Forms.Label();
+            this.dgvPassiveSkills = new System.Windows.Forms.DataGridView();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -127,11 +129,13 @@ namespace FGO_Database
             this.tabPage6.SuspendLayout();
             this.tbcSkills.SuspendLayout();
             this.tabPage9.SuspendLayout();
-            this.tabPage10.SuspendLayout();
-            this.tabPage11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb1skill)).BeginInit();
+            this.tabPage10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb2skill)).BeginInit();
+            this.tabPage11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb3skill)).BeginInit();
+            this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPassiveSkills)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLista
@@ -411,6 +415,7 @@ namespace FGO_Database
             this.tbcCards.Controls.Add(this.tabPage6);
             this.tbcCards.Controls.Add(this.tabPage7);
             this.tbcCards.Controls.Add(this.tabPage8);
+            this.tbcCards.Controls.Add(this.tabPage12);
             this.tbcCards.Location = new System.Drawing.Point(10, 378);
             this.tbcCards.Name = "tbcCards";
             this.tbcCards.SelectedIndex = 0;
@@ -436,6 +441,43 @@ namespace FGO_Database
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "Cards";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // lblHitDist
+            // 
+            this.lblHitDist.AutoSize = true;
+            this.lblHitDist.Location = new System.Drawing.Point(3, 77);
+            this.lblHitDist.Name = "lblHitDist";
+            this.lblHitDist.Size = new System.Drawing.Size(80, 13);
+            this.lblHitDist.TabIndex = 9;
+            this.lblHitDist.Text = "Hits Distribution";
+            // 
+            // trvExtra
+            // 
+            this.trvExtra.Location = new System.Drawing.Point(272, 93);
+            this.trvExtra.Name = "trvExtra";
+            this.trvExtra.Size = new System.Drawing.Size(80, 109);
+            this.trvExtra.TabIndex = 8;
+            // 
+            // trvQuick
+            // 
+            this.trvQuick.Location = new System.Drawing.Point(185, 93);
+            this.trvQuick.Name = "trvQuick";
+            this.trvQuick.Size = new System.Drawing.Size(80, 109);
+            this.trvQuick.TabIndex = 7;
+            // 
+            // trvBuster
+            // 
+            this.trvBuster.Location = new System.Drawing.Point(92, 93);
+            this.trvBuster.Name = "trvBuster";
+            this.trvBuster.Size = new System.Drawing.Size(80, 109);
+            this.trvBuster.TabIndex = 6;
+            // 
+            // trvArt
+            // 
+            this.trvArt.Location = new System.Drawing.Point(6, 93);
+            this.trvArt.Name = "trvArt";
+            this.trvArt.Size = new System.Drawing.Size(80, 109);
+            this.trvArt.TabIndex = 5;
             // 
             // pcbCard5
             // 
@@ -487,6 +529,155 @@ namespace FGO_Database
             this.tabPage6.TabIndex = 1;
             this.tabPage6.Text = "Active Skills";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // tbcSkills
+            // 
+            this.tbcSkills.Controls.Add(this.tabPage9);
+            this.tbcSkills.Controls.Add(this.tabPage10);
+            this.tbcSkills.Controls.Add(this.tabPage11);
+            this.tbcSkills.Location = new System.Drawing.Point(6, 6);
+            this.tbcSkills.Name = "tbcSkills";
+            this.tbcSkills.SelectedIndex = 0;
+            this.tbcSkills.Size = new System.Drawing.Size(346, 202);
+            this.tbcSkills.TabIndex = 0;
+            // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.lbl1skillOpis);
+            this.tabPage9.Controls.Add(this.pcb1skill);
+            this.tabPage9.Controls.Add(this.lbl1skill);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(338, 176);
+            this.tabPage9.TabIndex = 0;
+            this.tabPage9.Text = "First Skill";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // lbl1skillOpis
+            // 
+            this.lbl1skillOpis.Location = new System.Drawing.Point(60, 19);
+            this.lbl1skillOpis.Name = "lbl1skillOpis";
+            this.lbl1skillOpis.Size = new System.Drawing.Size(272, 35);
+            this.lbl1skillOpis.TabIndex = 2;
+            this.lbl1skillOpis.Text = "opis";
+            // 
+            // pcb1skill
+            // 
+            this.pcb1skill.Location = new System.Drawing.Point(6, 6);
+            this.pcb1skill.Name = "pcb1skill";
+            this.pcb1skill.Size = new System.Drawing.Size(48, 48);
+            this.pcb1skill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcb1skill.TabIndex = 1;
+            this.pcb1skill.TabStop = false;
+            // 
+            // lbl1skill
+            // 
+            this.lbl1skill.AutoSize = true;
+            this.lbl1skill.Location = new System.Drawing.Point(60, 6);
+            this.lbl1skill.Name = "lbl1skill";
+            this.lbl1skill.Size = new System.Drawing.Size(33, 13);
+            this.lbl1skill.TabIndex = 0;
+            this.lbl1skill.Text = "name";
+            // 
+            // tabPage10
+            // 
+            this.tabPage10.Controls.Add(this.lbl2skillOpis);
+            this.tabPage10.Controls.Add(this.pcb2skill);
+            this.tabPage10.Controls.Add(this.lbl2skill);
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage10.Size = new System.Drawing.Size(338, 176);
+            this.tabPage10.TabIndex = 1;
+            this.tabPage10.Text = "Second Skill";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // lbl2skillOpis
+            // 
+            this.lbl2skillOpis.Location = new System.Drawing.Point(60, 19);
+            this.lbl2skillOpis.Name = "lbl2skillOpis";
+            this.lbl2skillOpis.Size = new System.Drawing.Size(272, 35);
+            this.lbl2skillOpis.TabIndex = 5;
+            this.lbl2skillOpis.Text = "opis";
+            // 
+            // pcb2skill
+            // 
+            this.pcb2skill.Location = new System.Drawing.Point(6, 6);
+            this.pcb2skill.Name = "pcb2skill";
+            this.pcb2skill.Size = new System.Drawing.Size(48, 48);
+            this.pcb2skill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcb2skill.TabIndex = 4;
+            this.pcb2skill.TabStop = false;
+            // 
+            // lbl2skill
+            // 
+            this.lbl2skill.AutoSize = true;
+            this.lbl2skill.Location = new System.Drawing.Point(60, 6);
+            this.lbl2skill.Name = "lbl2skill";
+            this.lbl2skill.Size = new System.Drawing.Size(33, 13);
+            this.lbl2skill.TabIndex = 3;
+            this.lbl2skill.Text = "name";
+            // 
+            // tabPage11
+            // 
+            this.tabPage11.Controls.Add(this.lbl3skillOpis);
+            this.tabPage11.Controls.Add(this.pcb3skill);
+            this.tabPage11.Controls.Add(this.lbl3skill);
+            this.tabPage11.Location = new System.Drawing.Point(4, 22);
+            this.tabPage11.Name = "tabPage11";
+            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage11.Size = new System.Drawing.Size(338, 176);
+            this.tabPage11.TabIndex = 2;
+            this.tabPage11.Text = "Third Skill";
+            this.tabPage11.UseVisualStyleBackColor = true;
+            // 
+            // lbl3skillOpis
+            // 
+            this.lbl3skillOpis.Location = new System.Drawing.Point(60, 19);
+            this.lbl3skillOpis.Name = "lbl3skillOpis";
+            this.lbl3skillOpis.Size = new System.Drawing.Size(272, 35);
+            this.lbl3skillOpis.TabIndex = 5;
+            this.lbl3skillOpis.Text = "opis";
+            // 
+            // pcb3skill
+            // 
+            this.pcb3skill.Location = new System.Drawing.Point(6, 6);
+            this.pcb3skill.Name = "pcb3skill";
+            this.pcb3skill.Size = new System.Drawing.Size(48, 48);
+            this.pcb3skill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcb3skill.TabIndex = 4;
+            this.pcb3skill.TabStop = false;
+            // 
+            // lbl3skill
+            // 
+            this.lbl3skill.AutoSize = true;
+            this.lbl3skill.Location = new System.Drawing.Point(60, 6);
+            this.lbl3skill.Name = "lbl3skill";
+            this.lbl3skill.Size = new System.Drawing.Size(33, 13);
+            this.lbl3skill.TabIndex = 3;
+            this.lbl3skill.Text = "name";
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.dgvPassiveSkills);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(358, 211);
+            this.tabPage7.TabIndex = 2;
+            this.tabPage7.Text = "Passive Skills";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(358, 211);
+            this.tabPage8.TabIndex = 3;
+            this.tabPage8.Text = "Noble Phantsm";
+            this.tabPage8.UseVisualStyleBackColor = true;
             // 
             // lblGender
             // 
@@ -576,63 +767,6 @@ namespace FGO_Database
             this.lblTraits.TabIndex = 27;
             this.lblTraits.Text = "Traits:";
             // 
-            // trvArt
-            // 
-            this.trvArt.Location = new System.Drawing.Point(6, 93);
-            this.trvArt.Name = "trvArt";
-            this.trvArt.Size = new System.Drawing.Size(80, 109);
-            this.trvArt.TabIndex = 5;
-            // 
-            // trvBuster
-            // 
-            this.trvBuster.Location = new System.Drawing.Point(92, 93);
-            this.trvBuster.Name = "trvBuster";
-            this.trvBuster.Size = new System.Drawing.Size(80, 109);
-            this.trvBuster.TabIndex = 6;
-            // 
-            // trvQuick
-            // 
-            this.trvQuick.Location = new System.Drawing.Point(185, 93);
-            this.trvQuick.Name = "trvQuick";
-            this.trvQuick.Size = new System.Drawing.Size(80, 109);
-            this.trvQuick.TabIndex = 7;
-            // 
-            // trvExtra
-            // 
-            this.trvExtra.Location = new System.Drawing.Point(272, 93);
-            this.trvExtra.Name = "trvExtra";
-            this.trvExtra.Size = new System.Drawing.Size(80, 109);
-            this.trvExtra.TabIndex = 8;
-            // 
-            // lblHitDist
-            // 
-            this.lblHitDist.AutoSize = true;
-            this.lblHitDist.Location = new System.Drawing.Point(3, 77);
-            this.lblHitDist.Name = "lblHitDist";
-            this.lblHitDist.Size = new System.Drawing.Size(80, 13);
-            this.lblHitDist.TabIndex = 9;
-            this.lblHitDist.Text = "Hits Distribution";
-            // 
-            // tabPage7
-            // 
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(358, 211);
-            this.tabPage7.TabIndex = 2;
-            this.tabPage7.Text = "Passive Skills";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // tabPage8
-            // 
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(358, 211);
-            this.tabPage8.TabIndex = 3;
-            this.tabPage8.Text = "Noble Phantsm";
-            this.tabPage8.UseVisualStyleBackColor = true;
-            // 
             // lblStrength
             // 
             this.lblStrength.AutoSize = true;
@@ -687,133 +821,24 @@ namespace FGO_Database
             this.lblNp.TabIndex = 33;
             this.lblNp.Text = "NP:";
             // 
-            // tbcSkills
+            // dgvPassiveSkills
             // 
-            this.tbcSkills.Controls.Add(this.tabPage9);
-            this.tbcSkills.Controls.Add(this.tabPage10);
-            this.tbcSkills.Controls.Add(this.tabPage11);
-            this.tbcSkills.Location = new System.Drawing.Point(6, 6);
-            this.tbcSkills.Name = "tbcSkills";
-            this.tbcSkills.SelectedIndex = 0;
-            this.tbcSkills.Size = new System.Drawing.Size(346, 202);
-            this.tbcSkills.TabIndex = 0;
+            this.dgvPassiveSkills.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPassiveSkills.Location = new System.Drawing.Point(6, 6);
+            this.dgvPassiveSkills.Name = "dgvPassiveSkills";
+            this.dgvPassiveSkills.RowHeadersVisible = false;
+            this.dgvPassiveSkills.Size = new System.Drawing.Size(346, 199);
+            this.dgvPassiveSkills.TabIndex = 0;
             // 
-            // tabPage9
+            // tabPage12
             // 
-            this.tabPage9.Controls.Add(this.lbl1skillOpis);
-            this.tabPage9.Controls.Add(this.pcb1skill);
-            this.tabPage9.Controls.Add(this.lbl1skill);
-            this.tabPage9.Location = new System.Drawing.Point(4, 22);
-            this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(338, 176);
-            this.tabPage9.TabIndex = 0;
-            this.tabPage9.Text = "First Skill";
-            this.tabPage9.UseVisualStyleBackColor = true;
-            // 
-            // tabPage10
-            // 
-            this.tabPage10.Controls.Add(this.lbl2skillOpis);
-            this.tabPage10.Controls.Add(this.pcb2skill);
-            this.tabPage10.Controls.Add(this.lbl2skill);
-            this.tabPage10.Location = new System.Drawing.Point(4, 22);
-            this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(338, 176);
-            this.tabPage10.TabIndex = 1;
-            this.tabPage10.Text = "Second Skill";
-            this.tabPage10.UseVisualStyleBackColor = true;
-            // 
-            // tabPage11
-            // 
-            this.tabPage11.Controls.Add(this.lbl3skillOpis);
-            this.tabPage11.Controls.Add(this.pcb3skill);
-            this.tabPage11.Controls.Add(this.lbl3skill);
-            this.tabPage11.Location = new System.Drawing.Point(4, 22);
-            this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(338, 176);
-            this.tabPage11.TabIndex = 2;
-            this.tabPage11.Text = "Third Skill";
-            this.tabPage11.UseVisualStyleBackColor = true;
-            // 
-            // lbl1skill
-            // 
-            this.lbl1skill.AutoSize = true;
-            this.lbl1skill.Location = new System.Drawing.Point(60, 6);
-            this.lbl1skill.Name = "lbl1skill";
-            this.lbl1skill.Size = new System.Drawing.Size(33, 13);
-            this.lbl1skill.TabIndex = 0;
-            this.lbl1skill.Text = "name";
-            // 
-            // pcb1skill
-            // 
-            this.pcb1skill.Location = new System.Drawing.Point(6, 6);
-            this.pcb1skill.Name = "pcb1skill";
-            this.pcb1skill.Size = new System.Drawing.Size(48, 48);
-            this.pcb1skill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcb1skill.TabIndex = 1;
-            this.pcb1skill.TabStop = false;
-            // 
-            // lbl1skillOpis
-            // 
-            this.lbl1skillOpis.Location = new System.Drawing.Point(60, 19);
-            this.lbl1skillOpis.Name = "lbl1skillOpis";
-            this.lbl1skillOpis.Size = new System.Drawing.Size(272, 35);
-            this.lbl1skillOpis.TabIndex = 2;
-            this.lbl1skillOpis.Text = "opis";
-            // 
-            // lbl2skillOpis
-            // 
-            this.lbl2skillOpis.Location = new System.Drawing.Point(60, 19);
-            this.lbl2skillOpis.Name = "lbl2skillOpis";
-            this.lbl2skillOpis.Size = new System.Drawing.Size(272, 35);
-            this.lbl2skillOpis.TabIndex = 5;
-            this.lbl2skillOpis.Text = "opis";
-            // 
-            // pcb2skill
-            // 
-            this.pcb2skill.Location = new System.Drawing.Point(6, 6);
-            this.pcb2skill.Name = "pcb2skill";
-            this.pcb2skill.Size = new System.Drawing.Size(48, 48);
-            this.pcb2skill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcb2skill.TabIndex = 4;
-            this.pcb2skill.TabStop = false;
-            // 
-            // lbl2skill
-            // 
-            this.lbl2skill.AutoSize = true;
-            this.lbl2skill.Location = new System.Drawing.Point(60, 6);
-            this.lbl2skill.Name = "lbl2skill";
-            this.lbl2skill.Size = new System.Drawing.Size(33, 13);
-            this.lbl2skill.TabIndex = 3;
-            this.lbl2skill.Text = "name";
-            // 
-            // lbl3skillOpis
-            // 
-            this.lbl3skillOpis.Location = new System.Drawing.Point(60, 19);
-            this.lbl3skillOpis.Name = "lbl3skillOpis";
-            this.lbl3skillOpis.Size = new System.Drawing.Size(272, 35);
-            this.lbl3skillOpis.TabIndex = 5;
-            this.lbl3skillOpis.Text = "opis";
-            // 
-            // pcb3skill
-            // 
-            this.pcb3skill.Location = new System.Drawing.Point(6, 6);
-            this.pcb3skill.Name = "pcb3skill";
-            this.pcb3skill.Size = new System.Drawing.Size(48, 48);
-            this.pcb3skill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcb3skill.TabIndex = 4;
-            this.pcb3skill.TabStop = false;
-            // 
-            // lbl3skill
-            // 
-            this.lbl3skill.AutoSize = true;
-            this.lbl3skill.Location = new System.Drawing.Point(60, 6);
-            this.lbl3skill.Name = "lbl3skill";
-            this.lbl3skill.Size = new System.Drawing.Size(33, 13);
-            this.lbl3skill.TabIndex = 3;
-            this.lbl3skill.Text = "name";
+            this.tabPage12.Location = new System.Drawing.Point(4, 22);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage12.Size = new System.Drawing.Size(358, 211);
+            this.tabPage12.TabIndex = 4;
+            this.tabPage12.Text = "Bond";
+            this.tabPage12.UseVisualStyleBackColor = true;
             // 
             // frmOknoGl
             // 
@@ -883,13 +908,15 @@ namespace FGO_Database
             this.tbcSkills.ResumeLayout(false);
             this.tabPage9.ResumeLayout(false);
             this.tabPage9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb1skill)).EndInit();
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb2skill)).EndInit();
             this.tabPage11.ResumeLayout(false);
             this.tabPage11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb1skill)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcb2skill)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcb3skill)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPassiveSkills)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -971,6 +998,8 @@ namespace FGO_Database
         private System.Windows.Forms.Label lbl3skillOpis;
         private System.Windows.Forms.PictureBox pcb3skill;
         private System.Windows.Forms.Label lbl3skill;
+        private System.Windows.Forms.DataGridView dgvPassiveSkills;
+        private System.Windows.Forms.TabPage tabPage12;
     }
 }
 

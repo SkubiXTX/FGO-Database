@@ -265,7 +265,7 @@ namespace FGO_Database
                     lblStarAbs.Text = "Star Absorb: " + (string)przetworzonedane.SelectToken("starAbsorb");
                     lblStarGen.Text ="Star generation: " + NaProcent((string)przetworzonedane.SelectToken("starGen"));
                     lblIDChange.Text = "Instant Death Chance: " + NaProcent((string)przetworzonedane.SelectToken("instantDeathChance"));
-                    var numtraits = przetworzonedane.SelectToken("traits").Count();
+                    int numtraits = przetworzonedane.SelectToken("traits").Count();
                     var traits = przetworzonedane.SelectToken("traits");
 
                     lblTraits.Text = "Traits: ";
@@ -273,6 +273,7 @@ namespace FGO_Database
                     {
                       lblTraits.Text = lblTraits.Text + traits.SelectToken("[" + j + "].name").ToString() + " ; ";
                     }
+
                     lblStrength.Text = "Strength: " + (string)przetworzonedane.SelectToken("profile.stats.strength");
                     lblEndurance.Text = "Endurance: " + (string)przetworzonedane.SelectToken("profile.stats.endurance");
                     lblAgility.Text = "Agility: " + (string)przetworzonedane.SelectToken("profile.stats.agility");
@@ -288,6 +289,39 @@ namespace FGO_Database
                     lbl3skill.Text = (string)przetworzonedane.SelectToken("skills.[2].name");
                     pcb3skill.Load((string)przetworzonedane.SelectToken("skills.[2].icon"));
                     lbl3skillOpis.Text = (string)przetworzonedane.SelectToken("skills.[2].detail");
+
+                    var passiveskills = przetworzonedane.SelectToken("classPassive");
+                    int numpasssk = przetworzonedane.SelectToken("classPassive").Count();
+                    WebClient wc = new WebClient();
+
+                    dgvPassiveSkills.Rows.Clear();
+                    dgvPassiveSkills.Columns.Clear();
+
+                    DataGridViewImageColumn dgvImageColumn = new DataGridViewImageColumn();
+                    dgvImageColumn.HeaderText = "Icon";
+                    dgvImageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+                    dgvImageColumn.Width = 48;
+                    DataGridViewTextBoxColumn dgvNameColumn = new DataGridViewTextBoxColumn();
+                    dgvNameColumn.HeaderText = "Name";
+                    DataGridViewTextBoxColumn dgvDetailColumn = new DataGridViewTextBoxColumn();
+                    dgvDetailColumn.HeaderText = "Deatil";
+
+                    dgvPassiveSkills.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                    dgvPassiveSkills.RowTemplate.Height = 48;
+                    dgvPassiveSkills.AllowUserToAddRows = false;
+
+                    dgvPassiveSkills.Columns.Add(dgvImageColumn);
+                    dgvPassiveSkills.Columns.Add(dgvNameColumn);
+                    dgvPassiveSkills.Columns.Add(dgvDetailColumn);
+
+                    for (int j = 0; j < numpasssk; j++)
+                    {
+                        byte[] bytes1 = wc.DownloadData((string)przetworzonedane.SelectToken("classPassive.[" + j + "].icon"));
+                        MemoryStream ms1 = new MemoryStream(bytes1);
+                        System.Drawing.Image image1 = System.Drawing.Image.FromStream(ms1);
+                        
+                        dgvPassiveSkills.Rows.Add(image1, passiveskills.SelectToken("[" + j + "].name").ToString(), passiveskills.SelectToken("[" + j + "].detail").ToString());
+                    }
 
                 }
             }
