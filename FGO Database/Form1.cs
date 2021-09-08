@@ -290,6 +290,40 @@ namespace FGO_Database
                     pcb3skill.Load((string)przetworzonedane.SelectToken("skills.[2].icon"));
                     lbl3skillOpis.Text = (string)przetworzonedane.SelectToken("skills.[2].detail");
 
+                    var fskillcooldown = przetworzonedane.SelectToken("skills.[0].coolDown")?.ToObject<string[]>();
+                    trv1Skillcooldown.Nodes.Clear();
+                    trv1Skillcooldown.Nodes.Add("Cooldown");
+
+                    for (int j = 0; j < fskillcooldown.Length; j++)
+                    {
+                        int licz = j + 1;
+                        trv1Skillcooldown.Nodes[0].Nodes.Add("Lvl "+ licz +": " + fskillcooldown[j]);
+                    }
+
+                    var sskillcooldown = przetworzonedane.SelectToken("skills.[1].coolDown")?.ToObject<string[]>();
+                    trv2Skillcooldown.Nodes.Clear();
+                    trv2Skillcooldown.Nodes.Add("Cooldown");
+
+                    for (int j = 0; j < sskillcooldown.Length; j++)
+                    {
+                        int licz = j + 1;
+                        trv2Skillcooldown.Nodes[0].Nodes.Add("Lvl " + licz + ": " + sskillcooldown[j]);
+                    }
+
+                    var tskillcooldown = przetworzonedane.SelectToken("skills.[2].coolDown")?.ToObject<string[]>();
+                    trv3Skillcooldown.Nodes.Clear();
+                    trv3Skillcooldown.Nodes.Add("Cooldown");
+
+                    for (int j = 0; j < tskillcooldown.Length; j++)
+                    {
+                        int licz = j + 1;
+                        trv3Skillcooldown.Nodes[0].Nodes.Add("Lvl " + licz + ": " + tskillcooldown[j]);
+                    }
+
+                    dgv1Skillevels.Rows.Clear();
+                    dgv1Skillevels.Columns.Clear();
+
+
                     var passiveskills = przetworzonedane.SelectToken("classPassive");
                     int numpasssk = przetworzonedane.SelectToken("classPassive").Count();
                     WebClient wc = new WebClient();
@@ -316,11 +350,21 @@ namespace FGO_Database
 
                     for (int j = 0; j < numpasssk; j++)
                     {
-                        byte[] bytes1 = wc.DownloadData((string)przetworzonedane.SelectToken("classPassive.[" + j + "].icon"));
-                        MemoryStream ms1 = new MemoryStream(bytes1);
-                        System.Drawing.Image image1 = System.Drawing.Image.FromStream(ms1);
+                        try
+                        {
+                            byte[] bytes1 = wc.DownloadData((string)przetworzonedane.SelectToken("classPassive.[" + j + "].icon"));
+                            MemoryStream ms1 = new MemoryStream(bytes1);
+                            System.Drawing.Image image1 = System.Drawing.Image.FromStream(ms1);
+
+                            dgvPassiveSkills.Rows.Add(image1, passiveskills.SelectToken("[" + j + "].name").ToString(), passiveskills.SelectToken("[" + j + "].detail").ToString());
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //throw;
+                        }
                         
-                        dgvPassiveSkills.Rows.Add(image1, passiveskills.SelectToken("[" + j + "].name").ToString(), passiveskills.SelectToken("[" + j + "].detail").ToString());
                     }
 
                 }
