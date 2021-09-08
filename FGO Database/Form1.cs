@@ -322,6 +322,37 @@ namespace FGO_Database
 
                     dgv1Skillevels.Rows.Clear();
                     dgv1Skillevels.Columns.Clear();
+                    dgv1Skillevels.RowHeadersWidth = 50;
+
+                    var fskilldet = przetworzonedane.SelectToken("skills.[0].functions");
+
+                    for (int j = 0; j < fskilldet.Count() ; j++)
+                    {
+                        if (fskilldet.SelectToken("[" + j + "].funcPopupText").ToString() != "")
+                        {
+                            dgv1Skillevels.Columns.Add("col" + j.ToString(), fskilldet.SelectToken("[" + j + "].funcPopupText").ToString()); 
+                        }
+                        else
+                        {
+                            dgv1Skillevels.Columns.Add("col" + j.ToString(), FirstCharToUpper(fskilldet.SelectToken("[" + j + "].funcType").ToString()));
+                        }
+                    }
+                    dgv1Skillevels.Rows.Add(10);
+
+                    for (int j = 0; j < 10; j++)
+                    {
+                        dgv1Skillevels.Rows[j].HeaderCell.Value = (j + 1).ToString();
+                    }
+                        
+
+                    for (int i = 0; i < fskilldet.Count(); i++)
+                    {
+                        for (int j = 0; j < 10; j++)
+                        {
+                            DataGridViewCell kom = dgv1Skillevels.Rows[j].Cells[i];
+                            kom.Value = "test";
+                        }
+                    }
 
 
                     var passiveskills = przetworzonedane.SelectToken("classPassive");
