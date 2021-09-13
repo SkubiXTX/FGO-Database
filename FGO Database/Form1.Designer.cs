@@ -832,6 +832,7 @@ namespace FGO_Database
             this.txtSzukaj.Name = "txtSzukaj";
             this.txtSzukaj.Size = new System.Drawing.Size(256, 20);
             this.txtSzukaj.TabIndex = 25;
+            this.txtSzukaj.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSzukaj_KeyPress);
             // 
             // btnSzukaj
             // 
@@ -923,7 +924,6 @@ namespace FGO_Database
             this.rdbJP.Name = "rdbJP";
             this.rdbJP.Size = new System.Drawing.Size(37, 17);
             this.rdbJP.TabIndex = 1;
-            this.rdbJP.TabStop = true;
             this.rdbJP.Text = "JP";
             this.rdbJP.UseVisualStyleBackColor = true;
             this.rdbJP.CheckedChanged += new System.EventHandler(this.rdbJP_CheckedChanged);
@@ -931,6 +931,7 @@ namespace FGO_Database
             // rdbNA
             // 
             this.rdbNA.AutoSize = true;
+            this.rdbNA.Checked = true;
             this.rdbNA.Location = new System.Drawing.Point(7, 20);
             this.rdbNA.Name = "rdbNA";
             this.rdbNA.Size = new System.Drawing.Size(40, 17);

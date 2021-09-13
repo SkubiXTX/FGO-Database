@@ -54,8 +54,7 @@ namespace FGO_Database
                 url = "https://api.atlasacademy.io/export/JP/basic_servant_lang_en.json";
             }
 
-            url = "http://localhost/basic_servant_lang_en.json";
-
+            //url = "http://localhost/basic_servant_lang_en.json";
 
             try
             {
@@ -116,7 +115,6 @@ namespace FGO_Database
             // Set up the ToolTip text for the Button and Checkbox.
             ttpOpis.SetToolTip(this.lblMaxhp, "Hp na maksymalny levelu");
             ttpOpis.SetToolTip(this.lblMaxatk, "Atak na maksymalny levelu");
-            rdbNA.Checked = true;
 
             ZaładujListe(region);
         }
@@ -566,8 +564,7 @@ namespace FGO_Database
         {
             String servants = "";
             szukaj = true;
-            var url = "https://api.atlasacademy.io/basic/JP/servant/search?name="+txtSzukaj.Text+"&lang=en";
-            //var url = "http://localhost/basic_servant_lang_en.json";
+            var url = "https://api.atlasacademy.io/basic/" + region + "/servant/search?name="+txtSzukaj.Text+"&lang=en";
             var httpRequest = (HttpWebRequest)WebRequest.Create(url);
 
             httpRequest.Accept = "application/json";
@@ -626,5 +623,12 @@ namespace FGO_Database
             ZaładujListe(region);
         }
 
+        private void txtSzukaj_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar ==(char)13)
+            {
+                btnSzukaj.PerformClick();
+            }
+        }
     }
 }
