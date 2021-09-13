@@ -40,18 +40,28 @@ namespace FGO_Database
             return wynik;
         }
 
-        public void ZaładujListe ()
+        public void ZaładujListe (string region)
         {
             String servants = "";
+            String url = "";
 
-            //var url = "https://api.atlasacademy.io/export/JP/basic_servant_lang_en.json";
-            var url = "http://localhost/basic_servant_lang_en.json";
-            var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+            if (region == "NA")
+            {
+                url = "https://api.atlasacademy.io/export/NA/basic_servant.json";
+            }
+            else
+            {
+                url = "https://api.atlasacademy.io/export/JP/basic_servant_lang_en.json";
+            }
 
-            httpRequest.Accept = "application/json";
+            url = "http://localhost/basic_servant_lang_en.json";
+
 
             try
             {
+                var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpRequest.Accept = "application/json";
+
                 var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
@@ -108,28 +118,26 @@ namespace FGO_Database
             ttpOpis.SetToolTip(this.lblMaxatk, "Atak na maksymalny levelu");
             rdbNA.Checked = true;
 
-            ZaładujListe();
+            ZaładujListe(region);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             String dane = "";
             String appid = "";
-            Boolean JPonly = false;
 
             if (cmbLista.Items.Count != 0)
             {
                 int id = cmbLista.SelectedIndex + 1;
                 var url = "";
-                var url2 = "";
 
                 if (szukaj == false)
                 {
-                    url = "https://api.atlasacademy.io/nice/NA/servant/" + id.ToString() + "?lore=true&lang=en"; 
+                    url = "https://api.atlasacademy.io/nice/"+ region +"/servant/" + id.ToString() + "?lore=true&lang=en"; 
                 }
                 else
                 {
-                    url = "https://api.atlasacademy.io/nice/NA/servant/" + ServId[id - 1] + "?lore=true&lang=en";
+                    url = "https://api.atlasacademy.io/nice/"+ region +"/servant/" + ServId[id - 1] + "?lore=true&lang=en";
                 }
                 //var url = "http://localhost/239.json";
 
@@ -152,52 +160,13 @@ namespace FGO_Database
 
                 }
 
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //toolStripStatusLabel2.Text = "Pobieranie Danych: Błąd";
-                    //toolStripProgressBar1.Visible = false;
-                    JPonly = true;
+                    MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    toolStripStatusLabel2.Text = "Pobieranie Danych: Błąd";
+                    toolStripProgressBar1.Visible = false;
+
                     //throw;
-                }
-
-                if (JPonly == true)
-                {
-                    if (szukaj == false)
-                    {
-                        url2 = "https://api.atlasacademy.io/nice/JP/servant/" + id.ToString() + "?lore=true&lang=en";
-                    }
-                    else
-                    {
-                        url2 = "https://api.atlasacademy.io/nice/JP/servant/" + ServId[id - 1] + "?lore=true&lang=en";
-                    }
-                    //var url2 = "http://localhost/239.json";
-                    var httpRequest2 = (HttpWebRequest)WebRequest.Create(url2);
-
-                    httpRequest2.Accept = "application/json";
-                    toolStripProgressBar1.Visible = true;
-                    toolStripStatusLabel2.Text = "Pobieranie Danych: W trakce";
-
-                    try
-                    {
-                        var httpResponse2 = (HttpWebResponse)httpRequest2.GetResponse();
-                        using (var streamReader = new StreamReader(httpResponse2.GetResponseStream()))
-                        {
-                            var result = streamReader.ReadToEnd();
-                            dane = result.ToString();
-
-                            toolStripStatusLabel2.Text = "Pobieranie Danych: " + httpResponse2.StatusCode.ToString();
-                        }
-
-                    }
-
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        toolStripStatusLabel2.Text = "Pobieranie Danych: Błąd";
-                        toolStripProgressBar1.Visible = false;
-                        //throw;
-                    }
                 }
 
                 if (dane != "")
@@ -590,7 +559,7 @@ namespace FGO_Database
         private void btnLista_Click(object sender, EventArgs e)
         {
             szukaj = false;
-            ZaładujListe();
+            ZaładujListe(region);
         }
 
         private void btnSzukaj_Click(object sender, EventArgs e)
@@ -646,11 +615,15 @@ namespace FGO_Database
         private void rdbNA_CheckedChanged(object sender, EventArgs e)
         {
             region = "NA";
+            cmbLista.Items.Clear();
+            ZaładujListe(region);
         }
 
         private void rdbJP_CheckedChanged(object sender, EventArgs e)
         {
             region = "JP";
+            cmbLista.Items.Clear();
+            ZaładujListe(region);
         }
 
     }
