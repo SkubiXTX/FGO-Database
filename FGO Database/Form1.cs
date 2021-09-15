@@ -29,13 +29,13 @@ namespace FGO_Database
             return input.First().ToString().ToUpper() + String.Join("", input.Skip(1));
         }
 
-        public string NaProcent(string liczba)
+        public string NaProcent(string liczba, int dzielnik)
         {
             String wynik = "";
-            Int32 temp = 0;
+            float temp = 0;
 
-            temp = Int32.Parse(liczba);
-            wynik = String.Format("{0}%", temp / 10);
+            temp = float.Parse(liczba);
+            wynik = String.Format("{0}%", temp / dzielnik);
 
             return wynik;
         }
@@ -232,8 +232,8 @@ namespace FGO_Database
                     lblCv.Text = "Cv: " + (string)przetworzonedane.SelectToken("profile.cv");
                     lblIllustartor.Text = "Illustrator: " + (string)przetworzonedane.SelectToken("profile.illustrator");
                     lblStarAbs.Text = "Star Absorb: " + (string)przetworzonedane.SelectToken("starAbsorb");
-                    lblStarGen.Text ="Star generation: " + NaProcent((string)przetworzonedane.SelectToken("starGen"));
-                    lblIDChange.Text = "Instant Death Chance: " + NaProcent((string)przetworzonedane.SelectToken("instantDeathChance"));
+                    lblStarGen.Text ="Star generation: " + NaProcent((string)przetworzonedane.SelectToken("starGen"),10);
+                    lblIDChange.Text = "Instant Death Chance: " + NaProcent((string)przetworzonedane.SelectToken("instantDeathChance"),10);
                     int numtraits = przetworzonedane.SelectToken("traits").Count();
                     var traits = przetworzonedane.SelectToken("traits");
 
@@ -463,6 +463,17 @@ namespace FGO_Database
                         }
                         
                     }
+
+                    pcbNpcardtype.Load(Application.StartupPath + "\\img\\" + (string)przetworzonedane.SelectToken("noblePhantasms.[0].card") + ".png");
+                    lblNpname.Text = (string)przetworzonedane.SelectToken("noblePhantasms.[0].name");
+                    txtNpopis.BackColor = Color.FromKnownColor(KnownColor.White);
+                    txtNpopis.Text = (string)przetworzonedane.SelectToken("noblePhantasms.[0].detail");
+                    lblNprank.Text = "Rank: " + (string)przetworzonedane.SelectToken("noblePhantasms.[0].rank");
+                    lblNptype.Text = "Type: " + (string)przetworzonedane.SelectToken("noblePhantasms.[0].type");
+                    lblNPgain.Text = "NP Charge ATK: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[0].npGain.np.[0]"),100);
+                    ttpOpis.SetToolTip(this.lblNPgain, "Affects how much the NP Gauge is increased by when attacking enemies.");
+                    lblNpdef.Text = "NP Charge DEF: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[0].npGain.defence.[0]"),100);
+                    ttpOpis.SetToolTip(this.lblNpdef, "Affects how much the NP Gauge is increased by when being attacked.");
 
                 }
             }
