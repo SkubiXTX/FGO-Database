@@ -475,6 +475,57 @@ namespace FGO_Database
                     lblNpdef.Text = "NP Charge DEF: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[0].npGain.defence.[0]"),100);
                     ttpOpis.SetToolTip(this.lblNpdef, "Affects how much the NP Gauge is increased by when being attacked.");
 
+                    trvNphitdist.Nodes.Clear();
+                    var hdnp = przetworzonedane.SelectToken("noblePhantasms.[0].npDistribution")?.ToObject<string[]>();
+                    trvNphitdist.Nodes.Add("Hits: " + hdnp.Length.ToString());
+
+                    for (int i = 0; i < hdnp.Length; i++)
+                    {
+                        trvNphitdist.Nodes[0].Nodes.Add(hdnp[i]);
+                    }
+
+                    dgvNpdata.Columns.Clear();
+                    dgvNpdata.Rows.Clear();
+                    var npdet = przetworzonedane.SelectToken("noblePhantasms.[0].functions");
+
+                    for (int j = 0; j < npdet.Count(); j++)
+                    {
+                        if (npdet.SelectToken("[" + j + "].buffs").Count() != 0)
+                        {
+                            dgvNpdata.Columns.Add("col" + j.ToString(), npdet.SelectToken("[" + j + "].buffs.[0].name").ToString());
+                            dgvNpdata.Columns[j].ToolTipText = npdet.SelectToken("[" + j + "].buffs.[0].detail").ToString();
+                        }
+                        else
+                        {
+                            dgvNpdata.Columns.Add("col" + j.ToString(), FirstCharToUpper(npdet.SelectToken("[" + j + "].funcType").ToString()));
+                            dgvNpdata.Columns[j].ReadOnly = true;
+                        }
+                    }
+                    dgvNpdata.Rows.Add(5);
+
+                    for (int j = 0; j < 5; j++)
+                    {
+                        dgvNpdata.Rows[j].HeaderCell.Value = (j + 1).ToString();
+                    }
+
+
+                    for (int i = 0; i < npdet.Count(); i++)
+                    {
+                        for (int j = 0; j < 5; j++)
+                        {
+                            DataGridViewCell kom = dgvNpdata.Rows[j].Cells[i];
+
+                            if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                            {
+                                kom.Value = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                            }
+                            else
+                            {
+                                kom.Value = 1;
+                            }
+                        }
+                    }
+
                 }
             }
         }

@@ -94,6 +94,13 @@ namespace FGO_Database
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.dgvPassiveSkills = new System.Windows.Forms.DataGridView();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.lblNpdef = new System.Windows.Forms.Label();
+            this.lblNPgain = new System.Windows.Forms.Label();
+            this.lblNptype = new System.Windows.Forms.Label();
+            this.txtNpopis = new System.Windows.Forms.TextBox();
+            this.lblNprank = new System.Windows.Forms.Label();
+            this.lblNpname = new System.Windows.Forms.Label();
+            this.pcbNpcardtype = new System.Windows.Forms.PictureBox();
             this.tabPage12 = new System.Windows.Forms.TabPage();
             this.ttpOpis = new System.Windows.Forms.ToolTip(this.components);
             this.lblGender = new System.Windows.Forms.Label();
@@ -115,13 +122,8 @@ namespace FGO_Database
             this.grbRegion = new System.Windows.Forms.GroupBox();
             this.rdbJP = new System.Windows.Forms.RadioButton();
             this.rdbNA = new System.Windows.Forms.RadioButton();
-            this.pcbNpcardtype = new System.Windows.Forms.PictureBox();
-            this.lblNpname = new System.Windows.Forms.Label();
-            this.lblNprank = new System.Windows.Forms.Label();
-            this.txtNpopis = new System.Windows.Forms.TextBox();
-            this.lblNptype = new System.Windows.Forms.Label();
-            this.lblNPgain = new System.Windows.Forms.Label();
-            this.lblNpdef = new System.Windows.Forms.Label();
+            this.trvNphitdist = new System.Windows.Forms.TreeView();
+            this.dgvNpdata = new System.Windows.Forms.DataGridView();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -156,8 +158,9 @@ namespace FGO_Database
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPassiveSkills)).BeginInit();
             this.tabPage8.SuspendLayout();
-            this.grbRegion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbNpcardtype)).BeginInit();
+            this.grbRegion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNpdata)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLista
@@ -760,6 +763,8 @@ namespace FGO_Database
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.dgvNpdata);
+            this.tabPage8.Controls.Add(this.trvNphitdist);
             this.tabPage8.Controls.Add(this.lblNpdef);
             this.tabPage8.Controls.Add(this.lblNPgain);
             this.tabPage8.Controls.Add(this.lblNptype);
@@ -774,6 +779,71 @@ namespace FGO_Database
             this.tabPage8.TabIndex = 3;
             this.tabPage8.Text = "Noble Phantsm";
             this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // lblNpdef
+            // 
+            this.lblNpdef.AutoSize = true;
+            this.lblNpdef.Location = new System.Drawing.Point(373, 62);
+            this.lblNpdef.Name = "lblNpdef";
+            this.lblNpdef.Size = new System.Drawing.Size(86, 13);
+            this.lblNpdef.TabIndex = 12;
+            this.lblNpdef.Text = "NP Charge DEF:";
+            // 
+            // lblNPgain
+            // 
+            this.lblNPgain.AutoSize = true;
+            this.lblNPgain.Location = new System.Drawing.Point(257, 62);
+            this.lblNPgain.Name = "lblNPgain";
+            this.lblNPgain.Size = new System.Drawing.Size(86, 13);
+            this.lblNPgain.TabIndex = 11;
+            this.lblNPgain.Text = "NP Charge ATK:";
+            // 
+            // lblNptype
+            // 
+            this.lblNptype.AutoSize = true;
+            this.lblNptype.Location = new System.Drawing.Point(60, 62);
+            this.lblNptype.Name = "lblNptype";
+            this.lblNptype.Size = new System.Drawing.Size(34, 13);
+            this.lblNptype.TabIndex = 10;
+            this.lblNptype.Text = "Type:";
+            // 
+            // txtNpopis
+            // 
+            this.txtNpopis.Location = new System.Drawing.Point(60, 22);
+            this.txtNpopis.Multiline = true;
+            this.txtNpopis.Name = "txtNpopis";
+            this.txtNpopis.ReadOnly = true;
+            this.txtNpopis.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtNpopis.Size = new System.Drawing.Size(421, 33);
+            this.txtNpopis.TabIndex = 9;
+            // 
+            // lblNprank
+            // 
+            this.lblNprank.AutoSize = true;
+            this.lblNprank.Location = new System.Drawing.Point(6, 62);
+            this.lblNprank.Name = "lblNprank";
+            this.lblNprank.Size = new System.Drawing.Size(36, 13);
+            this.lblNprank.TabIndex = 8;
+            this.lblNprank.Text = "Rank:";
+            // 
+            // lblNpname
+            // 
+            this.lblNpname.AutoSize = true;
+            this.lblNpname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblNpname.Location = new System.Drawing.Point(60, 6);
+            this.lblNpname.Name = "lblNpname";
+            this.lblNpname.Size = new System.Drawing.Size(46, 16);
+            this.lblNpname.TabIndex = 6;
+            this.lblNpname.Text = "name";
+            // 
+            // pcbNpcardtype
+            // 
+            this.pcbNpcardtype.Location = new System.Drawing.Point(6, 6);
+            this.pcbNpcardtype.Name = "pcbNpcardtype";
+            this.pcbNpcardtype.Size = new System.Drawing.Size(48, 48);
+            this.pcbNpcardtype.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbNpcardtype.TabIndex = 0;
+            this.pcbNpcardtype.TabStop = false;
             // 
             // tabPage12
             // 
@@ -963,70 +1033,21 @@ namespace FGO_Database
             this.rdbNA.UseVisualStyleBackColor = true;
             this.rdbNA.CheckedChanged += new System.EventHandler(this.rdbNA_CheckedChanged);
             // 
-            // pcbNpcardtype
+            // trvNphitdist
             // 
-            this.pcbNpcardtype.Location = new System.Drawing.Point(6, 6);
-            this.pcbNpcardtype.Name = "pcbNpcardtype";
-            this.pcbNpcardtype.Size = new System.Drawing.Size(48, 48);
-            this.pcbNpcardtype.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcbNpcardtype.TabIndex = 0;
-            this.pcbNpcardtype.TabStop = false;
+            this.trvNphitdist.Location = new System.Drawing.Point(394, 95);
+            this.trvNphitdist.Name = "trvNphitdist";
+            this.trvNphitdist.Size = new System.Drawing.Size(87, 139);
+            this.trvNphitdist.TabIndex = 13;
             // 
-            // lblNpname
+            // dgvNpdata
             // 
-            this.lblNpname.AutoSize = true;
-            this.lblNpname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblNpname.Location = new System.Drawing.Point(60, 6);
-            this.lblNpname.Name = "lblNpname";
-            this.lblNpname.Size = new System.Drawing.Size(46, 16);
-            this.lblNpname.TabIndex = 6;
-            this.lblNpname.Text = "name";
-            // 
-            // lblNprank
-            // 
-            this.lblNprank.AutoSize = true;
-            this.lblNprank.Location = new System.Drawing.Point(6, 62);
-            this.lblNprank.Name = "lblNprank";
-            this.lblNprank.Size = new System.Drawing.Size(36, 13);
-            this.lblNprank.TabIndex = 8;
-            this.lblNprank.Text = "Rank:";
-            // 
-            // txtNpopis
-            // 
-            this.txtNpopis.Location = new System.Drawing.Point(60, 22);
-            this.txtNpopis.Multiline = true;
-            this.txtNpopis.Name = "txtNpopis";
-            this.txtNpopis.ReadOnly = true;
-            this.txtNpopis.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNpopis.Size = new System.Drawing.Size(420, 33);
-            this.txtNpopis.TabIndex = 9;
-            // 
-            // lblNptype
-            // 
-            this.lblNptype.AutoSize = true;
-            this.lblNptype.Location = new System.Drawing.Point(60, 62);
-            this.lblNptype.Name = "lblNptype";
-            this.lblNptype.Size = new System.Drawing.Size(34, 13);
-            this.lblNptype.TabIndex = 10;
-            this.lblNptype.Text = "Type:";
-            // 
-            // lblNPgain
-            // 
-            this.lblNPgain.AutoSize = true;
-            this.lblNPgain.Location = new System.Drawing.Point(257, 62);
-            this.lblNPgain.Name = "lblNPgain";
-            this.lblNPgain.Size = new System.Drawing.Size(86, 13);
-            this.lblNPgain.TabIndex = 11;
-            this.lblNPgain.Text = "NP Charge ATK:";
-            // 
-            // lblNpdef
-            // 
-            this.lblNpdef.AutoSize = true;
-            this.lblNpdef.Location = new System.Drawing.Point(373, 62);
-            this.lblNpdef.Name = "lblNpdef";
-            this.lblNpdef.Size = new System.Drawing.Size(86, 13);
-            this.lblNpdef.TabIndex = 12;
-            this.lblNpdef.Text = "NP Charge DEF:";
+            this.dgvNpdata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvNpdata.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvNpdata.Location = new System.Drawing.Point(6, 95);
+            this.dgvNpdata.Name = "dgvNpdata";
+            this.dgvNpdata.Size = new System.Drawing.Size(382, 139);
+            this.dgvNpdata.TabIndex = 14;
             // 
             // frmOknoGl
             // 
@@ -1111,9 +1132,10 @@ namespace FGO_Database
             ((System.ComponentModel.ISupportInitialize)(this.dgvPassiveSkills)).EndInit();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbNpcardtype)).EndInit();
             this.grbRegion.ResumeLayout(false);
             this.grbRegion.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbNpcardtype)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNpdata)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1213,6 +1235,8 @@ namespace FGO_Database
         private System.Windows.Forms.Label lblNptype;
         private System.Windows.Forms.Label lblNpdef;
         private System.Windows.Forms.Label lblNPgain;
+        private System.Windows.Forms.DataGridView dgvNpdata;
+        private System.Windows.Forms.TreeView trvNphitdist;
     }
 }
 
