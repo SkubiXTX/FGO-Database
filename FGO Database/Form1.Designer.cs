@@ -94,6 +94,8 @@ namespace FGO_Database
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.dgvPassiveSkills = new System.Windows.Forms.DataGridView();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.dgvNpdata = new System.Windows.Forms.DataGridView();
+            this.trvNphitdist = new System.Windows.Forms.TreeView();
             this.lblNpdef = new System.Windows.Forms.Label();
             this.lblNPgain = new System.Windows.Forms.Label();
             this.lblNptype = new System.Windows.Forms.Label();
@@ -122,8 +124,6 @@ namespace FGO_Database
             this.grbRegion = new System.Windows.Forms.GroupBox();
             this.rdbJP = new System.Windows.Forms.RadioButton();
             this.rdbNA = new System.Windows.Forms.RadioButton();
-            this.trvNphitdist = new System.Windows.Forms.TreeView();
-            this.dgvNpdata = new System.Windows.Forms.DataGridView();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -158,9 +158,9 @@ namespace FGO_Database
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPassiveSkills)).BeginInit();
             this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNpdata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbNpcardtype)).BeginInit();
             this.grbRegion.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNpdata)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLista
@@ -590,6 +590,7 @@ namespace FGO_Database
             // 
             // dgv1Skillevels
             // 
+            this.dgv1Skillevels.AllowUserToOrderColumns = true;
             this.dgv1Skillevels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv1Skillevels.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv1Skillevels.Location = new System.Drawing.Point(6, 60);
@@ -648,6 +649,7 @@ namespace FGO_Database
             // 
             // dgv2Skillevels
             // 
+            this.dgv2Skillevels.AllowUserToOrderColumns = true;
             this.dgv2Skillevels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv2Skillevels.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv2Skillevels.Location = new System.Drawing.Point(6, 60);
@@ -706,6 +708,7 @@ namespace FGO_Database
             // 
             // dgv3Skillevels
             // 
+            this.dgv3Skillevels.AllowUserToOrderColumns = true;
             this.dgv3Skillevels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv3Skillevels.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv3Skillevels.Location = new System.Drawing.Point(6, 60);
@@ -779,6 +782,23 @@ namespace FGO_Database
             this.tabPage8.TabIndex = 3;
             this.tabPage8.Text = "Noble Phantsm";
             this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // dgvNpdata
+            // 
+            this.dgvNpdata.AllowUserToOrderColumns = true;
+            this.dgvNpdata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvNpdata.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvNpdata.Location = new System.Drawing.Point(6, 95);
+            this.dgvNpdata.Name = "dgvNpdata";
+            this.dgvNpdata.Size = new System.Drawing.Size(382, 139);
+            this.dgvNpdata.TabIndex = 14;
+            // 
+            // trvNphitdist
+            // 
+            this.trvNphitdist.Location = new System.Drawing.Point(394, 95);
+            this.trvNphitdist.Name = "trvNphitdist";
+            this.trvNphitdist.Size = new System.Drawing.Size(87, 139);
+            this.trvNphitdist.TabIndex = 13;
             // 
             // lblNpdef
             // 
@@ -1033,22 +1053,6 @@ namespace FGO_Database
             this.rdbNA.UseVisualStyleBackColor = true;
             this.rdbNA.CheckedChanged += new System.EventHandler(this.rdbNA_CheckedChanged);
             // 
-            // trvNphitdist
-            // 
-            this.trvNphitdist.Location = new System.Drawing.Point(394, 95);
-            this.trvNphitdist.Name = "trvNphitdist";
-            this.trvNphitdist.Size = new System.Drawing.Size(87, 139);
-            this.trvNphitdist.TabIndex = 13;
-            // 
-            // dgvNpdata
-            // 
-            this.dgvNpdata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvNpdata.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvNpdata.Location = new System.Drawing.Point(6, 95);
-            this.dgvNpdata.Name = "dgvNpdata";
-            this.dgvNpdata.Size = new System.Drawing.Size(382, 139);
-            this.dgvNpdata.TabIndex = 14;
-            // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1132,10 +1136,10 @@ namespace FGO_Database
             ((System.ComponentModel.ISupportInitialize)(this.dgvPassiveSkills)).EndInit();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNpdata)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbNpcardtype)).EndInit();
             this.grbRegion.ResumeLayout(false);
             this.grbRegion.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNpdata)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

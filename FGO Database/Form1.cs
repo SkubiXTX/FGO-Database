@@ -139,6 +139,7 @@ namespace FGO_Database
                 }
                 //var url = "http://localhost/239.json";
 
+                Console.WriteLine(url);
                 var httpRequest = (HttpWebRequest)WebRequest.Create(url);
 
                 httpRequest.Accept = "application/json";
@@ -305,7 +306,7 @@ namespace FGO_Database
                         else
                         {
                             dgv1Skillevels.Columns.Add("col" + j.ToString(), FirstCharToUpper(fskilldet.SelectToken("[" + j + "].funcType").ToString()));
-                            dgv1Skillevels.Columns[j].ReadOnly = true;
+
                         }
                     }
                     dgv1Skillevels.Rows.Add(10);
@@ -349,7 +350,7 @@ namespace FGO_Database
                         else
                         {
                             dgv2Skillevels.Columns.Add("col" + j.ToString(), FirstCharToUpper(sskilldet.SelectToken("[" + j + "].funcType").ToString()));
-                            dgv2Skillevels.Columns[j].ReadOnly = true;
+
                         }
                     }
                     dgv2Skillevels.Rows.Add(10);
@@ -393,7 +394,7 @@ namespace FGO_Database
                         else
                         {
                             dgv3Skillevels.Columns.Add("col" + j.ToString(), FirstCharToUpper(tskilldet.SelectToken("[" + j + "].funcType").ToString()));
-                            dgv3Skillevels.Columns[j].ReadOnly = true;
+
                         }
                     }
                     dgv3Skillevels.Rows.Add(10);
@@ -464,19 +465,20 @@ namespace FGO_Database
                         
                     }
 
-                    pcbNpcardtype.Load(Application.StartupPath + "\\img\\" + (string)przetworzonedane.SelectToken("noblePhantasms.[0].card") + ".png");
-                    lblNpname.Text = (string)przetworzonedane.SelectToken("noblePhantasms.[0].name");
+                    int nplicz = (int)przetworzonedane.SelectToken("noblePhantasms").Count() - 1;
+                    pcbNpcardtype.Load(Application.StartupPath + "\\img\\" + (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].card") + ".png");
+                    lblNpname.Text = (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].name");
                     txtNpopis.BackColor = Color.FromKnownColor(KnownColor.White);
-                    txtNpopis.Text = (string)przetworzonedane.SelectToken("noblePhantasms.[0].detail");
-                    lblNprank.Text = "Rank: " + (string)przetworzonedane.SelectToken("noblePhantasms.[0].rank");
-                    lblNptype.Text = "Type: " + (string)przetworzonedane.SelectToken("noblePhantasms.[0].type");
-                    lblNPgain.Text = "NP Charge ATK: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[0].npGain.np.[0]"),100);
+                    txtNpopis.Text = (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].detail");
+                    lblNprank.Text = "Rank: " + (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].rank");
+                    lblNptype.Text = "Type: " + (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].type");
+                    lblNPgain.Text = "NP Charge ATK: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].npGain.np.[0]"),100);
                     ttpOpis.SetToolTip(this.lblNPgain, "Affects how much the NP Gauge is increased by when attacking enemies.");
-                    lblNpdef.Text = "NP Charge DEF: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[0].npGain.defence.[0]"),100);
+                    lblNpdef.Text = "NP Charge DEF: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].npGain.defence.[0]"),100);
                     ttpOpis.SetToolTip(this.lblNpdef, "Affects how much the NP Gauge is increased by when being attacked.");
 
                     trvNphitdist.Nodes.Clear();
-                    var hdnp = przetworzonedane.SelectToken("noblePhantasms.[0].npDistribution")?.ToObject<string[]>();
+                    var hdnp = przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].npDistribution")?.ToObject<string[]>();
                     trvNphitdist.Nodes.Add("Hits: " + hdnp.Length.ToString());
 
                     for (int i = 0; i < hdnp.Length; i++)
@@ -486,7 +488,9 @@ namespace FGO_Database
 
                     dgvNpdata.Columns.Clear();
                     dgvNpdata.Rows.Clear();
-                    var npdet = przetworzonedane.SelectToken("noblePhantasms.[0].functions");
+
+                    var npdet = przetworzonedane.SelectToken("noblePhantasms.["+ nplicz +"].functions");
+                    //dgvNpdata.Columns.Add("Np Level","Np Lvl");
 
                     for (int j = 0; j < npdet.Count(); j++)
                     {
@@ -498,16 +502,10 @@ namespace FGO_Database
                         else
                         {
                             dgvNpdata.Columns.Add("col" + j.ToString(), FirstCharToUpper(npdet.SelectToken("[" + j + "].funcType").ToString()));
-                            dgvNpdata.Columns[j].ReadOnly = true;
+
                         }
                     }
                     dgvNpdata.Rows.Add(5);
-
-                    for (int j = 0; j < 5; j++)
-                    {
-                        dgvNpdata.Rows[j].HeaderCell.Value = (j + 1).ToString();
-                    }
-
 
                     for (int i = 0; i < npdet.Count(); i++)
                     {
@@ -526,6 +524,21 @@ namespace FGO_Database
                         }
                     }
 
+                    for (int j = 0; j < 5; j++)
+                    {
+                        dgvNpdata.Rows[j].HeaderCell.Value = (j + 1).ToString();
+                    }
+
+                    for (int i = 0; i < dgvNpdata.Columns.Count; i++)
+                    {
+                        if (dgvNpdata.Columns[i].HeaderText == "HastenNpturn")
+                        {
+                            dgvNpdata.Columns[i].Visible = false;
+                        } 
+                    }
+
+
+                    //kontynuacja
                 }
             }
         }
@@ -676,6 +689,7 @@ namespace FGO_Database
             region = "NA";
             cmbLista.Items.Clear();
             ZaładujListe(region);
+            szukaj = false;
         }
 
         private void rdbJP_CheckedChanged(object sender, EventArgs e)
@@ -683,6 +697,7 @@ namespace FGO_Database
             region = "JP";
             cmbLista.Items.Clear();
             ZaładujListe(region);
+            szukaj = false;
         }
 
         private void txtSzukaj_KeyPress(object sender, KeyPressEventArgs e)
