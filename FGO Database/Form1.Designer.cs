@@ -124,6 +124,10 @@ namespace FGO_Database
             this.grbRegion = new System.Windows.Forms.GroupBox();
             this.rdbJP = new System.Windows.Forms.RadioButton();
             this.rdbNA = new System.Windows.Forms.RadioButton();
+            this.trvBondlvl = new System.Windows.Forms.TreeView();
+            this.grbBondce = new System.Windows.Forms.GroupBox();
+            this.lblBondceName = new System.Windows.Forms.Label();
+            this.pcbBondce = new System.Windows.Forms.PictureBox();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -160,7 +164,10 @@ namespace FGO_Database
             this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNpdata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbNpcardtype)).BeginInit();
+            this.tabPage12.SuspendLayout();
             this.grbRegion.SuspendLayout();
+            this.grbBondce.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbBondce)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLista
@@ -867,6 +874,8 @@ namespace FGO_Database
             // 
             // tabPage12
             // 
+            this.tabPage12.Controls.Add(this.grbBondce);
+            this.tabPage12.Controls.Add(this.trvBondlvl);
             this.tabPage12.Location = new System.Drawing.Point(4, 22);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
@@ -1053,6 +1062,43 @@ namespace FGO_Database
             this.rdbNA.UseVisualStyleBackColor = true;
             this.rdbNA.CheckedChanged += new System.EventHandler(this.rdbNA_CheckedChanged);
             // 
+            // trvBondlvl
+            // 
+            this.trvBondlvl.Location = new System.Drawing.Point(6, 6);
+            this.trvBondlvl.Name = "trvBondlvl";
+            this.trvBondlvl.Size = new System.Drawing.Size(164, 228);
+            this.trvBondlvl.TabIndex = 0;
+            // 
+            // grbBondce
+            // 
+            this.grbBondce.Controls.Add(this.lblBondceName);
+            this.grbBondce.Controls.Add(this.pcbBondce);
+            this.grbBondce.Location = new System.Drawing.Point(176, 6);
+            this.grbBondce.Name = "grbBondce";
+            this.grbBondce.Size = new System.Drawing.Size(305, 226);
+            this.grbBondce.TabIndex = 1;
+            this.grbBondce.TabStop = false;
+            this.grbBondce.Text = "Bond CE";
+            // 
+            // lblBondceName
+            // 
+            this.lblBondceName.AutoSize = true;
+            this.lblBondceName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblBondceName.Location = new System.Drawing.Point(76, 19);
+            this.lblBondceName.Name = "lblBondceName";
+            this.lblBondceName.Size = new System.Drawing.Size(49, 16);
+            this.lblBondceName.TabIndex = 5;
+            this.lblBondceName.Text = "Name";
+            // 
+            // pcbBondce
+            // 
+            this.pcbBondce.Location = new System.Drawing.Point(6, 19);
+            this.pcbBondce.Name = "pcbBondce";
+            this.pcbBondce.Size = new System.Drawing.Size(64, 110);
+            this.pcbBondce.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbBondce.TabIndex = 4;
+            this.pcbBondce.TabStop = false;
+            // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1138,8 +1184,12 @@ namespace FGO_Database
             this.tabPage8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNpdata)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbNpcardtype)).EndInit();
+            this.tabPage12.ResumeLayout(false);
             this.grbRegion.ResumeLayout(false);
             this.grbRegion.PerformLayout();
+            this.grbBondce.ResumeLayout(false);
+            this.grbBondce.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbBondce)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1241,6 +1291,10 @@ namespace FGO_Database
         private System.Windows.Forms.Label lblNPgain;
         private System.Windows.Forms.DataGridView dgvNpdata;
         private System.Windows.Forms.TreeView trvNphitdist;
+        private System.Windows.Forms.TreeView trvBondlvl;
+        private System.Windows.Forms.GroupBox grbBondce;
+        private System.Windows.Forms.Label lblBondceName;
+        private System.Windows.Forms.PictureBox pcbBondce;
     }
 }
 

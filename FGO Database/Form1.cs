@@ -105,7 +105,6 @@ namespace FGO_Database
 
             for (int i = 0; i < danenp.Count(); i++)
             {
-                Console.Beep();
                 for (int j = 0; j < 5; j++)
                 {
                     if (danenp.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
@@ -163,11 +162,19 @@ namespace FGO_Database
                     licz2++;
                 }
             }
-
+            
 
             for (int i = 0; i < licz2; i++)
             {
-                dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].buffs.[0].name").ToString() + " (OverCharge)");
+                Console.WriteLine("[" + nrfunc[i] + "].buffs.[0].name");
+                if (danenp.SelectToken("[" + nrfunc[i] + "].buffs.[0].name") != null)
+                {
+                    dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].buffs.[0].name").ToString() + " (OverCharge)"); 
+                }
+                else
+                {
+                    dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].funcType").ToString() + " (OverCharge)");
+                }
             }
 
 
@@ -176,8 +183,6 @@ namespace FGO_Database
                 for (int i = 0; i < licz2; i++)
                 {
                     int lc = dgvNpdata.Columns.Count + (i - licz2);
-                    Console.WriteLine("count: " + dgvNpdata.Columns.Count);
-                    Console.WriteLine("lc: " + lc);
 
                     for (int j = 0; j < 5; j++)
                     {
@@ -595,7 +600,6 @@ namespace FGO_Database
                     dgvNpdata.Rows.Clear();
 
                     var npdet = przetworzonedane.SelectToken("noblePhantasms.["+ nplicz +"].functions");
-                    //dgvNpdata.Columns.Add("Np Level","Np Lvl");
 
                     for (int j = 0; j < npdet.Count(); j++)
                     {
@@ -644,6 +648,55 @@ namespace FGO_Database
                         } 
                     }
 
+                    var bondlvl = przetworzonedane.SelectToken("bondGrowth")?.ToObject<int[]>();
+                    trvBondlvl.Nodes.Clear();
+                    trvBondlvl.Nodes.Add("Bond Lvl");
+
+                    for (int i = 0; i < bondlvl.Length; i++)
+                    {
+                        trvBondlvl.Nodes[0].Nodes.Add((i+1).ToString() + ": " + bondlvl[i].ToString());
+                    }
+
+                    var bondceid = (string)przetworzonedane.SelectToken("bondEquip");
+                    var urlce = "https://api.atlasacademy.io/nice/" + region + "/equip/"+bondceid+"?lang=en";
+                    var httpRequestce = (HttpWebRequest)WebRequest.Create(urlce);
+                    string danece = "";
+
+                    try
+                    {
+                        var httpResponsece = (HttpWebResponse)httpRequestce.GetResponse();
+                        using (var streamReaderce = new StreamReader(httpResponsece.GetResponseStream()))
+                        {
+                            var resultce = streamReaderce.ReadToEnd();
+                            danece = resultce.ToString();
+                        }
+
+                    }
+
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        toolStripStatusLabel2.Text = "Pobieranie Danych: Błąd";
+
+                        //throw;
+                    }
+
+                    JObject przetworzonedanece = JObject.Parse(danece);
+                    if (danece != "")
+                    {
+                        try
+                        {
+                            pcbBondce.Load((string)przetworzonedanece.SelectToken("extraAssets.charaGraph.equip." + bondceid));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //throw;
+                        }
+
+                        lblBondceName.Text = (string)przetworzonedanece.SelectToken("name");
+
+                    }
 
                     //kontynuacja
                 }
