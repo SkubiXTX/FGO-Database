@@ -175,11 +175,13 @@ namespace FGO_Database
             {
                 for (int i = 0; i < licz2; i++)
                 {
+                    int lc = dgvNpdata.Columns.Count + (i - licz2);
+                    Console.WriteLine("count: " + dgvNpdata.Columns.Count);
+                    Console.WriteLine("lc: " + lc);
 
                     for (int j = 0; j < 5; j++)
                     {
-                        int lc =  dgvNpdata.Columns.Count + (i - 2);
-                        Console.WriteLine(lc);
+                        
                         DataGridViewCell kom = dgvNpdata.Rows[j].Cells[lc];
 
                         if (j == 0)
