@@ -94,6 +94,110 @@ namespace FGO_Database
             }
         }
 
+        public void WykryjOvercharge(JToken danenp)
+        {
+            Int32[] temp = new int[5];
+            Int32 temp2 = 0;
+            Int32[] nrfunc = new int[5];
+            Int32 licz = 0;
+            Int32 licz2 = 0;
+            Boolean ovc = false;
+
+            for (int i = 0; i < danenp.Count(); i++)
+            {
+                Console.Beep();
+                for (int j = 0; j < 5; j++)
+                {
+                    if (danenp.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                    {
+                        temp[j] = (Int32)danenp.SelectToken("[" + i + "].svals.[" + j + "].Value");
+                    }
+                }
+
+                for (int k = 1; k < 5; k++)
+                {
+                    if (temp[k - 1] == temp[k] && temp[k - 1] != 1)
+                    {
+                        temp2++;
+                    }
+                }
+
+                if(temp2 == 4)
+                {
+                    ovc = true;
+                    nrfunc[licz] = i;
+                    licz++;
+                    temp2 = 0;
+                }
+
+                
+            }
+
+            if (danenp.SelectToken("[0].svals.[0].Correction") != null)
+            {
+                dgvNpdata.Columns.Add("colovc", "OverCharge");
+
+                for (int i = 1; i <= 5; i++)
+                {
+
+
+                    DataGridViewCell kom = dgvNpdata.Rows[i-1].Cells[dgvNpdata.Columns.Count-1];
+
+                    if (i == 1)
+                    {
+                        kom.Value = danenp.SelectToken("[0].svals.[0].Correction").ToString();
+                    }
+                    else
+                    {
+                        kom.Value = danenp.SelectToken("[0].svals" + i + ".[0].Correction").ToString();
+                    }
+                    
+                }
+
+            }
+
+            for (int i = 0; i < nrfunc.Length; i++)
+            {
+                if (nrfunc[i] != 0)
+                {
+                    licz2++;
+                }
+            }
+
+
+            for (int i = 0; i < licz2; i++)
+            {
+                dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].buffs.[0].name").ToString() + " (OverCharge)");
+            }
+
+
+            if (ovc == true)
+            {
+                for (int i = 0; i < licz2; i++)
+                {
+
+                    for (int j = 0; j < 5; j++)
+                    {
+                        int lc =  dgvNpdata.Columns.Count + (i - 2);
+                        Console.WriteLine(lc);
+                        DataGridViewCell kom = dgvNpdata.Rows[j].Cells[lc];
+
+                        if (j == 0)
+                        {
+                            kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value").ToString();
+                        }
+                        else
+                        {
+                            kom.Value = danenp.SelectToken("["+ nrfunc[i] + "].svals" + (j + 1) + ".[0].Value").ToString();
+                        }
+
+                    }
+                    
+                }
+            }
+
+        }
+
         public frmOknoGl()
         {
             InitializeComponent();
@@ -139,7 +243,6 @@ namespace FGO_Database
                 }
                 //var url = "http://localhost/239.json";
 
-                Console.WriteLine(url);
                 var httpRequest = (HttpWebRequest)WebRequest.Create(url);
 
                 httpRequest.Accept = "application/json";
@@ -507,6 +610,11 @@ namespace FGO_Database
                     }
                     dgvNpdata.Rows.Add(5);
 
+                    for (int j = 0; j < 5; j++)
+                    {
+                        dgvNpdata.Rows[j].HeaderCell.Value = (j + 1).ToString();
+                    }
+
                     for (int i = 0; i < npdet.Count(); i++)
                     {
                         for (int j = 0; j < 5; j++)
@@ -524,10 +632,7 @@ namespace FGO_Database
                         }
                     }
 
-                    for (int j = 0; j < 5; j++)
-                    {
-                        dgvNpdata.Rows[j].HeaderCell.Value = (j + 1).ToString();
-                    }
+                    WykryjOvercharge(npdet);
 
                     for (int i = 0; i < dgvNpdata.Columns.Count; i++)
                     {
