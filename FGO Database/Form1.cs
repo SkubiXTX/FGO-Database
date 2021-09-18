@@ -111,6 +111,10 @@ namespace FGO_Database
                     {
                         temp[j] = (Int32)danenp.SelectToken("[" + i + "].svals.[" + j + "].Value");
                     }
+                    else
+                    {
+                        temp[j] = 1;
+                    }
                 }
 
                 for (int k = 1; k < 5; k++)
@@ -120,6 +124,15 @@ namespace FGO_Database
                         temp2++;
                     }
                 }
+
+                if(danenp.SelectToken("[" + i + "].svals.[0].Value") != null)
+                {
+                    if ((Int32)danenp.SelectToken("[" + i + "].svals.[0].Value") == (Int32)danenp.SelectToken("[" + i + "].svals2.[0].Value"))
+                    {
+                        temp2 = 0;
+                    }
+                }
+
 
                 if(temp2 == 4)
                 {
@@ -166,7 +179,6 @@ namespace FGO_Database
 
             for (int i = 0; i < licz2; i++)
             {
-                Console.WriteLine("[" + nrfunc[i] + "].buffs.[0].name");
                 if (danenp.SelectToken("[" + nrfunc[i] + "].buffs.[0].name") != null)
                 {
                     dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].buffs.[0].name").ToString() + " (OverCharge)"); 
@@ -189,13 +201,20 @@ namespace FGO_Database
                         
                         DataGridViewCell kom = dgvNpdata.Rows[j].Cells[lc];
 
-                        if (j == 0)
+                        if (danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value") != null)
                         {
-                            kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value").ToString();
+                            if (j == 0)
+                            {
+                                kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value").ToString();
+                            }
+                            else
+                            {
+                                kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Value").ToString();
+                            } 
                         }
                         else
                         {
-                            kom.Value = danenp.SelectToken("["+ nrfunc[i] + "].svals" + (j + 1) + ".[0].Value").ToString();
+                            kom.Value = 1;
                         }
 
                     }
@@ -642,7 +661,7 @@ namespace FGO_Database
 
                     for (int i = 0; i < dgvNpdata.Columns.Count; i++)
                     {
-                        if (dgvNpdata.Columns[i].HeaderText == "HastenNpturn")
+                        if (dgvNpdata.Columns[i].HeaderText == "HastenNpturn" || dgvNpdata.Columns[i].HeaderText == "SubState" || dgvNpdata.Columns[i].HeaderText == "None")
                         {
                             dgvNpdata.Columns[i].Visible = false;
                         } 
@@ -686,7 +705,7 @@ namespace FGO_Database
                     {
                         try
                         {
-                            pcbBondce.Load((string)przetworzonedanece.SelectToken("extraAssets.charaGraph.equip." + bondceid));
+                            pcbBondce.Load((string)przetworzonedanece.SelectToken("extraAssets.faces.equip." + bondceid));
                         }
                         catch (Exception ex)
                         {
