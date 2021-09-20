@@ -128,6 +128,7 @@ namespace FGO_Database
             this.grbRegion = new System.Windows.Forms.GroupBox();
             this.rdbJP = new System.Windows.Forms.RadioButton();
             this.rdbNA = new System.Windows.Forms.RadioButton();
+            this.lblBondcedet = new System.Windows.Forms.Label();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -886,6 +887,7 @@ namespace FGO_Database
             // 
             // grbBondce
             // 
+            this.grbBondce.Controls.Add(this.lblBondcedet);
             this.grbBondce.Controls.Add(this.lblBondceName);
             this.grbBondce.Controls.Add(this.pcbBondce);
             this.grbBondce.Location = new System.Drawing.Point(176, 6);
@@ -1099,6 +1101,14 @@ namespace FGO_Database
             this.rdbNA.UseVisualStyleBackColor = true;
             this.rdbNA.CheckedChanged += new System.EventHandler(this.rdbNA_CheckedChanged);
             // 
+            // lblBondcedet
+            // 
+            this.lblBondcedet.Location = new System.Drawing.Point(76, 44);
+            this.lblBondcedet.Name = "lblBondcedet";
+            this.lblBondcedet.Size = new System.Drawing.Size(209, 129);
+            this.lblBondcedet.TabIndex = 6;
+            this.lblBondcedet.Text = "Bond CE";
+            // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1295,6 +1305,7 @@ namespace FGO_Database
         private System.Windows.Forms.GroupBox grbBondce;
         private System.Windows.Forms.Label lblBondceName;
         private System.Windows.Forms.PictureBox pcbBondce;
+        private System.Windows.Forms.Label lblBondcedet;
     }
 }
 

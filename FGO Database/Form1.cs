@@ -44,6 +44,7 @@ namespace FGO_Database
         {
             String servants = "";
             String url = "";
+            String temp = "";
 
             if (region == "NA")
             {
@@ -74,7 +75,7 @@ namespace FGO_Database
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Błąd pobierania listy serwantów", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 toolStripStatusLabel1.Text = "Pobieranie Listy: Błąd";
                 //throw;
             }
@@ -91,6 +92,15 @@ namespace FGO_Database
 
                     cmbLista.Items.Add(nazwa);
                 }
+
+                for (int j = 0; j < przetworzonedane.Count; j++)
+                {
+                    temp = cmbLista.Items[j].ToString();
+                    temp = temp.Replace("Altria","Arturia");
+                    cmbLista.Items[j] = temp;
+                }
+
+
             }
         }
 
@@ -252,7 +262,6 @@ namespace FGO_Database
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             String dane = "";
-            String appid = "";
 
             if (cmbLista.Items.Count != 0)
             {
@@ -290,7 +299,7 @@ namespace FGO_Database
 
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Błąd pobierania danycy serwanta", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     toolStripStatusLabel2.Text = "Pobieranie Danych: Błąd";
                     toolStripProgressBar1.Visible = false;
 
@@ -300,14 +309,19 @@ namespace FGO_Database
                 if (dane != "")
                 {
                     JObject przetworzonedane = JObject.Parse(dane);
-
                     cmbLista.Enabled = false;
                     bgwObrazyAscezji.RunWorkerAsync(przetworzonedane);
 
+                    String appid = "";
+                    String temp = "";
+
                     int tid = (Int16)przetworzonedane.SelectToken("collectionNo");
                     appid = "#" + tid.ToString("000");
-
                     lblNazwa.Text = (string)przetworzonedane.SelectToken("name");
+                    temp = lblNazwa.Text;
+                    temp = temp.Replace("Altria", "Arturia");
+                    lblNazwa.Text = temp;
+                    lblNazwa.Text.Replace("Altria", "Arturia");
                     pcbClassIcon.Load(Application.StartupPath + "\\img\\" + (string)przetworzonedane.SelectToken("className") + ".png");
                     lblClassName.Text = FirstCharToUpper((string)przetworzonedane.SelectToken("className"));
                     pcbStars.Load(Application.StartupPath + "\\img\\" + (string)przetworzonedane.SelectToken("rarity") + "star.png");
@@ -362,15 +376,15 @@ namespace FGO_Database
                     lblCv.Text = "Cv: " + (string)przetworzonedane.SelectToken("profile.cv");
                     lblIllustartor.Text = "Illustrator: " + (string)przetworzonedane.SelectToken("profile.illustrator");
                     lblStarAbs.Text = "Star Absorb: " + (string)przetworzonedane.SelectToken("starAbsorb");
-                    lblStarGen.Text ="Star generation: " + NaProcent((string)przetworzonedane.SelectToken("starGen"),10);
-                    lblIDChange.Text = "Instant Death Chance: " + NaProcent((string)przetworzonedane.SelectToken("instantDeathChance"),10);
+                    lblStarGen.Text = "Star generation: " + NaProcent((string)przetworzonedane.SelectToken("starGen"), 10);
+                    lblIDChange.Text = "Instant Death Chance: " + NaProcent((string)przetworzonedane.SelectToken("instantDeathChance"), 10);
                     int numtraits = przetworzonedane.SelectToken("traits").Count();
                     var traits = przetworzonedane.SelectToken("traits");
 
                     lblTraits.Text = "Traits: ";
-                    for (int j=3; j<numtraits; j++)
+                    for (int j = 3; j < numtraits; j++)
                     {
-                      lblTraits.Text = lblTraits.Text + traits.SelectToken("[" + j + "].name").ToString() + " ; ";
+                        lblTraits.Text = lblTraits.Text + traits.SelectToken("[" + j + "].name").ToString() + " ; ";
                     }
 
                     lblStrength.Text = "Strength: " + (string)przetworzonedane.SelectToken("profile.stats.strength");
@@ -396,7 +410,7 @@ namespace FGO_Database
                     for (int j = 0; j < fskillcooldown.Length; j++)
                     {
                         int licz = j + 1;
-                        trv1Skillcooldown.Nodes[0].Nodes.Add("Lvl "+ licz +": " + fskillcooldown[j]);
+                        trv1Skillcooldown.Nodes[0].Nodes.Add("Lvl " + licz + ": " + fskillcooldown[j]);
                     }
 
                     var sskillcooldown = przetworzonedane.SelectToken("skills.[1].coolDown")?.ToObject<string[]>();
@@ -425,12 +439,12 @@ namespace FGO_Database
 
                     var fskilldet = przetworzonedane.SelectToken("skills.[0].functions");
 
-                    for (int j = 0; j < fskilldet.Count() ; j++)
+                    for (int j = 0; j < fskilldet.Count(); j++)
                     {
                         if (fskilldet.SelectToken("[" + j + "].buffs").Count() != 0)
                         {
                             dgv1Skillevels.Columns.Add("col" + j.ToString(), fskilldet.SelectToken("[" + j + "].buffs.[0].name").ToString());
-                            dgv1Skillevels.Columns[j].ToolTipText = fskilldet.SelectToken("[" + j + "].buffs.[0].detail").ToString();  
+                            dgv1Skillevels.Columns[j].ToolTipText = fskilldet.SelectToken("[" + j + "].buffs.[0].detail").ToString();
                         }
                         else
                         {
@@ -444,7 +458,7 @@ namespace FGO_Database
                     {
                         dgv1Skillevels.Rows[j].HeaderCell.Value = (j + 1).ToString();
                     }
-                        
+
 
                     for (int i = 0; i < fskilldet.Count(); i++)
                     {
@@ -588,10 +602,10 @@ namespace FGO_Database
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(ex.Message, "Błąd obrazów skill passive", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             //throw;
                         }
-                        
+
                     }
 
                     int nplicz = (int)przetworzonedane.SelectToken("noblePhantasms").Count() - 1;
@@ -601,9 +615,9 @@ namespace FGO_Database
                     txtNpopis.Text = (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].detail");
                     lblNprank.Text = "Rank: " + (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].rank");
                     lblNptype.Text = "Type: " + (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].type");
-                    lblNPgain.Text = "NP Charge ATK: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].npGain.np.[0]"),100);
+                    lblNPgain.Text = "NP Charge ATK: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].npGain.np.[0]"), 100);
                     ttpOpis.SetToolTip(this.lblNPgain, "Affects how much the NP Gauge is increased by when attacking enemies.");
-                    lblNpdef.Text = "NP Charge DEF: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].npGain.defence.[0]"),100);
+                    lblNpdef.Text = "NP Charge DEF: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].npGain.defence.[0]"), 100);
                     ttpOpis.SetToolTip(this.lblNpdef, "Affects how much the NP Gauge is increased by when being attacked.");
 
                     trvNphitdist.Nodes.Clear();
@@ -618,7 +632,7 @@ namespace FGO_Database
                     dgvNpdata.Columns.Clear();
                     dgvNpdata.Rows.Clear();
 
-                    var npdet = przetworzonedane.SelectToken("noblePhantasms.["+ nplicz +"].functions");
+                    var npdet = przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].functions");
 
                     for (int j = 0; j < npdet.Count(); j++)
                     {
@@ -661,10 +675,13 @@ namespace FGO_Database
 
                     for (int i = 0; i < dgvNpdata.Columns.Count; i++)
                     {
-                        if (dgvNpdata.Columns[i].HeaderText == "HastenNpturn" || dgvNpdata.Columns[i].HeaderText == "SubState" || dgvNpdata.Columns[i].HeaderText == "None")
+                        DataGridViewCell kom = dgvNpdata.Rows[0].Cells[i];
+
+
+                        if (kom.Value.ToString() == "1")
                         {
                             dgvNpdata.Columns[i].Visible = false;
-                        } 
+                        }
                     }
 
                     var bondlvl = przetworzonedane.SelectToken("bondGrowth")?.ToObject<int[]>();
@@ -673,11 +690,11 @@ namespace FGO_Database
 
                     for (int i = 0; i < bondlvl.Length; i++)
                     {
-                        trvBondlvl.Nodes[0].Nodes.Add((i+1).ToString() + ": " + bondlvl[i].ToString());
+                        trvBondlvl.Nodes[0].Nodes.Add((i + 1).ToString() + ": " + bondlvl[i].ToString());
                     }
 
                     var bondceid = (string)przetworzonedane.SelectToken("bondEquip");
-                    var urlce = "https://api.atlasacademy.io/nice/" + region + "/equip/"+bondceid+"?lang=en";
+                    var urlce = "https://api.atlasacademy.io/nice/" + region + "/equip/" + bondceid + "?lang=en";
                     var httpRequestce = (HttpWebRequest)WebRequest.Create(urlce);
                     string danece = "";
 
@@ -694,7 +711,7 @@ namespace FGO_Database
 
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ex.Message, "Błąd pobierania danych bond ce", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         toolStripStatusLabel2.Text = "Pobieranie Danych: Błąd";
 
                         //throw;
@@ -709,15 +726,25 @@ namespace FGO_Database
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(ex.Message, "Błąd pobierania obraza bond ce", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             //throw;
                         }
 
                         lblBondceName.Text = (string)przetworzonedanece.SelectToken("name");
+                        lblBondcedet.Text = "";
+
+                        for (int i = 0; i < przetworzonedanece.SelectToken("skills").Count(); i++)
+                        {
+                            lblBondcedet.Text = lblBondcedet.Text + (string)przetworzonedanece.SelectToken("skills.[" + i + "].detail") + "\r\n";
+                            temp = lblBondcedet.Text;
+                            temp = temp.Replace("Altria", "Arturia");
+                            lblBondcedet.Text = temp;
+                        }
 
                     }
 
                     //kontynuacja
+
                 }
             }
         }
@@ -797,7 +824,7 @@ namespace FGO_Database
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Błąd ładowania obrazów ascezji", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //throw;
             }
         }
@@ -838,7 +865,7 @@ namespace FGO_Database
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Błąd pobierania listy wyszukiwania", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 toolStripStatusLabel1.Text = "Pobieranie Listy: Błąd";
                 //throw;
             }
