@@ -195,7 +195,15 @@ namespace FGO_Database
                 }
                 else
                 {
-                    dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].funcType").ToString() + " (OverCharge)");
+                    if ((string)danenp.SelectToken("[" + i + "].funcPopupText") != "")
+                    {
+                        dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].funcPopupText").ToString() + " (OverCharge)");
+                    }
+                    else
+                    {
+                        dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].funcType").ToString() + " (OverCharge)");
+                    }
+                        
                 }
             }
 
@@ -643,8 +651,14 @@ namespace FGO_Database
                         }
                         else
                         {
-                            dgvNpdata.Columns.Add("col" + j.ToString(), FirstCharToUpper(npdet.SelectToken("[" + j + "].funcType").ToString()));
-
+                            if ((string)npdet.SelectToken("[" + j + "].funcPopupText") != "")
+                            {
+                                dgvNpdata.Columns.Add("col" + j.ToString(), FirstCharToUpper(npdet.SelectToken("[" + j + "].funcPopupText").ToString()));
+                            }
+                            else
+                            {
+                                dgvNpdata.Columns.Add("col" + j.ToString(), FirstCharToUpper(npdet.SelectToken("[" + j + "].funcType").ToString()));
+                            }
                         }
                     }
                     dgvNpdata.Rows.Add(5);
