@@ -241,7 +241,7 @@ namespace FGO_Database
 
                         if (danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value") != null || danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Rate") != null)
                         {
-                            if((String)danenp.SelectToken("[" + i + "].svals.[1].Value") != (String)danenp.SelectToken("[" + i + "].svals.[2].Value"))
+                            if((String)danenp.SelectToken("[" + i + "].svals.[1].Value") != (String)danenp.SelectToken("[" + i + "].svals2.[1].Value"))
                             {
                                 if (j == 0)
                                 {
