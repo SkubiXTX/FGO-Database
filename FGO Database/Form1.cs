@@ -23,7 +23,7 @@ namespace FGO_Database
         {
             if (String.IsNullOrEmpty(input))
             {
-                throw new ArgumentException("Pusty String!");
+                
             }
 
             return input.First().ToString().ToUpper() + String.Join("", input.Skip(1));
@@ -113,6 +113,11 @@ namespace FGO_Database
             Int32 licz2 = 0;
             Boolean ovc = false;
 
+            for (int i = 0; i < nrfunc.Length; i++)
+            {
+                nrfunc[i] = -1;
+            }
+
             for (int i = 0; i < danenp.Count(); i++)
             {
                 for (int j = 0; j < 5; j++)
@@ -123,7 +128,14 @@ namespace FGO_Database
                     }
                     else
                     {
-                        temp[j] = 1;
+                        if (danenp.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
+                        {
+                            temp[j] = (Int32)danenp.SelectToken("[" + i + "].svals.[" + j + "].Rate");
+                        }
+                        else
+                        {
+                            temp[j] = 1;
+                        }
                     }
                 }
 
@@ -161,8 +173,6 @@ namespace FGO_Database
 
                 for (int i = 1; i <= 5; i++)
                 {
-
-
                     DataGridViewCell kom = dgvNpdata.Rows[i-1].Cells[dgvNpdata.Columns.Count-1];
 
                     if (i == 1)
@@ -180,33 +190,43 @@ namespace FGO_Database
 
             for (int i = 0; i < nrfunc.Length; i++)
             {
-                if (nrfunc[i] != 0)
+                if (nrfunc[i] != -1)
                 {
                     licz2++;
                 }
             }
-            
+
 
             for (int i = 0; i < licz2; i++)
             {
+
                 if (danenp.SelectToken("[" + nrfunc[i] + "].buffs.[0].name") != null)
                 {
-                    dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].buffs.[0].name").ToString() + " (OverCharge)"); 
+                    
+                    dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].buffs.[0].name").ToString() + " (OverCharge)");
                 }
                 else
-                {
-                    if ((string)danenp.SelectToken("[" + i + "].funcPopupText") != "")
+                {   
+                    if ((string)danenp.SelectToken("[" + i + "].funcPopupText") != "" || (string)danenp.SelectToken("[" + i + "].funcPopupText") == "None")
                     {
+
                         dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].funcPopupText").ToString() + " (OverCharge)");
                     }
                     else
                     {
+
                         dgvNpdata.Columns.Add("colovc" + i.ToString(), danenp.SelectToken("[" + nrfunc[i] + "].funcType").ToString() + " (OverCharge)");
                     }
-                        
-                }
-            }
 
+                }
+
+                int lc = dgvNpdata.Columns.Count + (i - licz2);
+                if (dgvNpdata.Columns[lc].HeaderText == "None")
+                {
+                    dgvNpdata.Columns[lc].HeaderText = FirstCharToUpper(danenp.SelectToken("[" + nrfunc[i] + "].funcType").ToString());
+                }
+
+            }
 
             if (ovc == true)
             {
@@ -219,16 +239,30 @@ namespace FGO_Database
                         
                         DataGridViewCell kom = dgvNpdata.Rows[j].Cells[lc];
 
-                        if (danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value") != null)
+                        if (danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value") != null || danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Rate") != null)
                         {
-                            if (j == 0)
+                            if((String)danenp.SelectToken("[" + i + "].svals.[1].Value") != (String)danenp.SelectToken("[" + i + "].svals.[2].Value"))
                             {
-                                kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value").ToString();
+                                if (j == 0)
+                                {
+                                    kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value").ToString();
+                                }
+                                else
+                                {
+                                    kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Value").ToString();
+                                }
                             }
                             else
                             {
-                                kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Value").ToString();
-                            } 
+                                if (j == 0)
+                                {
+                                    kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Rate").ToString();
+                                }
+                                else
+                                {
+                                    kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Rate").ToString();
+                                }
+                            }
                         }
                         else
                         {
@@ -307,7 +341,7 @@ namespace FGO_Database
 
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Błąd pobierania danycy serwanta", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Błąd pobierania danych serwanta", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     toolStripStatusLabel2.Text = "Pobieranie Danych: Błąd";
                     toolStripProgressBar1.Visible = false;
 
@@ -474,14 +508,38 @@ namespace FGO_Database
                         {
                             DataGridViewCell kom = dgv1Skillevels.Rows[j].Cells[i];
 
-                            if (fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                            if ((String)fskilldet.SelectToken("[" + i + "].svals.[1].Value") != (String)fskilldet.SelectToken("[" + i + "].svals.[2].Value"))
                             {
-                                kom.Value = fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                if (fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                                {
+                                    kom.Value = fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                }
+                                else
+                                {
+                                    kom.Value = 1;
+                                } 
                             }
                             else
                             {
-                                kom.Value = 1;
+                                if (fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
+                                {
+                                    kom.Value = fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
+                                }
+                                else
+                                {
+                                    kom.Value = 1;
+                                }
                             }
+                        }
+                    }
+
+                    for (int i = 0; i < dgv1Skillevels.Columns.Count; i++)
+                    {
+                        DataGridViewCell kom = dgv1Skillevels.Rows[0].Cells[i];
+
+                        if (kom.Value.ToString() == "1")
+                        {
+                            dgv1Skillevels.Columns[i].Visible = false;
                         }
                     }
 
@@ -529,6 +587,16 @@ namespace FGO_Database
                         }
                     }
 
+                    for (int i = 0; i < dgv2Skillevels.Columns.Count; i++)
+                    {
+                        DataGridViewCell kom = dgv2Skillevels.Rows[0].Cells[i];
+
+                        if (kom.Value.ToString() == "1")
+                        {
+                            dgv2Skillevels.Columns[i].Visible = false;
+                        }
+                    }
+
                     dgv3Skillevels.Rows.Clear();
                     dgv3Skillevels.Columns.Clear();
                     dgv3Skillevels.RowHeadersWidth = 50;
@@ -570,6 +638,16 @@ namespace FGO_Database
                             {
                                 kom.Value = 1;
                             }
+                        }
+                    }
+
+                    for (int i = 0; i < dgv3Skillevels.Columns.Count; i++)
+                    {
+                        DataGridViewCell kom = dgv3Skillevels.Rows[0].Cells[i];
+
+                        if (kom.Value.ToString() == "1")
+                        {
+                            dgv3Skillevels.Columns[i].Visible = false;
                         }
                     }
 
@@ -660,6 +738,11 @@ namespace FGO_Database
                                 dgvNpdata.Columns.Add("col" + j.ToString(), FirstCharToUpper(npdet.SelectToken("[" + j + "].funcType").ToString()));
                             }
                         }
+
+                        if (dgvNpdata.Columns[j].HeaderText == "None")
+                        {
+                            dgvNpdata.Columns[j].HeaderText = FirstCharToUpper(npdet.SelectToken("[" + j + "].funcType").ToString());
+                        }
                     }
                     dgvNpdata.Rows.Add(5);
 
@@ -673,10 +756,34 @@ namespace FGO_Database
                         for (int j = 0; j < 5; j++)
                         {
                             DataGridViewCell kom = dgvNpdata.Rows[j].Cells[i];
+                            String tempkom = "";
+                            string tempfunc = (String)npdet.SelectToken("[" + i + "].funcType");
 
                             if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
                             {
-                                kom.Value = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+
+                                if((tempkom.Length == 3 || tempkom.Length == 4 || tempkom.Length == 5) && (tempfunc != "gainHp" || tempfunc != "loseHp" || tempfunc != "lossHpSafe"))
+                                {
+                                    if(tempkom.Length == 3)
+                                    {
+                                        tempkom = NaProcent(tempkom, 10);
+                                    }
+                                    else
+                                    {
+                                       if(tempfunc == "damageNp")
+                                       {
+                                            tempkom = NaProcent(tempkom, 10);
+                                       }
+                                       else
+                                       {
+                                            tempkom = NaProcent(tempkom, 100);
+                                       }
+
+                                    }
+                                }     
+
+                                kom.Value = tempkom;
                             }
                             else
                             {
@@ -690,7 +797,6 @@ namespace FGO_Database
                     for (int i = 0; i < dgvNpdata.Columns.Count; i++)
                     {
                         DataGridViewCell kom = dgvNpdata.Rows[0].Cells[i];
-
 
                         if (kom.Value.ToString() == "1")
                         {

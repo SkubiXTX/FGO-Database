@@ -105,6 +105,7 @@ namespace FGO_Database
             this.pcbNpcardtype = new System.Windows.Forms.PictureBox();
             this.tabPage12 = new System.Windows.Forms.TabPage();
             this.grbBondce = new System.Windows.Forms.GroupBox();
+            this.lblBondcedet = new System.Windows.Forms.Label();
             this.lblBondceName = new System.Windows.Forms.Label();
             this.pcbBondce = new System.Windows.Forms.PictureBox();
             this.trvBondlvl = new System.Windows.Forms.TreeView();
@@ -128,7 +129,6 @@ namespace FGO_Database
             this.grbRegion = new System.Windows.Forms.GroupBox();
             this.rdbJP = new System.Windows.Forms.RadioButton();
             this.rdbNA = new System.Windows.Forms.RadioButton();
-            this.lblBondcedet = new System.Windows.Forms.Label();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -897,6 +897,14 @@ namespace FGO_Database
             this.grbBondce.TabStop = false;
             this.grbBondce.Text = "Bond CE";
             // 
+            // lblBondcedet
+            // 
+            this.lblBondcedet.Location = new System.Drawing.Point(76, 44);
+            this.lblBondcedet.Name = "lblBondcedet";
+            this.lblBondcedet.Size = new System.Drawing.Size(209, 129);
+            this.lblBondcedet.TabIndex = 6;
+            this.lblBondcedet.Text = "Opis";
+            // 
             // lblBondceName
             // 
             this.lblBondceName.AutoSize = true;
@@ -1100,14 +1108,6 @@ namespace FGO_Database
             this.rdbNA.Text = "NA";
             this.rdbNA.UseVisualStyleBackColor = true;
             this.rdbNA.CheckedChanged += new System.EventHandler(this.rdbNA_CheckedChanged);
-            // 
-            // lblBondcedet
-            // 
-            this.lblBondcedet.Location = new System.Drawing.Point(76, 44);
-            this.lblBondcedet.Name = "lblBondcedet";
-            this.lblBondcedet.Size = new System.Drawing.Size(209, 129);
-            this.lblBondcedet.TabIndex = 6;
-            this.lblBondcedet.Text = "Bond CE";
             // 
             // frmOknoGl
             // 
