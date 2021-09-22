@@ -236,39 +236,46 @@ namespace FGO_Database
 
                     for (int j = 0; j < 5; j++)
                     {
-                        
+
                         DataGridViewCell kom = dgvNpdata.Rows[j].Cells[lc];
                         String tempfunc = (String)danenp.SelectToken("[" + i + "].funcType");
                         String tempkom = "";
 
-                        if (danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value") != null || danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Rate") != null)
+                        if (tempfunc != "none")
                         {
-
-                            if ((Int32)danenp.SelectToken("[" + nrfunc[i] + "].svals.[1].Value") != (Int32)danenp.SelectToken("[" + nrfunc[i] + "].svals2.[1].Value"))
+                            if (danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value") != null || danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Rate") != null)
                             {
-                                if (j == 0)
+
+                                if ((Int32)danenp.SelectToken("[" + nrfunc[i] + "].svals.[1].Value") != (Int32)danenp.SelectToken("[" + nrfunc[i] + "].svals2.[1].Value"))
                                 {
-                                    tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                    if (j == 0)
+                                    {
+                                        tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value").ToString();
+                                        kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                    }
+                                    else
+                                    {
+                                        tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Value").ToString();
+                                        kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                    }
                                 }
                                 else
                                 {
-                                    tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Value").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                    if (j == 0)
+                                    {
+                                        tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Rate").ToString();
+                                        kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                    }
+                                    else
+                                    {
+                                        tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Rate").ToString();
+                                        kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                    }
                                 }
                             }
                             else
                             {
-                                if (j == 0)
-                                {
-                                    tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Rate").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
-                                }
-                                else
-                                {
-                                    tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Rate").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
-                                }
+                                kom.Value = 1;
                             }
                         }
                         else
@@ -728,22 +735,29 @@ namespace FGO_Database
 
                     for (int i = 0; i < npdet.Count(); i++)
                     {
-                        if (npdet.SelectToken("[" + i + "].svals.[0].Value") == null)
+                        if ((String)npdet.SelectToken("[" + i + "].funcType") != "none")
                         {
-                            if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
-                            {
-                                dgvNpdata.Columns[i].Visible = false;
-                            }
-                        }
-                        else
-                        {
-                            if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Value") == 1)
+                            if (npdet.SelectToken("[" + i + "].svals.[0].Value") == null)
                             {
                                 if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
                                 {
                                     dgvNpdata.Columns[i].Visible = false;
                                 }
                             }
+                            else
+                            {
+                                if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Value") == 1)
+                                {
+                                    if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
+                                    {
+                                        dgvNpdata.Columns[i].Visible = false;
+                                    }
+                                }
+                            } 
+                        }
+                        else
+                        {
+                            dgvNpdata.Columns[i].Visible = false;
                         }
                     }
 
