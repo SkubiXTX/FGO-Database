@@ -155,8 +155,15 @@ namespace FGO_Database
                     }
                 }
 
+                if (danenp.SelectToken("[" + i + "].svals2.[0].Rate") != null)
+                {
+                    if (danenp.SelectToken("[" + i + "].svals2.[0].Value") == null && (Int32)danenp.SelectToken("[" + i + "].svals2.[0].Rate") == 1000)
+                    {
+                        temp2 = 0;
+                    }
+                }
 
-                if(temp2 == 4)
+                if (temp2 == 4)
                 {
                     ovc = true;
                     nrfunc[licz] = i;
@@ -246,7 +253,7 @@ namespace FGO_Database
                             if (danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value") != null || danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Rate") != null)
                             {
 
-                                if ((Int32)danenp.SelectToken("[" + nrfunc[i] + "].svals.[1].Value") != (Int32)danenp.SelectToken("[" + nrfunc[i] + "].svals2.[1].Value"))
+                                if ((String)danenp.SelectToken("[" + nrfunc[i] + "].svals.[1].Value") != (String)danenp.SelectToken("[" + nrfunc[i] + "].svals2.[1].Value"))
                                 {
                                     if (j == 0)
                                     {
