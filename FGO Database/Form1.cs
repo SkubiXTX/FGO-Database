@@ -316,6 +316,106 @@ namespace FGO_Database
                 return "1";
             }
         }
+
+        public void WypelnijDaneSkillow (JToken dane, DataGridView dgvskill, TreeView trvskillcooldown, Int32 Nrskilla)
+        {
+            var skillcooldown = dane.SelectToken("skills.[" + Nrskilla + "].coolDown")?.ToObject<string[]>();
+            trvskillcooldown.Nodes.Clear();
+            trvskillcooldown.Nodes.Add("Cooldown");
+
+            for (int j = 0; j < skillcooldown.Length; j++)
+            {
+                int licz = j + 1;
+                trvskillcooldown.Nodes[0].Nodes.Add("Lvl " + licz + ": " + skillcooldown[j]);
+            }
+
+
+            dgvskill.Rows.Clear();
+            dgvskill.Columns.Clear();
+            dgvskill.RowHeadersWidth = 50;
+
+            var skilldet = dane.SelectToken("skills.[" + Nrskilla + "].functions");
+
+            for (int j = 0; j < skilldet.Count(); j++)
+            {
+                if (skilldet.SelectToken("[" + j + "].buffs").Count() != 0)
+                {
+                    dgvskill.Columns.Add("col" + j.ToString(), skilldet.SelectToken("[" + j + "].buffs.[0].name").ToString());
+                    dgvskill.Columns[j].ToolTipText = skilldet.SelectToken("[" + j + "].buffs.[0].detail").ToString();
+                }
+                else
+                {
+                    dgvskill.Columns.Add("col" + j.ToString(), FirstCharToUpper(skilldet.SelectToken("[" + j + "].funcType").ToString()));
+
+                }
+            }
+            dgvskill.Rows.Add(10);
+
+            for (int j = 0; j < 10; j++)
+            {
+                dgvskill.Rows[j].HeaderCell.Value = (j + 1).ToString();
+            }
+
+
+            for (int i = 0; i < skilldet.Count(); i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    DataGridViewCell kom = dgvskill.Rows[j].Cells[i];
+                    String tempfunc = (String)skilldet.SelectToken("[" + i + "].funcType");
+                    String tempkom = "";
+
+                    if ((String)skilldet.SelectToken("[" + i + "].svals.[1].Value") != (String)skilldet.SelectToken("[" + i + "].svals.[2].Value"))
+                    {
+                        if (skilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                        {
+                            tempkom = skilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                            kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                        }
+                        else
+                        {
+                            kom.Value = 1;
+                        }
+                    }
+                    else
+                    {
+                        if (skilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
+                        {
+                            tempkom = skilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
+                            kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                        }
+                        else
+                        {
+                            kom.Value = 1;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < skilldet.Count(); i++)
+            {
+
+                if (skilldet.SelectToken("[" + i + "].svals.[0].Value") == null)
+                {
+                    if ((Int32)skilldet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
+                    {
+                        dgvskill.Columns[i].Visible = false;
+                    } 
+                }
+                else
+                {
+                    if ((Int32)skilldet.SelectToken("[" + i + "].svals.[0].Value") == 1)
+                    {
+                        if ((Int32)skilldet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
+                        {
+                            dgvskill.Columns[i].Visible = false;
+                        }
+                    }
+                }
+
+            }
+        }
+
         public frmOknoGl()
         {
             InitializeComponent();
@@ -485,251 +585,9 @@ namespace FGO_Database
                     pcb3skill.Load((string)przetworzonedane.SelectToken("skills.[2].icon"));
                     lbl3skillOpis.Text = (string)przetworzonedane.SelectToken("skills.[2].detail");
 
-                    var fskillcooldown = przetworzonedane.SelectToken("skills.[0].coolDown")?.ToObject<string[]>();
-                    trv1Skillcooldown.Nodes.Clear();
-                    trv1Skillcooldown.Nodes.Add("Cooldown");
-
-                    for (int j = 0; j < fskillcooldown.Length; j++)
-                    {
-                        int licz = j + 1;
-                        trv1Skillcooldown.Nodes[0].Nodes.Add("Lvl " + licz + ": " + fskillcooldown[j]);
-                    }
-
-                    var sskillcooldown = przetworzonedane.SelectToken("skills.[1].coolDown")?.ToObject<string[]>();
-                    trv2Skillcooldown.Nodes.Clear();
-                    trv2Skillcooldown.Nodes.Add("Cooldown");
-
-                    for (int j = 0; j < sskillcooldown.Length; j++)
-                    {
-                        int licz = j + 1;
-                        trv2Skillcooldown.Nodes[0].Nodes.Add("Lvl " + licz + ": " + sskillcooldown[j]);
-                    }
-
-                    var tskillcooldown = przetworzonedane.SelectToken("skills.[2].coolDown")?.ToObject<string[]>();
-                    trv3Skillcooldown.Nodes.Clear();
-                    trv3Skillcooldown.Nodes.Add("Cooldown");
-
-                    for (int j = 0; j < tskillcooldown.Length; j++)
-                    {
-                        int licz = j + 1;
-                        trv3Skillcooldown.Nodes[0].Nodes.Add("Lvl " + licz + ": " + tskillcooldown[j]);
-                    }
-
-                    dgv1Skillevels.Rows.Clear();
-                    dgv1Skillevels.Columns.Clear();
-                    dgv1Skillevels.RowHeadersWidth = 50;
-
-                    var fskilldet = przetworzonedane.SelectToken("skills.[0].functions");
-
-                    for (int j = 0; j < fskilldet.Count(); j++)
-                    {
-                        if (fskilldet.SelectToken("[" + j + "].buffs").Count() != 0)
-                        {
-                            dgv1Skillevels.Columns.Add("col" + j.ToString(), fskilldet.SelectToken("[" + j + "].buffs.[0].name").ToString());
-                            dgv1Skillevels.Columns[j].ToolTipText = fskilldet.SelectToken("[" + j + "].buffs.[0].detail").ToString();
-                        }
-                        else
-                        {
-                            dgv1Skillevels.Columns.Add("col" + j.ToString(), FirstCharToUpper(fskilldet.SelectToken("[" + j + "].funcType").ToString()));
-
-                        }
-                    }
-                    dgv1Skillevels.Rows.Add(10);
-
-                    for (int j = 0; j < 10; j++)
-                    {
-                        dgv1Skillevels.Rows[j].HeaderCell.Value = (j + 1).ToString();
-                    }
-
-
-                    for (int i = 0; i < fskilldet.Count(); i++)
-                    {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            DataGridViewCell kom = dgv1Skillevels.Rows[j].Cells[i];
-                            String tempfunc = (String)fskilldet.SelectToken("[" + i + "].funcType");
-                            String tempkom = "";
-
-                            if ((String)fskilldet.SelectToken("[" + i + "].svals.[1].Value") != (String)fskilldet.SelectToken("[" + i + "].svals.[2].Value"))
-                            {
-                                if (fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
-                                {
-                                    tempkom = fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
-                                }
-                                else
-                                {
-                                    kom.Value = 1;
-                                } 
-                            }
-                            else
-                            {
-                                if (fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
-                                {
-                                    tempkom = fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
-                                }
-                                else
-                                {
-                                    kom.Value = 1;
-                                }
-                            }
-                        }
-                    }
-
-                    for (int i = 0; i < dgv1Skillevels.Columns.Count; i++)
-                    {
-                        DataGridViewCell kom = dgv1Skillevels.Rows[0].Cells[i];
-
-                        if (kom.Value.ToString() == "1")
-                        {
-                            dgv1Skillevels.Columns[i].Visible = false;
-                        }
-                    }
-
-                    dgv2Skillevels.Rows.Clear();
-                    dgv2Skillevels.Columns.Clear();
-                    dgv2Skillevels.RowHeadersWidth = 50;
-
-                    var sskilldet = przetworzonedane.SelectToken("skills.[1].functions");
-
-                    for (int j = 0; j < sskilldet.Count(); j++)
-                    {
-                        if (sskilldet.SelectToken("[" + j + "].buffs").Count() != 0)
-                        {
-                            dgv2Skillevels.Columns.Add("col" + j.ToString(), sskilldet.SelectToken("[" + j + "].buffs.[0].name").ToString());
-                            dgv2Skillevels.Columns[j].ToolTipText = sskilldet.SelectToken("[" + j + "].buffs.[0].detail").ToString();
-                        }
-                        else
-                        {
-                            dgv2Skillevels.Columns.Add("col" + j.ToString(), FirstCharToUpper(sskilldet.SelectToken("[" + j + "].funcType").ToString()));
-
-                        }
-                    }
-                    dgv2Skillevels.Rows.Add(10);
-
-                    for (int j = 0; j < 10; j++)
-                    {
-                        dgv2Skillevels.Rows[j].HeaderCell.Value = (j + 1).ToString();
-                    }
-
-
-                    for (int i = 0; i < sskilldet.Count(); i++)
-                    {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            DataGridViewCell kom = dgv2Skillevels.Rows[j].Cells[i];
-                            String tempfunc = (String)sskilldet.SelectToken("[" + i + "].funcType");
-                            String tempkom = "";
-
-                            if ((String)sskilldet.SelectToken("[" + i + "].svals.[1].Value") != (String)sskilldet.SelectToken("[" + i + "].svals.[2].Value"))
-                            {
-                                if (sskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
-                                {
-                                    tempkom = sskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
-                                }
-                                else
-                                {
-                                    kom.Value = 1;
-                                }
-                            }
-                            else
-                            {
-                                if (sskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
-                                {
-                                    tempkom = sskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
-                                }
-                                else
-                                {
-                                    kom.Value = 1;
-                                }
-                            }
-                        }
-                    }
-
-                    for (int i = 0; i < dgv2Skillevels.Columns.Count; i++)
-                    {
-                        DataGridViewCell kom = dgv2Skillevels.Rows[0].Cells[i];
-
-                        if (kom.Value.ToString() == "1")
-                        {
-                            dgv2Skillevels.Columns[i].Visible = false;
-                        }
-                    }
-
-                    dgv3Skillevels.Rows.Clear();
-                    dgv3Skillevels.Columns.Clear();
-                    dgv3Skillevels.RowHeadersWidth = 50;
-
-                    var tskilldet = przetworzonedane.SelectToken("skills.[2].functions");
-
-                    for (int j = 0; j < tskilldet.Count(); j++)
-                    {
-                        if (tskilldet.SelectToken("[" + j + "].buffs").Count() != 0)
-                        {
-                            dgv3Skillevels.Columns.Add("col" + j.ToString(), tskilldet.SelectToken("[" + j + "].buffs.[0].name").ToString());
-                            dgv3Skillevels.Columns[j].ToolTipText = tskilldet.SelectToken("[" + j + "].buffs.[0].detail").ToString();
-                        }
-                        else
-                        {
-                            dgv3Skillevels.Columns.Add("col" + j.ToString(), FirstCharToUpper(tskilldet.SelectToken("[" + j + "].funcType").ToString()));
-
-                        }
-                    }
-                    dgv3Skillevels.Rows.Add(10);
-
-                    for (int j = 0; j < 10; j++)
-                    {
-                        dgv3Skillevels.Rows[j].HeaderCell.Value = (j + 1).ToString();
-                    }
-
-
-                    for (int i = 0; i < tskilldet.Count(); i++)
-                    {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            DataGridViewCell kom = dgv3Skillevels.Rows[j].Cells[i];
-                            String tempfunc = (String)tskilldet.SelectToken("[" + i + "].funcType");
-                            String tempkom = "";
-
-                            if ((String)tskilldet.SelectToken("[" + i + "].svals.[1].Value") != (String)tskilldet.SelectToken("[" + i + "].svals.[2].Value"))
-                            {
-                                if (tskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
-                                {
-                                    tempkom = tskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
-                                }
-                                else
-                                {
-                                    kom.Value = 1;
-                                }
-                            }
-                            else
-                            {
-                                if (tskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
-                                {
-                                    tempkom = tskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
-                                }
-                                else
-                                {
-                                    kom.Value = 1;
-                                }
-                            }
-                        }
-                    }
-
-                    for (int i = 0; i < dgv3Skillevels.Columns.Count; i++)
-                    {
-                        DataGridViewCell kom = dgv3Skillevels.Rows[0].Cells[i];
-
-                        if (kom.Value.ToString() == "1")
-                        {
-                            dgv3Skillevels.Columns[i].Visible = false;
-                        }
-                    }
+                    WypelnijDaneSkillow(przetworzonedane, dgv1Skillevels, trv1Skillcooldown, 0);
+                    WypelnijDaneSkillow(przetworzonedane, dgv2Skillevels, trv2Skillcooldown, 1);
+                    WypelnijDaneSkillow(przetworzonedane, dgv3Skillevels, trv3Skillcooldown, 2);
 
                     var passiveskills = przetworzonedane.SelectToken("classPassive");
                     int numpasssk = przetworzonedane.SelectToken("classPassive").Count();
@@ -837,21 +695,55 @@ namespace FGO_Database
                         {
                             DataGridViewCell kom = dgvNpdata.Rows[j].Cells[i];
                             String tempfunc = (String)npdet.SelectToken("[" + i + "].funcType");
-                            String tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                            String tempkom = "";
 
-                            kom.Value = Poprawliczby(tempkom, i, j,tempfunc);
+                            if ((String)npdet.SelectToken("[" + i + "].svals.[1].Value") != (String)npdet.SelectToken("[" + i + "].svals.[2].Value"))
+                            {
+                                if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                                {
+                                    tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                }
+                                else
+                                {
+                                    kom.Value = 1;
+                                }
+                            }
+                            else
+                            {
+                                if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
+                                {
+                                    tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                }
+                                else
+                                {
+                                    kom.Value = 1;
+                                }
+                            }
                         }
                     }
 
                     WykryjOvercharge(npdet);
 
-                    for (int i = 0; i < dgvNpdata.Columns.Count; i++)
+                    for (int i = 0; i < npdet.Count(); i++)
                     {
-                        DataGridViewCell kom = dgvNpdata.Rows[0].Cells[i];
-
-                        if (kom.Value.ToString() == "1")
+                        if (npdet.SelectToken("[" + i + "].svals.[0].Value") == null)
                         {
-                            dgvNpdata.Columns[i].Visible = false;
+                            if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
+                            {
+                                dgvNpdata.Columns[i].Visible = false;
+                            }
+                        }
+                        else
+                        {
+                            if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Value") == 1)
+                            {
+                                if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
+                                {
+                                    dgvNpdata.Columns[i].Visible = false;
+                                }
+                            }
                         }
                     }
 
