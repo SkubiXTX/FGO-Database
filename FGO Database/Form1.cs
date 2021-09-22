@@ -238,29 +238,36 @@ namespace FGO_Database
                     {
                         
                         DataGridViewCell kom = dgvNpdata.Rows[j].Cells[lc];
+                        String tempfunc = (String)danenp.SelectToken("[" + i + "].funcType");
+                        String tempkom = "";
 
                         if (danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value") != null || danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Rate") != null)
                         {
-                            if((String)danenp.SelectToken("[" + i + "].svals.[1].Value") != (String)danenp.SelectToken("[" + i + "].svals2.[1].Value"))
+
+                            if ((Int32)danenp.SelectToken("[" + nrfunc[i] + "].svals.[1].Value") != (Int32)danenp.SelectToken("[" + nrfunc[i] + "].svals2.[1].Value"))
                             {
                                 if (j == 0)
                                 {
-                                    kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value").ToString();
+                                    tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Value").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
                                 }
                                 else
                                 {
-                                    kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Value").ToString();
+                                    tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Value").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
                                 }
                             }
                             else
                             {
                                 if (j == 0)
                                 {
-                                    kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Rate").ToString();
+                                    tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals.[0].Rate").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
                                 }
                                 else
                                 {
-                                    kom.Value = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Rate").ToString();
+                                    tempkom = danenp.SelectToken("[" + nrfunc[i] + "].svals" + (j + 1) + ".[0].Rate").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
                                 }
                             }
                         }
@@ -276,6 +283,39 @@ namespace FGO_Database
 
         }
 
+        public String Poprawliczby (String dane, Int32 i, Int32 j, String functype)
+        {
+
+            if (dane != null)
+            {
+
+                if ((dane.Length == 3 || dane.Length == 4 || dane.Length == 5) && (functype != "gainHp" || functype != "loseHp" || functype != "lossHpSafe"))
+                {
+                    if (dane.Length == 3)
+                    {
+                        dane = NaProcent(dane, 10);
+                    }
+                    else
+                    {
+                        if (functype == "damageNp")
+                        {
+                            dane = NaProcent(dane, 10);
+                        }
+                        else
+                        {
+                            dane = NaProcent(dane, 100);
+                        }
+
+                    }
+                }
+
+                return dane;
+            }
+            else
+            {
+                return "1";
+            }
+        }
         public frmOknoGl()
         {
             InitializeComponent();
@@ -507,12 +547,15 @@ namespace FGO_Database
                         for (int j = 0; j < 10; j++)
                         {
                             DataGridViewCell kom = dgv1Skillevels.Rows[j].Cells[i];
+                            String tempfunc = (String)fskilldet.SelectToken("[" + i + "].funcType");
+                            String tempkom = "";
 
                             if ((String)fskilldet.SelectToken("[" + i + "].svals.[1].Value") != (String)fskilldet.SelectToken("[" + i + "].svals.[2].Value"))
                             {
                                 if (fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
                                 {
-                                    kom.Value = fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                    tempkom = fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
                                 }
                                 else
                                 {
@@ -523,7 +566,8 @@ namespace FGO_Database
                             {
                                 if (fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
                                 {
-                                    kom.Value = fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
+                                    tempkom = fskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
                                 }
                                 else
                                 {
@@ -575,14 +619,32 @@ namespace FGO_Database
                         for (int j = 0; j < 10; j++)
                         {
                             DataGridViewCell kom = dgv2Skillevels.Rows[j].Cells[i];
+                            String tempfunc = (String)sskilldet.SelectToken("[" + i + "].funcType");
+                            String tempkom = "";
 
-                            if (sskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                            if ((String)sskilldet.SelectToken("[" + i + "].svals.[1].Value") != (String)sskilldet.SelectToken("[" + i + "].svals.[2].Value"))
                             {
-                                kom.Value = sskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                if (sskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                                {
+                                    tempkom = sskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                }
+                                else
+                                {
+                                    kom.Value = 1;
+                                }
                             }
                             else
                             {
-                                kom.Value = 1;
+                                if (sskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
+                                {
+                                    tempkom = sskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                }
+                                else
+                                {
+                                    kom.Value = 1;
+                                }
                             }
                         }
                     }
@@ -629,14 +691,32 @@ namespace FGO_Database
                         for (int j = 0; j < 10; j++)
                         {
                             DataGridViewCell kom = dgv3Skillevels.Rows[j].Cells[i];
+                            String tempfunc = (String)tskilldet.SelectToken("[" + i + "].funcType");
+                            String tempkom = "";
 
-                            if (tskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                            if ((String)tskilldet.SelectToken("[" + i + "].svals.[1].Value") != (String)tskilldet.SelectToken("[" + i + "].svals.[2].Value"))
                             {
-                                kom.Value = tskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                if (tskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                                {
+                                    tempkom = tskilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                }
+                                else
+                                {
+                                    kom.Value = 1;
+                                }
                             }
                             else
                             {
-                                kom.Value = 1;
+                                if (tskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
+                                {
+                                    tempkom = tskilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
+                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                }
+                                else
+                                {
+                                    kom.Value = 1;
+                                }
                             }
                         }
                     }
@@ -756,39 +836,10 @@ namespace FGO_Database
                         for (int j = 0; j < 5; j++)
                         {
                             DataGridViewCell kom = dgvNpdata.Rows[j].Cells[i];
-                            String tempkom = "";
-                            string tempfunc = (String)npdet.SelectToken("[" + i + "].funcType");
+                            String tempfunc = (String)npdet.SelectToken("[" + i + "].funcType");
+                            String tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
 
-                            if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
-                            {
-                                tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
-
-                                if((tempkom.Length == 3 || tempkom.Length == 4 || tempkom.Length == 5) && (tempfunc != "gainHp" || tempfunc != "loseHp" || tempfunc != "lossHpSafe"))
-                                {
-                                    if(tempkom.Length == 3)
-                                    {
-                                        tempkom = NaProcent(tempkom, 10);
-                                    }
-                                    else
-                                    {
-                                       if(tempfunc == "damageNp")
-                                       {
-                                            tempkom = NaProcent(tempkom, 10);
-                                       }
-                                       else
-                                       {
-                                            tempkom = NaProcent(tempkom, 100);
-                                       }
-
-                                    }
-                                }     
-
-                                kom.Value = tempkom;
-                            }
-                            else
-                            {
-                                kom.Value = 1;
-                            }
+                            kom.Value = Poprawliczby(tempkom, i, j,tempfunc);
                         }
                     }
 
