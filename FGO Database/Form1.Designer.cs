@@ -129,6 +129,10 @@ namespace FGO_Database
             this.grbRegion = new System.Windows.Forms.GroupBox();
             this.rdbJP = new System.Windows.Forms.RadioButton();
             this.rdbNA = new System.Windows.Forms.RadioButton();
+            this.cmb1Skillvariants = new System.Windows.Forms.ComboBox();
+            this.cmb2Skillvariants = new System.Windows.Forms.ComboBox();
+            this.cmb3Skillvariants = new System.Windows.Forms.ComboBox();
+            this.cmbNPvariants = new System.Windows.Forms.ComboBox();
             this.stsInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbPortret)).BeginInit();
             this.tbcAscezje.SuspendLayout();
@@ -196,7 +200,7 @@ namespace FGO_Database
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripProgressBar1});
-            this.stsInfo.Location = new System.Drawing.Point(0, 619);
+            this.stsInfo.Location = new System.Drawing.Point(0, 649);
             this.stsInfo.Name = "stsInfo";
             this.stsInfo.Size = new System.Drawing.Size(800, 22);
             this.stsInfo.TabIndex = 2;
@@ -452,7 +456,7 @@ namespace FGO_Database
             this.tbcCards.Location = new System.Drawing.Point(10, 349);
             this.tbcCards.Name = "tbcCards";
             this.tbcCards.SelectedIndex = 0;
-            this.tbcCards.Size = new System.Drawing.Size(495, 266);
+            this.tbcCards.Size = new System.Drawing.Size(495, 297);
             this.tbcCards.TabIndex = 17;
             // 
             // tabPage5
@@ -470,7 +474,7 @@ namespace FGO_Database
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(487, 240);
+            this.tabPage5.Size = new System.Drawing.Size(487, 271);
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "Cards";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -558,7 +562,7 @@ namespace FGO_Database
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(487, 240);
+            this.tabPage6.Size = new System.Drawing.Size(487, 271);
             this.tabPage6.TabIndex = 1;
             this.tabPage6.Text = "Active Skills";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -571,11 +575,12 @@ namespace FGO_Database
             this.tbcSkills.Location = new System.Drawing.Point(6, 6);
             this.tbcSkills.Name = "tbcSkills";
             this.tbcSkills.SelectedIndex = 0;
-            this.tbcSkills.Size = new System.Drawing.Size(475, 231);
+            this.tbcSkills.Size = new System.Drawing.Size(475, 259);
             this.tbcSkills.TabIndex = 0;
             // 
             // tabPage9
             // 
+            this.tabPage9.Controls.Add(this.cmb1Skillvariants);
             this.tabPage9.Controls.Add(this.trv1Skillcooldown);
             this.tabPage9.Controls.Add(this.dgv1Skillevels);
             this.tabPage9.Controls.Add(this.lbl1skillOpis);
@@ -584,14 +589,14 @@ namespace FGO_Database
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(467, 205);
+            this.tabPage9.Size = new System.Drawing.Size(467, 233);
             this.tabPage9.TabIndex = 0;
             this.tabPage9.Text = "First Skill";
             this.tabPage9.UseVisualStyleBackColor = true;
             // 
             // trv1Skillcooldown
             // 
-            this.trv1Skillcooldown.Location = new System.Drawing.Point(339, 60);
+            this.trv1Skillcooldown.Location = new System.Drawing.Point(340, 88);
             this.trv1Skillcooldown.Name = "trv1Skillcooldown";
             this.trv1Skillcooldown.Size = new System.Drawing.Size(121, 139);
             this.trv1Skillcooldown.TabIndex = 4;
@@ -601,14 +606,14 @@ namespace FGO_Database
             this.dgv1Skillevels.AllowUserToOrderColumns = true;
             this.dgv1Skillevels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv1Skillevels.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgv1Skillevels.Location = new System.Drawing.Point(6, 60);
+            this.dgv1Skillevels.Location = new System.Drawing.Point(6, 88);
             this.dgv1Skillevels.Name = "dgv1Skillevels";
             this.dgv1Skillevels.Size = new System.Drawing.Size(326, 139);
             this.dgv1Skillevels.TabIndex = 3;
             // 
             // lbl1skillOpis
             // 
-            this.lbl1skillOpis.Location = new System.Drawing.Point(60, 20);
+            this.lbl1skillOpis.Location = new System.Drawing.Point(60, 48);
             this.lbl1skillOpis.Name = "lbl1skillOpis";
             this.lbl1skillOpis.Size = new System.Drawing.Size(400, 35);
             this.lbl1skillOpis.TabIndex = 2;
@@ -616,7 +621,7 @@ namespace FGO_Database
             // 
             // pcb1skill
             // 
-            this.pcb1skill.Location = new System.Drawing.Point(6, 6);
+            this.pcb1skill.Location = new System.Drawing.Point(6, 34);
             this.pcb1skill.Name = "pcb1skill";
             this.pcb1skill.Size = new System.Drawing.Size(48, 48);
             this.pcb1skill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -627,7 +632,7 @@ namespace FGO_Database
             // 
             this.lbl1skill.AutoSize = true;
             this.lbl1skill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl1skill.Location = new System.Drawing.Point(60, 6);
+            this.lbl1skill.Location = new System.Drawing.Point(60, 34);
             this.lbl1skill.Name = "lbl1skill";
             this.lbl1skill.Size = new System.Drawing.Size(46, 16);
             this.lbl1skill.TabIndex = 0;
@@ -635,6 +640,7 @@ namespace FGO_Database
             // 
             // tabPage10
             // 
+            this.tabPage10.Controls.Add(this.cmb2Skillvariants);
             this.tabPage10.Controls.Add(this.trv2Skillcooldown);
             this.tabPage10.Controls.Add(this.dgv2Skillevels);
             this.tabPage10.Controls.Add(this.lbl2skillOpis);
@@ -643,14 +649,14 @@ namespace FGO_Database
             this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(467, 205);
+            this.tabPage10.Size = new System.Drawing.Size(467, 233);
             this.tabPage10.TabIndex = 1;
             this.tabPage10.Text = "Second Skill";
             this.tabPage10.UseVisualStyleBackColor = true;
             // 
             // trv2Skillcooldown
             // 
-            this.trv2Skillcooldown.Location = new System.Drawing.Point(339, 60);
+            this.trv2Skillcooldown.Location = new System.Drawing.Point(339, 88);
             this.trv2Skillcooldown.Name = "trv2Skillcooldown";
             this.trv2Skillcooldown.Size = new System.Drawing.Size(121, 139);
             this.trv2Skillcooldown.TabIndex = 7;
@@ -660,14 +666,14 @@ namespace FGO_Database
             this.dgv2Skillevels.AllowUserToOrderColumns = true;
             this.dgv2Skillevels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv2Skillevels.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgv2Skillevels.Location = new System.Drawing.Point(6, 60);
+            this.dgv2Skillevels.Location = new System.Drawing.Point(6, 88);
             this.dgv2Skillevels.Name = "dgv2Skillevels";
             this.dgv2Skillevels.Size = new System.Drawing.Size(326, 139);
             this.dgv2Skillevels.TabIndex = 6;
             // 
             // lbl2skillOpis
             // 
-            this.lbl2skillOpis.Location = new System.Drawing.Point(60, 20);
+            this.lbl2skillOpis.Location = new System.Drawing.Point(60, 48);
             this.lbl2skillOpis.Name = "lbl2skillOpis";
             this.lbl2skillOpis.Size = new System.Drawing.Size(400, 35);
             this.lbl2skillOpis.TabIndex = 5;
@@ -675,7 +681,7 @@ namespace FGO_Database
             // 
             // pcb2skill
             // 
-            this.pcb2skill.Location = new System.Drawing.Point(6, 6);
+            this.pcb2skill.Location = new System.Drawing.Point(6, 34);
             this.pcb2skill.Name = "pcb2skill";
             this.pcb2skill.Size = new System.Drawing.Size(48, 48);
             this.pcb2skill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -686,7 +692,7 @@ namespace FGO_Database
             // 
             this.lbl2skill.AutoSize = true;
             this.lbl2skill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl2skill.Location = new System.Drawing.Point(60, 6);
+            this.lbl2skill.Location = new System.Drawing.Point(60, 34);
             this.lbl2skill.Name = "lbl2skill";
             this.lbl2skill.Size = new System.Drawing.Size(46, 16);
             this.lbl2skill.TabIndex = 3;
@@ -694,6 +700,7 @@ namespace FGO_Database
             // 
             // tabPage11
             // 
+            this.tabPage11.Controls.Add(this.cmb3Skillvariants);
             this.tabPage11.Controls.Add(this.trv3Skillcooldown);
             this.tabPage11.Controls.Add(this.dgv3Skillevels);
             this.tabPage11.Controls.Add(this.lbl3skillOpis);
@@ -702,14 +709,14 @@ namespace FGO_Database
             this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(467, 205);
+            this.tabPage11.Size = new System.Drawing.Size(467, 233);
             this.tabPage11.TabIndex = 2;
             this.tabPage11.Text = "Third Skill";
             this.tabPage11.UseVisualStyleBackColor = true;
             // 
             // trv3Skillcooldown
             // 
-            this.trv3Skillcooldown.Location = new System.Drawing.Point(339, 60);
+            this.trv3Skillcooldown.Location = new System.Drawing.Point(339, 88);
             this.trv3Skillcooldown.Name = "trv3Skillcooldown";
             this.trv3Skillcooldown.Size = new System.Drawing.Size(121, 139);
             this.trv3Skillcooldown.TabIndex = 7;
@@ -719,14 +726,14 @@ namespace FGO_Database
             this.dgv3Skillevels.AllowUserToOrderColumns = true;
             this.dgv3Skillevels.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv3Skillevels.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgv3Skillevels.Location = new System.Drawing.Point(6, 60);
+            this.dgv3Skillevels.Location = new System.Drawing.Point(6, 88);
             this.dgv3Skillevels.Name = "dgv3Skillevels";
             this.dgv3Skillevels.Size = new System.Drawing.Size(326, 139);
             this.dgv3Skillevels.TabIndex = 6;
             // 
             // lbl3skillOpis
             // 
-            this.lbl3skillOpis.Location = new System.Drawing.Point(60, 20);
+            this.lbl3skillOpis.Location = new System.Drawing.Point(60, 48);
             this.lbl3skillOpis.Name = "lbl3skillOpis";
             this.lbl3skillOpis.Size = new System.Drawing.Size(400, 35);
             this.lbl3skillOpis.TabIndex = 5;
@@ -734,7 +741,7 @@ namespace FGO_Database
             // 
             // pcb3skill
             // 
-            this.pcb3skill.Location = new System.Drawing.Point(6, 6);
+            this.pcb3skill.Location = new System.Drawing.Point(6, 34);
             this.pcb3skill.Name = "pcb3skill";
             this.pcb3skill.Size = new System.Drawing.Size(48, 48);
             this.pcb3skill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -745,7 +752,7 @@ namespace FGO_Database
             // 
             this.lbl3skill.AutoSize = true;
             this.lbl3skill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl3skill.Location = new System.Drawing.Point(60, 6);
+            this.lbl3skill.Location = new System.Drawing.Point(60, 34);
             this.lbl3skill.Name = "lbl3skill";
             this.lbl3skill.Size = new System.Drawing.Size(46, 16);
             this.lbl3skill.TabIndex = 3;
@@ -757,7 +764,7 @@ namespace FGO_Database
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(487, 240);
+            this.tabPage7.Size = new System.Drawing.Size(487, 271);
             this.tabPage7.TabIndex = 2;
             this.tabPage7.Text = "Passive Skills";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -774,6 +781,7 @@ namespace FGO_Database
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.cmbNPvariants);
             this.tabPage8.Controls.Add(this.dgvNpdata);
             this.tabPage8.Controls.Add(this.trvNphitdist);
             this.tabPage8.Controls.Add(this.lblNpdef);
@@ -786,7 +794,7 @@ namespace FGO_Database
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(487, 240);
+            this.tabPage8.Size = new System.Drawing.Size(487, 271);
             this.tabPage8.TabIndex = 3;
             this.tabPage8.Text = "Noble Phantsm";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -796,14 +804,14 @@ namespace FGO_Database
             this.dgvNpdata.AllowUserToOrderColumns = true;
             this.dgvNpdata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNpdata.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvNpdata.Location = new System.Drawing.Point(6, 78);
+            this.dgvNpdata.Location = new System.Drawing.Point(6, 109);
             this.dgvNpdata.Name = "dgvNpdata";
             this.dgvNpdata.Size = new System.Drawing.Size(382, 156);
             this.dgvNpdata.TabIndex = 14;
             // 
             // trvNphitdist
             // 
-            this.trvNphitdist.Location = new System.Drawing.Point(394, 78);
+            this.trvNphitdist.Location = new System.Drawing.Point(394, 109);
             this.trvNphitdist.Name = "trvNphitdist";
             this.trvNphitdist.Size = new System.Drawing.Size(87, 156);
             this.trvNphitdist.TabIndex = 13;
@@ -811,7 +819,7 @@ namespace FGO_Database
             // lblNpdef
             // 
             this.lblNpdef.AutoSize = true;
-            this.lblNpdef.Location = new System.Drawing.Point(373, 62);
+            this.lblNpdef.Location = new System.Drawing.Point(373, 93);
             this.lblNpdef.Name = "lblNpdef";
             this.lblNpdef.Size = new System.Drawing.Size(86, 13);
             this.lblNpdef.TabIndex = 12;
@@ -820,7 +828,7 @@ namespace FGO_Database
             // lblNPgain
             // 
             this.lblNPgain.AutoSize = true;
-            this.lblNPgain.Location = new System.Drawing.Point(257, 62);
+            this.lblNPgain.Location = new System.Drawing.Point(257, 93);
             this.lblNPgain.Name = "lblNPgain";
             this.lblNPgain.Size = new System.Drawing.Size(86, 13);
             this.lblNPgain.TabIndex = 11;
@@ -829,7 +837,7 @@ namespace FGO_Database
             // lblNptype
             // 
             this.lblNptype.AutoSize = true;
-            this.lblNptype.Location = new System.Drawing.Point(60, 62);
+            this.lblNptype.Location = new System.Drawing.Point(60, 93);
             this.lblNptype.Name = "lblNptype";
             this.lblNptype.Size = new System.Drawing.Size(34, 13);
             this.lblNptype.TabIndex = 10;
@@ -837,7 +845,7 @@ namespace FGO_Database
             // 
             // txtNpopis
             // 
-            this.txtNpopis.Location = new System.Drawing.Point(60, 22);
+            this.txtNpopis.Location = new System.Drawing.Point(60, 53);
             this.txtNpopis.Multiline = true;
             this.txtNpopis.Name = "txtNpopis";
             this.txtNpopis.ReadOnly = true;
@@ -848,7 +856,7 @@ namespace FGO_Database
             // lblNprank
             // 
             this.lblNprank.AutoSize = true;
-            this.lblNprank.Location = new System.Drawing.Point(6, 62);
+            this.lblNprank.Location = new System.Drawing.Point(6, 93);
             this.lblNprank.Name = "lblNprank";
             this.lblNprank.Size = new System.Drawing.Size(36, 13);
             this.lblNprank.TabIndex = 8;
@@ -858,7 +866,7 @@ namespace FGO_Database
             // 
             this.lblNpname.AutoSize = true;
             this.lblNpname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblNpname.Location = new System.Drawing.Point(60, 6);
+            this.lblNpname.Location = new System.Drawing.Point(60, 37);
             this.lblNpname.Name = "lblNpname";
             this.lblNpname.Size = new System.Drawing.Size(46, 16);
             this.lblNpname.TabIndex = 6;
@@ -866,7 +874,7 @@ namespace FGO_Database
             // 
             // pcbNpcardtype
             // 
-            this.pcbNpcardtype.Location = new System.Drawing.Point(6, 6);
+            this.pcbNpcardtype.Location = new System.Drawing.Point(6, 37);
             this.pcbNpcardtype.Name = "pcbNpcardtype";
             this.pcbNpcardtype.Size = new System.Drawing.Size(48, 48);
             this.pcbNpcardtype.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1109,11 +1117,47 @@ namespace FGO_Database
             this.rdbNA.UseVisualStyleBackColor = true;
             this.rdbNA.CheckedChanged += new System.EventHandler(this.rdbNA_CheckedChanged);
             // 
+            // cmb1Skillvariants
+            // 
+            this.cmb1Skillvariants.FormattingEnabled = true;
+            this.cmb1Skillvariants.Location = new System.Drawing.Point(6, 10);
+            this.cmb1Skillvariants.Name = "cmb1Skillvariants";
+            this.cmb1Skillvariants.Size = new System.Drawing.Size(454, 21);
+            this.cmb1Skillvariants.TabIndex = 35;
+            this.cmb1Skillvariants.SelectedIndexChanged += new System.EventHandler(this.cmb1Skillvariants_SelectedIndexChanged);
+            // 
+            // cmb2Skillvariants
+            // 
+            this.cmb2Skillvariants.FormattingEnabled = true;
+            this.cmb2Skillvariants.Location = new System.Drawing.Point(6, 7);
+            this.cmb2Skillvariants.Name = "cmb2Skillvariants";
+            this.cmb2Skillvariants.Size = new System.Drawing.Size(454, 21);
+            this.cmb2Skillvariants.TabIndex = 36;
+            this.cmb2Skillvariants.SelectedIndexChanged += new System.EventHandler(this.cmb2Skillvariants_SelectedIndexChanged);
+            // 
+            // cmb3Skillvariants
+            // 
+            this.cmb3Skillvariants.FormattingEnabled = true;
+            this.cmb3Skillvariants.Location = new System.Drawing.Point(6, 6);
+            this.cmb3Skillvariants.Name = "cmb3Skillvariants";
+            this.cmb3Skillvariants.Size = new System.Drawing.Size(454, 21);
+            this.cmb3Skillvariants.TabIndex = 37;
+            this.cmb3Skillvariants.SelectedIndexChanged += new System.EventHandler(this.cmb3Skillvariants_SelectedIndexChanged);
+            // 
+            // cmbNPvariants
+            // 
+            this.cmbNPvariants.FormattingEnabled = true;
+            this.cmbNPvariants.Location = new System.Drawing.Point(6, 10);
+            this.cmbNPvariants.Name = "cmbNPvariants";
+            this.cmbNPvariants.Size = new System.Drawing.Size(475, 21);
+            this.cmbNPvariants.TabIndex = 36;
+            this.cmbNPvariants.SelectedIndexChanged += new System.EventHandler(this.cmbNPvariants_SelectedIndexChanged);
+            // 
             // frmOknoGl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 641);
+            this.ClientSize = new System.Drawing.Size(800, 671);
             this.Controls.Add(this.grbRegion);
             this.Controls.Add(this.lblNp);
             this.Controls.Add(this.lblLuck);
@@ -1306,6 +1350,10 @@ namespace FGO_Database
         private System.Windows.Forms.Label lblBondceName;
         private System.Windows.Forms.PictureBox pcbBondce;
         private System.Windows.Forms.Label lblBondcedet;
+        private System.Windows.Forms.ComboBox cmb1Skillvariants;
+        private System.Windows.Forms.ComboBox cmb2Skillvariants;
+        private System.Windows.Forms.ComboBox cmb3Skillvariants;
+        private System.Windows.Forms.ComboBox cmbNPvariants;
     }
 }
 

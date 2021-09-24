@@ -18,6 +18,10 @@ namespace FGO_Database
         public Boolean szukaj = false;
         public String[] ServId = new string[1000];
         public String region = "NA";
+        public JObject przetworzonedane = null;
+        public Int32[] skill1ids = new Int32[10];
+        public Int32[] skill2ids = new Int32[10];
+        public Int32[] skill3ids = new Int32[10];
 
         public static string FirstCharToUpper(string input)
         {
@@ -444,14 +448,156 @@ namespace FGO_Database
 
                 if ((String)skilldet.SelectToken("[" + i + "].funcType") == "hastenNpturn")
                 {
-                    dgvNpdata.Columns[i].Visible = false;
+                    dgvskill.Columns[i].Visible = false;
                 }
             }
         }
 
-        public void SkillewNP(JToken danenp)
+        public void WypelnijDaneNP(JToken dane, Int32 nplicz)
         {
+            pcbNpcardtype.Load(Application.StartupPath + "\\img\\" + (string)dane.SelectToken("noblePhantasms.[" + nplicz + "].card") + ".png");
+            lblNpname.Text = (string)dane.SelectToken("noblePhantasms.[" + nplicz + "].name");
+            txtNpopis.BackColor = Color.FromKnownColor(KnownColor.White);
+            txtNpopis.Text = (string)dane.SelectToken("noblePhantasms.[" + nplicz + "].detail");
+            lblNprank.Text = "Rank: " + (string)dane.SelectToken("noblePhantasms.[" + nplicz + "].rank");
+            lblNptype.Text = "Type: " + (string)dane.SelectToken("noblePhantasms.[" + nplicz + "].type");
+            lblNPgain.Text = "NP Charge ATK: " + NaProcent((string)dane.SelectToken("noblePhantasms.[" + nplicz + "].npGain.np.[0]"), 100);
+            ttpOpis.SetToolTip(this.lblNPgain, "Affects how much the NP Gauge is increased by when attacking enemies.");
+            lblNpdef.Text = "NP Charge DEF: " + NaProcent((string)dane.SelectToken("noblePhantasms.[" + nplicz + "].npGain.defence.[0]"), 100);
+            ttpOpis.SetToolTip(this.lblNpdef, "Affects how much the NP Gauge is increased by when being attacked.");
 
+            trvNphitdist.Nodes.Clear();
+            var hdnp = dane.SelectToken("noblePhantasms.[" + nplicz + "].npDistribution")?.ToObject<string[]>();
+            trvNphitdist.Nodes.Add("Hits: " + hdnp.Length.ToString());
+
+            for (int i = 0; i < hdnp.Length; i++)
+            {
+                trvNphitdist.Nodes[0].Nodes.Add(hdnp[i]);
+            }
+
+            dgvNpdata.Columns.Clear();
+            dgvNpdata.Rows.Clear();
+
+            var npdet = dane.SelectToken("noblePhantasms.[" + nplicz + "].functions");
+
+            for (int j = 0; j < npdet.Count(); j++)
+            {
+                if (npdet.SelectToken("[" + j + "].buffs").Count() != 0)
+                {
+                    dgvNpdata.Columns.Add("col" + j.ToString(), npdet.SelectToken("[" + j + "].buffs.[0].name").ToString());
+                    dgvNpdata.Columns[j].ToolTipText = npdet.SelectToken("[" + j + "].buffs.[0].detail").ToString();
+                }
+                else
+                {
+                    if ((string)npdet.SelectToken("[" + j + "].funcPopupText") != "")
+                    {
+                        dgvNpdata.Columns.Add("col" + j.ToString(), FirstCharToUpper(npdet.SelectToken("[" + j + "].funcPopupText").ToString()));
+                    }
+                    else
+                    {
+                        dgvNpdata.Columns.Add("col" + j.ToString(), FirstCharToUpper(npdet.SelectToken("[" + j + "].funcType").ToString()));
+                    }
+                }
+
+                if (dgvNpdata.Columns[j].HeaderText == "None")
+                {
+                    dgvNpdata.Columns[j].HeaderText = FirstCharToUpper(npdet.SelectToken("[" + j + "].funcType").ToString());
+                }
+
+            }
+            dgvNpdata.Rows.Add(5);
+
+            for (int j = 0; j < 5; j++)
+            {
+                dgvNpdata.Rows[j].HeaderCell.Value = (j + 1).ToString();
+            }
+
+            for (int i = 0; i < npdet.Count(); i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    DataGridViewCell kom = dgvNpdata.Rows[j].Cells[i];
+                    String tempfunc = (String)npdet.SelectToken("[" + i + "].funcType");
+                    String tempkom = "";
+
+                    if ((String)npdet.SelectToken("[" + i + "].svals.[1].Value") != (String)npdet.SelectToken("[" + i + "].svals.[2].Value"))
+                    {
+                        if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                        {
+                            tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                            kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                        }
+                        else
+                        {
+                            kom.Value = 1;
+                        }
+                    }
+                    else
+                    {
+                        if ((String)npdet.SelectToken("[" + i + "].svals.[1].Rate") != (String)npdet.SelectToken("[" + i + "].svals.[2].Rate"))
+                        {
+                            if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
+                            {
+                                tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
+                                kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                            }
+                            else
+                            {
+                                kom.Value = 1;
+                            }
+                        }
+                        else
+                        {
+                            if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                            {
+                                tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                            }
+                            else
+                            {
+                                kom.Value = 1;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            WykryjOvercharge(npdet);
+
+            for (int i = 0; i < npdet.Count(); i++)
+            {
+                if ((String)npdet.SelectToken("[" + i + "].funcType") != "none")
+                {
+                    if (npdet.SelectToken("[" + i + "].svals.[0].Value") == null)
+                    {
+                        if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
+                        {
+                            dgvNpdata.Columns[i].Visible = false;
+                        }
+                    }
+                    else
+                    {
+                        if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Value") == 1 || npdet.SelectToken("[" + i + "].svals.[0].Value").ToString().Length == 6)
+                        {
+                            if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
+                            {
+                                dgvNpdata.Columns[i].Visible = false;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    dgvNpdata.Columns[i].Visible = false;
+                }
+
+                if ((String)npdet.SelectToken("[" + i + "].funcType") == "hastenNpturn")
+                {
+                    dgvNpdata.Columns[i].Visible = false;
+                }
+
+            }
         }
 
         public frmOknoGl()
@@ -528,7 +674,7 @@ namespace FGO_Database
 
                 if (dane != "")
                 {
-                    JObject przetworzonedane = JObject.Parse(dane);
+                    przetworzonedane = JObject.Parse(dane);
                     cmbLista.Enabled = false;
                     bgwObrazyAscezji.RunWorkerAsync(przetworzonedane);
 
@@ -623,6 +769,50 @@ namespace FGO_Database
                     pcb3skill.Load((string)przetworzonedane.SelectToken("skills.[2].icon"));
                     lbl3skillOpis.Text = (string)przetworzonedane.SelectToken("skills.[2].detail");
 
+                    cmb1Skillvariants.Items.Clear();
+                    cmb2Skillvariants.Items.Clear();
+                    cmb3Skillvariants.Items.Clear();
+
+                    Int32 liczpsk1 = 0;
+                    Int32 liczpsk2 = 0;
+                    Int32 liczpsk3 = 0;
+
+                    for (int i = 0; i < przetworzonedane.SelectToken("skills").Count(); i++)
+                    {
+                        Int32 switch_on = 0;
+                        switch_on = (Int32)przetworzonedane.SelectToken("skills.[" + i + "].num");
+
+                        switch (switch_on)
+                        {
+                            case 1:
+                                cmb1Skillvariants.Items.Add((String)przetworzonedane.SelectToken("skills.[" + i + "].name"));
+                                cmb1Skillvariants.SelectedIndex = 0;
+                                skill1ids[liczpsk1] = i;
+                                liczpsk1++;
+                                break;
+
+                            case 2:
+                                cmb2Skillvariants.Items.Add((String)przetworzonedane.SelectToken("skills.[" + i + "].name"));
+                                cmb2Skillvariants.SelectedIndex = 0;
+                                skill2ids[liczpsk2] = i;
+                                liczpsk2++;
+                                break;
+
+                            case 3:
+                                cmb3Skillvariants.Items.Add((String)przetworzonedane.SelectToken("skills.[" + i + "].name"));
+                                cmb3Skillvariants.SelectedIndex = 0;
+                                skill3ids[liczpsk3] = i;
+                                liczpsk3++;
+                                break;
+
+                            default:
+
+                                break;
+
+                        }
+
+                    }
+
                     WypelnijDaneSkillow(przetworzonedane, dgv1Skillevels, trv1Skillcooldown, 0);
                     WypelnijDaneSkillow(przetworzonedane, dgv2Skillevels, trv2Skillcooldown, 1);
                     WypelnijDaneSkillow(przetworzonedane, dgv3Skillevels, trv3Skillcooldown, 2);
@@ -670,159 +860,17 @@ namespace FGO_Database
 
                     }
 
-                    int nplicz = (int)przetworzonedane.SelectToken("noblePhantasms").Count() - 1;
-                    pcbNpcardtype.Load(Application.StartupPath + "\\img\\" + (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].card") + ".png");
-                    lblNpname.Text = (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].name");
-                    txtNpopis.BackColor = Color.FromKnownColor(KnownColor.White);
-                    txtNpopis.Text = (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].detail");
-                    lblNprank.Text = "Rank: " + (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].rank");
-                    lblNptype.Text = "Type: " + (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].type");
-                    lblNPgain.Text = "NP Charge ATK: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].npGain.np.[0]"), 100);
-                    ttpOpis.SetToolTip(this.lblNPgain, "Affects how much the NP Gauge is increased by when attacking enemies.");
-                    lblNpdef.Text = "NP Charge DEF: " + NaProcent((string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].npGain.defence.[0]"), 100);
-                    ttpOpis.SetToolTip(this.lblNpdef, "Affects how much the NP Gauge is increased by when being attacked.");
+                    int nplicz = 0;
 
-                    trvNphitdist.Nodes.Clear();
-                    var hdnp = przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].npDistribution")?.ToObject<string[]>();
-                    trvNphitdist.Nodes.Add("Hits: " + hdnp.Length.ToString());
+                    cmbNPvariants.Items.Clear();
 
-                    for (int i = 0; i < hdnp.Length; i++)
+                    for (int i = 0; i < nplicz + 1; i++)
                     {
-                        trvNphitdist.Nodes[0].Nodes.Add(hdnp[i]);
+                        cmbNPvariants.Items.Add((string)przetworzonedane.SelectToken("noblePhantasms.[" + i + "].name") + " Rank: " + (string)przetworzonedane.SelectToken("noblePhantasms.[" + i + "].rank"));
                     }
+                    cmbNPvariants.SelectedIndex = nplicz;
 
-                    string s = (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].detail");
-
-                    string[] subs = s.Split('&','+');
-
-                    foreach (var sub in subs)
-                    {
-                        Console.WriteLine($"Substring: {sub}");
-                    }
-
-                    dgvNpdata.Columns.Clear();
-                    dgvNpdata.Rows.Clear();
-
-                    var npdet = przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].functions");
-
-                    for (int j = 0; j < npdet.Count(); j++)
-                    {
-                        if (npdet.SelectToken("[" + j + "].buffs").Count() != 0)
-                        {
-                            dgvNpdata.Columns.Add("col" + j.ToString(), npdet.SelectToken("[" + j + "].buffs.[0].name").ToString());
-                            dgvNpdata.Columns[j].ToolTipText = npdet.SelectToken("[" + j + "].buffs.[0].detail").ToString();
-                        }
-                        else
-                        {
-                            if ((string)npdet.SelectToken("[" + j + "].funcPopupText") != "")
-                            {
-                                dgvNpdata.Columns.Add("col" + j.ToString(), FirstCharToUpper(npdet.SelectToken("[" + j + "].funcPopupText").ToString()));
-                            }
-                            else
-                            {
-                                dgvNpdata.Columns.Add("col" + j.ToString(), FirstCharToUpper(npdet.SelectToken("[" + j + "].funcType").ToString()));
-                            }
-                        }
-
-                        if (dgvNpdata.Columns[j].HeaderText == "None")
-                        {
-                            dgvNpdata.Columns[j].HeaderText = FirstCharToUpper(npdet.SelectToken("[" + j + "].funcType").ToString());
-                        }
-
-                    }
-                    dgvNpdata.Rows.Add(5);
-
-                    for (int j = 0; j < 5; j++)
-                    {
-                        dgvNpdata.Rows[j].HeaderCell.Value = (j + 1).ToString();
-                    }
-
-                    for (int i = 0; i < npdet.Count(); i++)
-                    {
-                        for (int j = 0; j < 5; j++)
-                        {
-                            DataGridViewCell kom = dgvNpdata.Rows[j].Cells[i];
-                            String tempfunc = (String)npdet.SelectToken("[" + i + "].funcType");
-                            String tempkom = "";
-
-                            if ((String)npdet.SelectToken("[" + i + "].svals.[1].Value") != (String)npdet.SelectToken("[" + i + "].svals.[2].Value"))
-                            {
-                                if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
-                                {
-                                    tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
-                                }
-                                else
-                                {
-                                    kom.Value = 1;
-                                }
-                            }
-                            else
-                            {
-                                if ((String)npdet.SelectToken("[" + i + "].svals.[1].Rate") != (String)npdet.SelectToken("[" + i + "].svals.[2].Rate"))
-                                {
-                                    if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
-                                    {
-                                        tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
-                                        kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
-                                    }
-                                    else
-                                    {
-                                        kom.Value = 1;
-                                    } 
-                                }
-                                else
-                                {
-                                    if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
-                                    {
-                                        tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
-                                        kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
-                                    }
-                                    else
-                                    {
-                                        kom.Value = 1;
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-
-                    WykryjOvercharge(npdet);
-
-                    for (int i = 0; i < npdet.Count(); i++)
-                    {
-                        if ((String)npdet.SelectToken("[" + i + "].funcType") != "none")
-                        {
-                            if (npdet.SelectToken("[" + i + "].svals.[0].Value") == null)
-                            {
-                                if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
-                                {
-                                    dgvNpdata.Columns[i].Visible = false;
-                                }
-                            }
-                            else
-                            {
-                                if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Value") == 1 || npdet.SelectToken("[" + i + "].svals.[0].Value").ToString().Length == 6)
-                                {
-                                    if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
-                                    {
-                                        dgvNpdata.Columns[i].Visible = false;
-                                    }
-                                }
-                            } 
-                        }
-                        else
-                        {
-                            dgvNpdata.Columns[i].Visible = false;
-                        }
-
-                        if ((String)npdet.SelectToken("[" + i + "].funcType") == "hastenNpturn")
-                        {
-                            dgvNpdata.Columns[i].Visible = false;
-                        }
-
-                    }
+                    WypelnijDaneNP(przetworzonedane, nplicz);
 
                     var bondlvl = przetworzonedane.SelectToken("bondGrowth")?.ToObject<int[]>();
                     trvBondlvl.Nodes.Clear();
@@ -1051,6 +1099,38 @@ namespace FGO_Database
             if (e.KeyChar ==(char)13)
             {
                 btnSzukaj.PerformClick();
+            }
+        }
+
+        private void cmbNPvariants_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cmbNPvariants.Items.Count != 0)
+            {
+                WypelnijDaneNP(przetworzonedane, cmbNPvariants.SelectedIndex);
+            }
+        }
+
+        private void cmb1Skillvariants_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cmb1Skillvariants.Items.Count != 0)
+            {
+                WypelnijDaneSkillow(przetworzonedane, dgv1Skillevels, trv1Skillcooldown, skill1ids[cmb1Skillvariants.SelectedIndex]);
+            }
+        }
+
+        private void cmb2Skillvariants_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmb3Skillvariants.Items.Count != 0)
+            {
+                WypelnijDaneSkillow(przetworzonedane, dgv2Skillevels, trv2Skillcooldown, skill2ids[cmb2Skillvariants.SelectedIndex]);
+            }
+        }
+
+        private void cmb3Skillvariants_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmb3Skillvariants.Items.Count != 0)
+            {
+                WypelnijDaneSkillow(przetworzonedane, dgv3Skillevels, trv3Skillcooldown, skill3ids[cmb3Skillvariants.SelectedIndex]);
             }
         }
     }
