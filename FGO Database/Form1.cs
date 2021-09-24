@@ -393,14 +393,29 @@ namespace FGO_Database
                     }
                     else
                     {
-                        if (skilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
+                        if ((String)skilldet.SelectToken("[" + i + "].svals.[1].Rate") != (String)skilldet.SelectToken("[" + i + "].svals.[2].Rate"))
                         {
-                            tempkom = skilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
-                            kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                            if (skilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
+                            {
+                                tempkom = skilldet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
+                                kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                            }
+                            else
+                            {
+                                kom.Value = 1;
+                            } 
                         }
                         else
                         {
-                            kom.Value = 1;
+                            if (skilldet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                            {
+                                tempkom = skilldet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                            }
+                            else
+                            {
+                                kom.Value = 1;
+                            }
                         }
                     }
                 }
@@ -427,7 +442,16 @@ namespace FGO_Database
                     }
                 }
 
+                if ((String)skilldet.SelectToken("[" + i + "].funcType") == "hastenNpturn")
+                {
+                    dgvNpdata.Columns[i].Visible = false;
+                }
             }
+        }
+
+        public void SkillewNP(JToken danenp)
+        {
+
         }
 
         public frmOknoGl()
@@ -667,6 +691,15 @@ namespace FGO_Database
                         trvNphitdist.Nodes[0].Nodes.Add(hdnp[i]);
                     }
 
+                    string s = (string)przetworzonedane.SelectToken("noblePhantasms.[" + nplicz + "].detail");
+
+                    string[] subs = s.Split('&','+');
+
+                    foreach (var sub in subs)
+                    {
+                        Console.WriteLine($"Substring: {sub}");
+                    }
+
                     dgvNpdata.Columns.Clear();
                     dgvNpdata.Rows.Clear();
 
@@ -695,6 +728,7 @@ namespace FGO_Database
                         {
                             dgvNpdata.Columns[j].HeaderText = FirstCharToUpper(npdet.SelectToken("[" + j + "].funcType").ToString());
                         }
+
                     }
                     dgvNpdata.Rows.Add(5);
 
@@ -725,16 +759,32 @@ namespace FGO_Database
                             }
                             else
                             {
-                                if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
+                                if ((String)npdet.SelectToken("[" + i + "].svals.[1].Rate") != (String)npdet.SelectToken("[" + i + "].svals.[2].Rate"))
                                 {
-                                    tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
-                                    kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                    if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Rate") != null)
+                                    {
+                                        tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Rate").ToString();
+                                        kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                    }
+                                    else
+                                    {
+                                        kom.Value = 1;
+                                    } 
                                 }
                                 else
                                 {
-                                    kom.Value = 1;
+                                    if (npdet.SelectToken("[" + i + "].svals.[" + j + "].Value") != null)
+                                    {
+                                        tempkom = npdet.SelectToken("[" + i + "].svals.[" + j + "].Value").ToString();
+                                        kom.Value = Poprawliczby(tempkom, i, j, tempfunc);
+                                    }
+                                    else
+                                    {
+                                        kom.Value = 1;
+                                    }
                                 }
                             }
+
                         }
                     }
 
@@ -753,7 +803,7 @@ namespace FGO_Database
                             }
                             else
                             {
-                                if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Value") == 1)
+                                if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Value") == 1 || npdet.SelectToken("[" + i + "].svals.[0].Value").ToString().Length == 6)
                                 {
                                     if ((Int32)npdet.SelectToken("[" + i + "].svals.[0].Rate") == 1000)
                                     {
@@ -766,6 +816,12 @@ namespace FGO_Database
                         {
                             dgvNpdata.Columns[i].Visible = false;
                         }
+
+                        if ((String)npdet.SelectToken("[" + i + "].funcType") == "hastenNpturn")
+                        {
+                            dgvNpdata.Columns[i].Visible = false;
+                        }
+
                     }
 
                     var bondlvl = przetworzonedane.SelectToken("bondGrowth")?.ToObject<int[]>();
