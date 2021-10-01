@@ -108,7 +108,7 @@ namespace FGO_Database
             }
         }
 
-        public void WykryjOvercharge(JToken danenp)
+        public void WykryjOvercharge(JToken danenp, Int32 servid)
         {
             Int32[] temp = new int[5];
             Int32 temp2 = 0;
@@ -297,6 +297,23 @@ namespace FGO_Database
                     }
                     
                 }
+            }
+
+            if (servid == 228)
+            {
+                dgvNpdata.Columns.Add("colovc", "Recover all allies HP when receiving a Critical Hit (Overcharge)");
+
+                DataGridViewCell kom1 = dgvNpdata.Rows[0].Cells[dgvNpdata.Columns.Count - 1];
+                DataGridViewCell kom2 = dgvNpdata.Rows[1].Cells[dgvNpdata.Columns.Count - 1];
+                DataGridViewCell kom3 = dgvNpdata.Rows[2].Cells[dgvNpdata.Columns.Count - 1];
+                DataGridViewCell kom4 = dgvNpdata.Rows[3].Cells[dgvNpdata.Columns.Count - 1];
+                DataGridViewCell kom5 = dgvNpdata.Rows[4].Cells[dgvNpdata.Columns.Count - 1];
+
+                kom1.Value = "2000";
+                kom2.Value = "2500";
+                kom3.Value = "3000";
+                kom4.Value = "3500";
+                kom5.Value = "4000";
             }
 
         }
@@ -563,7 +580,7 @@ namespace FGO_Database
                 }
             }
 
-            WykryjOvercharge(npdet);
+            WykryjOvercharge(npdet, (int)przetworzonedane.SelectToken("collectionNo"));
 
             for (int i = 0; i < npdet.Count(); i++)
             {
@@ -598,6 +615,7 @@ namespace FGO_Database
                 }
 
             }
+
         }
 
         public frmOknoGl()
